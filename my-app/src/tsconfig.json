@@ -7,11 +7,17 @@
     "rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,
-    "jsx": "react-jsx",   // JSX のサポートを追加
-    "lib": ["dom", "es6", "esnext"] // 使用する標準ライブラリを指定
+    "jsx": "react",   // JSX のサポートを追加
+    "baseUrl": "./",
+    "paths": {
+      "*": ["node_modules/*"]
+    },
+    "lib": ["dom", "es6", "esnext"], // 使用する標準ライブラリを指定　
+    "strict": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx"
+  "include": ["src"
+  
   ]
 }

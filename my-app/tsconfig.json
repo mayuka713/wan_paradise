@@ -19,7 +19,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "outDir": "./dist",
-    "noEmit": true
+    "noEmit": false,
   },
   "include": [
     "src"

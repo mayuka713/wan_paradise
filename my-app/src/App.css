@@ -1,5 +1,5 @@
 body {
-  background-color: #f9f9f9;
+  background-color: #fefffa;
   font-family: Arial, sans-serif;
   text-align: center;
   margin: 0;
@@ -10,13 +10,18 @@ body {
   font-family: "Noto Sans JP";
 }
 
-.App-header h1 {
-  font-size: 2.5rem;
-  font-family:  Helvetica, sans-serif;
-  text-align: left;
-  padding-left: 20px;
+header {
+  padding: 20px;
+  font-family: Helvetica, sans-serif;
 }
 
+.header h1 {
+  font-size: 2rem;
+}
+
+.section {
+  margin: 40px 0;
+}
 
 .main-title {
   font-family: "Not sans";
@@ -26,53 +31,57 @@ body {
   margin-bottom: 20px;
 }
 
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* 各情報セクションの基本レイアウト */
 .info-section {
   display: flex;
+  flex-direction: row;
   align-items: center;
-  margin: 20px 0;
-  width: 90%;
-}
-/* テキストと画像の配置を調整 */
-.text-container {
-  flex: 1;
-  text-align: center;
-}
-
-.image-container {
-  flex: 1;
-  display: flex;
-  justify-content: center;
+  margin: 180px 230px;
 }
 /* `reverse` クラスがあるときに左右反転 */
 .info-section.reverse {
   flex-direction: row-reverse;
 }
-/* 画像の基本スタイル */
-.dogrun-image, .dogcafe-image, .petshop-image, .hospital-image {
-  max-width: 100%;
-  height: auto;
-  border-radius: 10px;
-}
 
 /* スマートフォン対応 */
 @media (max-width: 600px) {
-  .info-section {
-    flex-direction: column;
-    text-align: center;
+  /* テキストと画像の配置を調整 */
+  .text-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
   }
-  
-  .info-section.reverse {
+
+  .dogrun-image,
+  .dogcafe-image,
+  .petshop-image,
+  .hospital-image {
+    height: auto;
+  }
+
+  .dogrun-nametag {
+    position: absolute;
+    top: 240px;
+    left: 60%;
+    transform: translate(-50%);
+    z-index: 1;
+  }
+
+  .dogcafe-nametag {
+    padding-bottom: 240%;
+  }
+
+  .hospital-nametag{
+
+    padding-bottom: 280%;
+    margin-right: -100%;
+  }
+  .info-section {
     flex-direction: column;
   }
 
-  .text-container, .image-container {
+  .text-container,
+  .image-container {
     width: 100%;
   }
 }

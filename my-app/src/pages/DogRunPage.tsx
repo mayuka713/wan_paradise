@@ -2,24 +2,19 @@
 import React, { useState } from "react";
 import { Link, useParams, useNavigate, useLocation } from "react-router-dom";
 import "./DogRunPage.css";
+import Dogrun from "../assets/images/dogrun.png";
 
-const options = [
-  "駐車場あり",
-  "人工芝生",
-  "天然芝生",
-  "利用料金無料",
-  "営業24時間",
-  "大型犬OK",
+const options = ["駐車場あり", "人工芝生", "天然芝生", "利用料金無料", "営業24時間", "大型犬OK",
 ];
 const prefectureNames: { [key: string]: string } = {
   hokkaido: "北海道",
-  tohoku: "東北",
-  kanto: "関東",
-  chubu: "中部",
-  kansai: "関西",
-  chugoku: "中国",
-  shikoku: "四国",
-  kyushu: "九州",
+  tohoku: "東北地方",
+  kanto: "関東地方",
+  chubu: "中部地方",
+  kansai: "関西地方",
+  chugoku: "中国地方",
+  shikoku: "四国地方",
+  kyushu: "九州地方",
   okinawa: "沖縄",
 };
 
@@ -31,6 +26,7 @@ const DogRunDetailPage: React.FC = () => {
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false)
   const displayPrefecture = prefectureNames[prefecture || ""] || prefecture;
+  //useNavigateはページ遷移を行うためのフック
   const navigate = useNavigate();
   // ドロップダウンの表示/非表示を切り替える
   const toggleDropdown = () => {
@@ -46,6 +42,7 @@ const DogRunDetailPage: React.FC = () => {
     );
   };
 
+
   // 条件に基づいて遷移する関数
   const handleSearch = () => {
     if (selectedOptions.includes("駐車場あり") && selectedOptions.includes("人工芝生")) {
@@ -56,7 +53,7 @@ const DogRunDetailPage: React.FC = () => {
 
   // クエリパラメータに基づいた条件
   const hasParking = queryParams.get("parking") === "true";
-  const grassType = queryParams.get("grass");
+  const grassType = queryParams.get("grass") === "true";
 
 
 
@@ -83,24 +80,19 @@ const DogRunDetailPage: React.FC = () => {
       )}
 
       {/* 選択された都道府県に基づく詳細ページ */}
-      <h1>Dog run</h1>
+      <h1>ドッグラン</h1>
       <h2> {displayPrefecture}</h2>
 
       {/* 条件に基づく動的コンテンツ */}
       <div className="conditions">
-        <h3>該当するドッグランの特徴:</h3>
         <ul>
           {hasParking && <li>駐車場あり</li>}
-          {grassType === "artificial" && <li>人工芝生</li>}
-          {grassType === "natural" && <li>天然芝生</li>}
+          {grassType === true && <li>人工芝生</li>}
           {/* 他の条件も追加可能 */}
         </ul>
       </div>
-
-
-
       {/* 条件選択用のボタン（動的な変更が可能） */}
-      <p>行きたいドッグランの希望条件を選択してください:</p>
+      <p>行きたいドッグランの希望条件を選択してください</p>
       <div className="options-container">
         {options.map((option) => (
           <button
@@ -134,44 +126,29 @@ const DogRunPage: React.FC = () => {
   const toggleDropdown = () => {
     setIsDropdownVisible(!isDropdownVisible);
   };
+  // 都道府県をクリックしたときの処理
+  const handlePrefectureClick = (key: string) => {
+    console.log(`Prefecture clicked: ${key}`);
+  };
 
   return (
     <div className="dogrun-page">
       <header className="header">wan paradise</header>
       <div className="tab-container" onClick={toggleDropdown}>
         <span>全国のドッグランを探す</span>
+        <div className="dogrun-img">
+          <img src={Dogrun} alt="ドッグランのイラスト" className="dogrun-illust" />
+        </div>
       </div>
       {/* ドロップダウンメニューの表示 */}
       {isDropdownVisible && (
         <div className="dropdown-menu">
           <ul>
-            <li>
-              <Link to="/dogrun/hokkaido">北海道</Link>
-            </li>
-            <li>
-              <Link to="/dogrun/tohoku">東北</Link>
-            </li>
-            <li>
-              <Link to="/dogrun/kanto">関東</Link>
-            </li>
-            <li>
-              <Link to="/dogrun/chubu">中部</Link>
-            </li>
-            <li>
-              <Link to="/dogrun/kansai">関西</Link>
-            </li>
-            <li>
-              <Link to="/dogrun/chugoku">中国</Link>
-            </li>
-            <li>
-              <Link to="/dogrun/shikoku">四国</Link>
-            </li>
-            <li>
-              <Link to="/dogrun/kyushu">九州</Link>
-            </li>
-            <li>
-              <Link to="/dogrun/okinawa">沖縄</Link>
-            </li>
+            {Object.keys(prefectureNames).map((key) => (
+              <li key={key} onClick={() => handlePrefectureClick(key)}>
+                {prefectureNames[key]}
+              </li>
+            ))}
           </ul>
         </div>
       )}

@@ -36,7 +36,6 @@ function Login(): JSX.Element {
         <h2>ログイン</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="email">メールアドレス</label>
             <input
               type="email"
               id="email"
@@ -49,7 +48,6 @@ function Login(): JSX.Element {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="password">パスワード</label>
             <input
               type="password"
               id="password"

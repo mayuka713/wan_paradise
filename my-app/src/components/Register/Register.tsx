@@ -20,7 +20,7 @@ function Register(): JSX.Element {
     }
     try {
       // サーバーへのリクエスト
-      const response = await fetch("http://localhost:5003/register", {//ここがAPIエンドポイント
+      const response = await fetch("http://localhost:5003/auth/register", {//ここがAPIエンドポイント
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -29,8 +29,7 @@ function Register(): JSX.Element {
       });
 
       if (response.ok) {
-        setErrorMessage("");
-        alert("登録が完了しました！");
+        console.log("登録が完了しました");
       } else {
         setErrorMessage("登録に失敗しました。");
       }

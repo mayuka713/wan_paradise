@@ -1,0 +1,68 @@
+/* 全体のコンテナスタイル */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.App-header h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+}
+
+.main-title {
+  font-size: 1.2em;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+/* 各セクションのスタイル */
+.info-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.info-section.reverse {
+  flex-direction: row-reverse;
+}
+
+/* 画像とテキストコンテナのスタイル */
+.image-container {
+  position: relative;
+  width: 200px;
+  height: 200px;
+}
+
+.text-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+}
+
+/* ネームタグの位置設定 */
+.dogrun-nametag,
+.dogcafe-nametag,
+.petshop-nametag,
+.hospital-nametag {
+  position: absolute;
+  top: -30px; /* 必要に応じて調整 */
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  padding: 5px 10px;
+  border: 1px solid #333;
+  border-radius: 5px;
+}
+
+/* 画像のスタイル */
+.dogrun-image,
+.dogcafe-image,
+.petshop-image,
+.hospital-image {
+  width: 100%;
+  height: auto;
+}
