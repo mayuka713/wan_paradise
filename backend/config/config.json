@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "wan_paradise",
+    "password": "Ryou9121",
+    "database": "wan_paradise",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "wan_paradise",
+    "password": "Ryou9121",
+    "database": "wan_paradise_test",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "wan_paradise",
+    "password": "Ryou9121",
+    "database": "wan_paradise_production",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}
