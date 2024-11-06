@@ -2,8 +2,8 @@ import express, { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import pool from '../db';
 
-
 const router = express.Router();
+
 
 // ユーザー登録エンドポイント
 router.post('/register', async (req: Request, res: Response) => {
@@ -20,8 +20,10 @@ router.post('/register', async (req: Request, res: Response) => {
       [email, name, hashedPassword]
     );
 
+    // 登録が成功した場合、フロントエンドにリダイレクト情報を送信
     res.status(201).json({
       message: 'ユーザーが登録されました。',
+    redirectUrl: process.env.REDIRECT_URL,// フロントエンドにリダイレクト先を指定
       user: {
         id: result.rows[0].id,
         email: result.rows[0].email,
@@ -51,19 +53,22 @@ router.post('/login', async (req: Request, res: Response) => {
       return res.status(401).json({ error: '無効なメールアドレスまたはパスワードです。' });
     }
 
+
+    
     // セッションにユーザー情報を保存
     req.session.userId = user.id;
 
     res.status(200).json({
       message: 'ログイン成功',
+      redirectUrl: `{process.env.BASE_URL}/top`,
       user: {
         id: user.id,
         email: user.email,
         name: user.name,
       },
     });
-  } catch (err) {
-    console.error('Error during user login:', err);
+  } catch (error) {
+    console.error('Error during user login:', error);
     res.status(500).json({ error: 'サーバーエラーが発生しました。' });
   }
 });

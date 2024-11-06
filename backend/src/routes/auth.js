@@ -18,6 +18,8 @@ const db_1 = __importDefault(require("../db"));
 const router = express_1.default.Router();
 // ユーザー登録エンドポイント
 router.post('/register', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log('Received request body:', req.body);
+    
     const { email, name, password } = req.body;
     try {
         // パスワードのハッシュ化

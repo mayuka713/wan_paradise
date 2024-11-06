@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +17,7 @@
     "@types/express-session": "^1.17.6",
     "@types/node": "^22.7.5",
     "@types/pg": "^8.11.10",
+    "sequelize-cli": "^6.6.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.3"
   },
@@ -27,6 +28,9 @@
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "express-session": "^1.18.1",
-    "pg": "^8.13.0"
+    "pg": "^8.13.1",
+    "reflect-metadata": "^0.2.2",
+    "sequelize": "^6.37.5",
+    "typeorm": "^0.3.20"
   }
 }

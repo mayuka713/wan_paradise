@@ -1,21 +1,20 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import "../App.css";
-import dogrun from "../assets/images/dogrun.png";
-import dogcafe from "../assets/images/dogcafe.png";
-import petshop from "../assets/images/petshop.png";
-import hospital from "../assets/images/hospital.png";
-import dogrunNameTag from "../assets/images/dogrun-nametag.png";
-import dogCafeNameTag from "../assets/images/dogcafe-nametag.png";
-import petshopNameTag from "../assets/images/petshop-nametag.png";
-import hospitalNameTag from "../assets/images/hospital-nametag.png";
-import DogRunNameTag from "./Dogshowtag";
+import "./TopPage.css";
+import DogrunImage from "../pages/assets/images/Dogrun/dogrun.png";
+import dogcafe from "../pages/assets/images/Dogcafe/dogcafe.png";
+import petshop from "../pages/assets/images/Petshop/petshop.png";
+import hospital from "../pages/assets/images/Hospital/hospital.png";
+import dogrunNameTag from "../pages/assets/images/Dogrun/dogrun-nametag.png";
+import dogCafeNameTag from "../pages/assets/images/Dogcafe/dogcafe-nametag.png";
+import petshopNameTag from "../pages/assets/images/Petshop/petshop-nametag.png";
+import hospitalNameTag from "../pages/assets/images/Hospital/hospital-nametag.png";
 
 const TopPage: React.FC = () => (
   <div className="container">
     <header className="App-header">
       <h1>Wan Paradise</h1>
-      <DogRunNameTag />
     </header>
     <p className="main-title">色んなわんこに関わる情報をご紹介しております。</p>
     {/* dogrun */}
@@ -26,7 +25,7 @@ const TopPage: React.FC = () => (
         </Link>
       </div>
       <div className="image-container">
-        <img src={dogrun} alt="ドッグランのイラスト" className="dogrun-image" />
+        <img src={DogrunImage} alt="ドッグランのイラスト" className="dogrun-image" />
       </div>
     </div>
     {/* dogcafe */}

@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "target": "es6",                                  
     "module": "commonjs",
     "moduleResolution": "node",                               
@@ -15,6 +17,7 @@
     "lib": ["es6", "dom"],
     "typeRoots": ["./node_modules/@types", "./types"],
     "types": ["node", "express", "express-session"]
+   
   },
-  "include": ["src/**/*", "types/**/*"]
-}
+  "include": ["src/**/*", "types/**/*"] 
+  }

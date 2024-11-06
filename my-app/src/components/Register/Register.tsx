@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Register.css";
 
 function Register(): JSX.Element {
@@ -8,6 +9,8 @@ function Register(): JSX.Element {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+
+  const navigate = useNavigate(); // useNavigateを初期化
 
   // フォーム送信時の処理
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -20,16 +23,19 @@ function Register(): JSX.Element {
     }
     try {
       // サーバーへのリクエスト
-      const response = await fetch("http://localhost:5003/auth/register", {//ここがAPIエンドポイント
+      const response = await fetch("http://localhost:5003/auth/register", {
+        //ここがAPIエンドポイント
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify({ name, email, password }),
       });
 
       if (response.ok) {
         console.log("登録が完了しました");
+        navigate("/top"); // リダイレクト先のURLを指定
       } else {
         setErrorMessage("登録に失敗しました。");
       }
@@ -107,4 +113,3 @@ function Register(): JSX.Element {
 }
 
 export default Register;
-

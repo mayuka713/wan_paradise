@@ -10,7 +10,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
 // src/pages/DogRunPage.tsx
 import React, { useState } from "react";
 import { Link, useParams, useNavigate, useLocation } from "react-router-dom";
-import "./DogRunPage.css";
+import "./DogRun/DogRunPage.css";
 import Dogrun from "../assets/images/dogrun.png";
 var options = ["駐車場あり", "人工芝生", "天然芝生", "利用料金無料", "営業24時間", "大型犬OK",
 ];

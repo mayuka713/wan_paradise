@@ -1,0 +1,92 @@
+/* 全体のコンテナスタイル */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.App-header h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+}
+
+.main-title {
+  font-size: 20px;
+  color: #000000;
+  margin-bottom: 130px;
+}
+
+/* 各セクションのスタイル */
+.info-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+
+/* 画像とテキストコンテナのスタイル */
+.image-container {
+  position: relative;
+  width: 200px;
+  height: 200px;
+}
+
+.text-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+}
+
+/* ネームタグの位置設定 */
+.dogrun-nametag,
+.dogcafe-nametag,
+.petshop-nametag,
+.hospital-nametag {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 5px 10px;
+  border-radius: 5px;
+  z-index: 10;
+}
+
+@media (max-width: 480px) {
+
+  .App-header h1 {
+    font-size: 25px;
+    padding-left: 80px;
+  }
+  .main-title {  
+    padding-left: 90px;
+    font-size: 16px;
+ } 
+
+  .info-section {
+    flex-direction: column;
+    text-align: center;
+    margin-bottom: 140px;
+  }
+  .info-section.reverse {
+    flex-direction: column;
+  }
+  .image-container {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+  }
+  .dogrun-image,
+  .hospital-image {
+    height: auto;
+    margin: 0 auto;
+  }
+
+  .dogcafe-image,
+  .petshop-image {
+    height: auto;
+    margin: 0 auto;
+  }
+
+}
