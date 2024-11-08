@@ -5,7 +5,7 @@ import tsubasaDogrunImage from "../assets/images/Dogrun/tsubasadogrun.jpg";
 import inoforestImage from "../assets/images/Dogrun/inoforest.png";
 const dogruns = [
   {
-    name: "つばさドッグラン",？？
+    name: "つばさドッグラン",
     description: "海を眺めながら愛犬と遊ぶ。しつけ教室も開催",
     openTime: "7:00",
     closingTime: "21:00",

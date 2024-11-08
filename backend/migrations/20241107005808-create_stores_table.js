@@ -11,41 +11,54 @@ module.exports = {
         allowNull: false,
       },
       name: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(255),
         allowNull: false,
       },
       description: {
         type: Sequelize.TEXT,
         allowNull: true,
       },
+      store_tag_id: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        
+      },
+      store_type: {
+        type: Sequelize.STRING(100),
+        allowNull: true,
+      },
+      prefecture: {
+        type: Sequelize.STRING(100),
+        allowNull: true,
+      },
+      city: {
+        type: Sequelize.STRING(100),
+        allowNull: true,
+      },
+      opening_hours: {
+        type: Sequelize.STRING(255),
+        allowNull: true,
+      },
       address: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(255),
         allowNull: true,
       },
-      phone: {
-        type: Sequelize.STRING,
+      phone_number: {
+        type: Sequelize.STRING(20),
         allowNull: true,
       },
-      website: {
-        type: Sequelize.STRING,
+      store_url: {
+        type: Sequelize.STRING(255),
         allowNull: true,
       },
-      natural_grass: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
+      store_img: {
+        type: Sequelize.STRING(255),
+        allowNull: true,
       },
-      artificial_grass: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
-      },
-      all_breeds_allowed: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
-      },
-      small_dog_area: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
-      },
+    source: {
+      type: Sequelize.STRING(255),
+      allowNull: true,
+    },
       createdAt: {
         type: Sequelize.DATE,
         allowNull: false,
@@ -63,3 +76,4 @@ module.exports = {
     await queryInterface.dropTable('stores');
   }
 };
+

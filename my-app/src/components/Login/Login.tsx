@@ -22,7 +22,7 @@ function Login(): JSX.Element {
       // ログイン成功時の処理
       alert("ログイン成功！");
       setErrorMessage(""); // エラーメッセージをクリア
-      navigate("/home");// ログイン成功後にホームページにリダイレクト
+      navigate("/top");// ログイン成功後にホームページにリダイレクト
     } else {
       setErrorMessage("メールアドレスまたはパスワードが間違っています。");
     }

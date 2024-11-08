@@ -25,7 +25,7 @@ const TopPage: React.FC = () => (
         </Link>
       </div>
       <div className="image-container">
-        <img src={DogrunImage} alt="ドッグランのイラスト" className="dogrun-image" />
+        <img src={DogrunImage} alt="ドッグランのイラスト" className="image" />
       </div>
     </div>
     {/* dogcafe */}
@@ -36,7 +36,7 @@ const TopPage: React.FC = () => (
         </Link>
       </div>
       <div className="image-container">
-        <img src={dogcafe} alt="ドッグカフェイラスト" className="dogcafe-image" />
+        <img src={dogcafe} alt="ドッグカフェイラスト" className="image" />
       </div>
     </div>
     {/* petshop */}
@@ -47,7 +47,7 @@ const TopPage: React.FC = () => (
         </Link>
       </div>
       <div className="image-container">
-        <img src={petshop} alt="ペットショップのイラスト" className="petshop-image" />
+        <img src={petshop} alt="ペットショップのイラスト" className="image" />
       </div>
     </div>
     {/* hospital */}
@@ -58,10 +58,14 @@ const TopPage: React.FC = () => (
         </Link>
       </div>
       <div className="image-container">
-        <img src={hospital} alt="病院のイラスト" className="hospital-image" />
+        <img src={hospital} alt="病院のイラスト" className="image" />
       </div>
     </div>
+
+    <footer className="footer">wan paradise</footer>
   </div>
+
+
 );
 
 export default TopPage;

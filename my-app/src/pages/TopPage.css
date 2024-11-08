@@ -1,6 +1,5 @@
 /* 全体のコンテナスタイル */
 .container {
-  max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
   text-align: center;
@@ -17,14 +16,20 @@
   margin-bottom: 130px;
 }
 
+.image {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+}
 /* 各セクションのスタイル */
 .info-section {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 40px;
+  margin-bottom: 140px;
+  gap: 150px;
 }
-
+.info-section.reverse {
+  flex-direction: row-reverse;
+}
 
 /* 画像とテキストコンテナのスタイル */
 .image-container {
@@ -39,30 +44,45 @@
   justify-content: center;
   margin: 10px;
 }
-
+.dogrun-image {
+  width: 100%;
+}
 /* ネームタグの位置設定 */
-.dogrun-nametag,
-.dogcafe-nametag,
-.petshop-nametag,
-.hospital-nametag {
+.dogrun-nametag {
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 5px 10px;
-  border-radius: 5px;
+  top: 240px;
+  left: 280px;
   z-index: 10;
 }
-
+.dogcafe-nametag {
+  position: absolute;
+  right: 10%;
+  bottom: 30px;
+  z-index: 10;
+}
+.petshop-nametag {
+  position: absolute;
+  top: 127%;
+  left: 25%;
+  z-index: 10;
+}
+.hospital-nametag {
+  position: absolute;
+  top: 170%;
+  left: 70%;
+  z-index: 10;
+}
+.footer {
+  padding-top: 10%;
+}
 @media (max-width: 480px) {
-
   .App-header h1 {
-    font-size: 25px;
-    padding-left: 80px;
+    font-size: 30px;
   }
-  .main-title {  
-    padding-left: 90px;
-    font-size: 16px;
- } 
+  .main-title {
+    padding-left: 10px;
+    font-size: 14px;
+  }
 
   .info-section {
     flex-direction: column;
@@ -88,5 +108,24 @@
     height: auto;
     margin: 0 auto;
   }
+ .dogrun-nametag {
+  top: 45%;
+  left: 40%;
+ }
+  .dogcafe-nametag{
+    padding-left: 20px;
+    top: 130%;
+  }
 
+  .petshop-nametag{
+    top: 220%;
+  }
+  .hospital-nametag{
+    top: 300%;
+    left: 50%;
+  }
+
+  .footer {
+    padding-top: 10px;
+  }
 }
