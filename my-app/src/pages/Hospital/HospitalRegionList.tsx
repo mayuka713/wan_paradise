@@ -45,7 +45,7 @@ const DogrunRegionList: React.FC = () => {
 
   return (
     <div>
-      <h2>DogRunを探す</h2>
+      <h2>病院を探す</h2>
       <div>
         {Object.keys(regions).map((region) => (
           <div key={region}>
@@ -55,11 +55,9 @@ const DogrunRegionList: React.FC = () => {
                 <span
                   key={pref.id}
                   onClick={() => handleClick(pref.id)} // idを渡す
-                  style={{ cursor: 'pointer', color: pref.name === '東京' ? 'green' : 'black',
-                    marginRight: '10px',
-                   }}
+                  style={{ cursor: 'pointer', color: pref.name === '東京' ? 'green' : 'black' }}
                 >
-                  {pref.name}
+                  {pref.name}・
                 </span>
               ))}
             </p>

@@ -3,33 +3,39 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Login(): JSX.Element {
-  //フォームデータの状態を管理する
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const navigate = useNavigate(); //useNavigateを定義
+  const navigate = useNavigate();
 
-  //フォーム送信時の処理
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); //ページのロードを防ぐ
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-    //デモ用のログイン情報
-    const correctEmail = "example@example.com";
-    const correctPassword = "password123";
-
-    // ログイン情報の検証
-    if (email === correctEmail && password === correctPassword) {
-      // ログイン成功時の処理
-      alert("ログイン成功！");
-      setErrorMessage(""); // エラーメッセージをクリア
-      navigate("/top");// ログイン成功後にホームページにリダイレクト
-    } else {
-      setErrorMessage("メールアドレスまたはパスワードが間違っています。");
+    try {
+      const response = await fetch("http://localhost:5003/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+      
+      console.log("Response status:", response.status); 
+      if (response.ok) {
+        const data = await response.json();
+        alert("ログイン成功！");
+        setErrorMessage("");
+        navigate("/top");
+      } else {
+        setErrorMessage("メールアドレスまたはパスワードが間違っています。");
+      }
+    } catch (error) {
+      setErrorMessage("エラーが発生しました。もう一度お試しください。");
+      console.error("Fetch error:",error);
     }
   };
 
-  // コンポーネントのレンダリング部分
-    return (
+  return (
     <div className="login-container">
       <header className="login">
         <h1>wan paradise</h1>
@@ -64,9 +70,8 @@ function Login(): JSX.Element {
           <button
             type="button"
             onClick={() => {
-              navigate("/register"); //新規会員登録ページに推移
-            }}
-          >
+              navigate("/register");
+            }} >
             新規会員登録
           </button>
         </form>

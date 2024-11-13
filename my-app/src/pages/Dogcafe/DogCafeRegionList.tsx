@@ -1,22 +1,23 @@
-//都道府県ごとに分類したドッグラン情報を地域ごとに表示し、各都道府県名をクリックすることで該当のドッグランページに遷移できるようにする
-
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 
 interface Prefecture {
   id: number;
   name: string;
-  region: string; 
+  region: string;
 }
 
-const DogrunRegionList: React.FC = () => {
+const DogCafeRegionList: React.FC = () => {
   const navigate = useNavigate();
   const [prefectures, setPrefectures] = useState<Prefecture[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchPrefectures = async () => {
       try {
-        const response = await fetch('http://localhost:5003/prefectures/'); // エンドポイントを確認
+        const response = await fetch("http://localhost:5003/prefectures");
         if (!response.ok) {
           throw new Error("Failed to fetch prefectures");
         }
@@ -27,11 +28,11 @@ const DogrunRegionList: React.FC = () => {
       }
     };
 
-    fetchPrefectures(); // ページが開かれた時にリクエストを実行
-  }, []); // 空の配列を依存配列として指定
+    fetchPrefectures();
+  }, []);
 
   const handleClick = (id: number) => {
-    navigate(`/dogrun/${id}`);
+    navigate(`/dogcafe/${id}`);
   };
 
   // 地方ごとに都道府県を分類
@@ -45,7 +46,7 @@ const DogrunRegionList: React.FC = () => {
 
   return (
     <div>
-      <h2>DogRunを探す</h2>
+      <h2>DogCafeを探す</h2>
       <div>
         {Object.keys(regions).map((region) => (
           <div key={region}>
@@ -54,10 +55,12 @@ const DogrunRegionList: React.FC = () => {
               {regions[region].map((pref) => (
                 <span
                   key={pref.id}
-                  onClick={() => handleClick(pref.id)} // idを渡す
-                  style={{ cursor: 'pointer', color: pref.name === '東京' ? 'green' : 'black',
+                  onClick={() => handleClick(pref.id)}
+                  style={{
+                    cursor: 'pointer',
+                    color: pref.name === '東京' ? 'green' : 'black',
                     marginRight: '10px',
-                   }}
+                  }}
                 >
                   {pref.name}
                 </span>
@@ -70,4 +73,4 @@ const DogrunRegionList: React.FC = () => {
   );
 };
 
-export default DogrunRegionList;
+export default DogCafeRegionList;
