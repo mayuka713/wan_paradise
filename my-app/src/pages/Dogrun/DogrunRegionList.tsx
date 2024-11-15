@@ -34,7 +34,7 @@ const DogrunRegionList: React.FC = () => {
     navigate(`/dogrun/${id}`);
   };
 
-  // 地方ごとに都道府県を分類
+  // reduce関数を使って、都道府県をregion（地方）ごとにグループ化。
   const regions = prefectures.reduce((acc: { [region: string]: Prefecture[] }, prefecture) => {
     if (!acc[prefecture.region]) {
       acc[prefecture.region] = [];

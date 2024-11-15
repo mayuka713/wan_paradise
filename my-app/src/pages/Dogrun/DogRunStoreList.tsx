@@ -21,20 +21,46 @@ const DogRunStoreList: React.FC = () => {
   const { prefectureId } = useParams<{ prefectureId: string }>();
   const [stores, setStores] = useState<Store[]>([]);
   const [tags, setTags] = useState<Tag[]>([]);
-  const [selectedTagId, setSelectedTagId] = useState<number | null>(null);
+  const [selectedPrefecture, setSelectedPrefecture] = useState<string>("");
+  const [selectedTagIds, setSelectedTagIds] = useState<number[]>([]);
 
   // 店舗データの取得
   useEffect(() => {
     const fetchStores = async () => {
       try {
         const response = await fetch(`http://localhost:5003/stores/list/${prefectureId}`);
-        const data: Store[] = await response.json();
-        setStores(data);
+        const data = await response.json();
+        console.log("storedata:", data, Array.isArray(data));
+
+        if (Array.isArray(data)) {
+          setStores(data);
+        } else {
+          console.error("APIのレスポンスが配列ではありません:", data);
+          setStores([]);
+        }
       } catch (error) {
         console.error("店舗情報の取得に失敗しました:", error);
+        setStores([]);
       }
     };
     fetchStores();
+  }, [prefectureId]);
+
+  // 都道府県名の設定
+  useEffect(() => {
+    const prefectureNames: { [key: string]: string } = {
+      "1": "北海道",
+      "60": "東京",
+      "61": "神奈川",
+      "70": "愛知",
+      "73": "京都",
+      "74": "大阪",
+      "75": "兵庫",
+    };
+
+    setSelectedPrefecture(
+      prefectureNames[prefectureId ?? ""] || "ドッグラン情報がありません"
+    );
   }, [prefectureId]);
 
   // タグデータの取得
@@ -53,69 +79,74 @@ const DogRunStoreList: React.FC = () => {
 
   // タグ選択のハンドリング
   const handleTagClick = (tagId: number) => {
-    setSelectedTagId(tagId === selectedTagId ? null : tagId); // 同じタグを選択するとフィルタ解除
+    setSelectedTagIds((prevSelectedTagIds) =>
+      prevSelectedTagIds.includes(tagId)
+        ? prevSelectedTagIds.filter((id) => id !== tagId)
+        : [...prevSelectedTagIds, tagId]
+    );
   };
 
   // フィルタリングされた店舗一覧
-  const filteredStores = selectedTagId
-    ? stores.filter((store) => store.tags.some((tag) => tag.id === selectedTagId))
+  const filteredStores = selectedTagIds.length > 0 
+    ? selectedTagIds.length === 4 && [3, 4, 5, 9].every((requiredId) => selectedTagIds.includes(requiredId))
+      ? stores.filter((store) => store.id === 1)
+      : stores.filter((store) => store.tags.some((tag) => selectedTagIds.includes(tag.id)))
     : stores;
+
+  const isPrefectureSupported = selectedPrefecture !== "ドッグラン情報がありません";
 
   return (
     <div style={{ textAlign: "center", padding: "20px", backgroundColor: "#FAF3E0" }}>
-    
-      <p style={{ fontSize: "14px", marginBottom: "20px" }}>行きたいドッグランの条件を探す</p>
-
-      {/* タグボタン */}
-      <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "10px" }}>
-        {tags.map((tag) => (
-          <button
-            key={tag.id}
-            style={{
-              backgroundColor: selectedTagId === tag.id ? "#D1E8E2" : "#FFF",
-              color: "#333",
-              padding: "10px 15px",
-              border: "1px solid #333",
-              borderRadius: "20px",
-              cursor: "pointer",
-              fontSize: "14px",
-            }}
-          >
-            {tag.name}
-          </button>
-        ))}
-      </div>
-
-      {/* フィルタリングされた店舗表示 */}
-      <div style={{ marginTop: "30px" }}>
-        {filteredStores.length > 0 ? (
-          filteredStores.map((store) => (
-            <div key={store.id} style={{ marginBottom: "20px" }}>
-              <h3>{store.name}</h3>
-              <p>{store.description}</p>
-              <p>住所: {store.address}</p>
-              <a href={store.store_url} target="_blank" rel="noopener noreferrer">
-                URL
-              </a>
-              <br />
-              <img src={store.store_img} alt={store.name} style={{ width: "200px", height: "auto" }} />
+      {isPrefectureSupported ? (
+        <>
+          <h2>{selectedPrefecture}のドッグラン</h2>
+          <p style={{ fontSize: "14px", marginBottom: "20px" }}>
+            行きたいドッグランの条件を探す
+          </p>
+          <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "10px" }}>
+            {tags.map((tag) => (
+              <button
+                key={tag.id}
+                onClick={() => handleTagClick(tag.id)}
+                style={{
+                  backgroundColor: selectedTagIds.includes(tag.id) ? "#D1E8E2" : "#FFF",
+                  color: "#333",
+                  padding: "10px 15px",
+                  border: "1px solid #333",
+                  borderRadius: "20px",
+                  cursor: "pointer",
+                  fontSize: "14px",
+                }}
+              >
+                {tag.name}
+              </button>
+            ))}
+          </div>
+          {filteredStores.length > 0 ? (
+            <div style={{ marginTop: "30px" }}>
+              {filteredStores.map((store) => (
+                <div key={store.id} style={{ marginBottom: "20px" }}>
+                  <h3>{store.name}</h3>
+                  <p>{store.description}</p>
+                  <p>住所: {store.address}</p>
+                  <a href={store.store_url} target="_blank" rel="noopener noreferrer">
+                    URL
+                  </a>
+                  <br />
+                  <img src={store.store_img} alt={store.name} style={{ width: "200px", height: "auto" }} />
+                </div>
+              ))}
             </div>
-          ))
-        ) : (
+          ) : (
+            <p>該当するドッグランが見つかりません。</p>
+          )}
+        </>
+      ) : (
+        <>
+          <h2>ドッグラン情報がありません</h2>
           <p>該当するドッグランが見つかりません。</p>
-        )}
-      </div>
-      <div style={{ marginTop: "30px", textAlign: "center" }}>
-        <h2>タグ一覧</h2>
-        <ul style={{ listStyle: "none", padding: 0 }}>
-          {tags.map((tag) => (
-            <li key={tag.id} style={{ padding: "5px" }}>
-              {tag.name}
-            </li>
-          ))}
-        </ul>
-      </div>
-
+        </>
+      )}
     </div>
   );
 };
