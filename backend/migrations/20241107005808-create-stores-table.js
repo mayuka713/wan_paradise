@@ -1,3 +1,4 @@
+//このコードは Sequelize を使ったマイグレーションファイルで、stores というテーブルをデータベースに作成・削除するためのものです。
 'use strict';
 
 /** @type {import('sequelize-cli').Migration} */
@@ -21,7 +22,7 @@ module.exports = {
       store_tag_id: {
         type: Sequelize.INTEGER,
         allowNull: true,
-        
+
       },
       store_type: {
         type: Sequelize.STRING(100),
@@ -55,10 +56,6 @@ module.exports = {
         type: Sequelize.STRING(255),
         allowNull: true,
       },
-    source: {
-      type: Sequelize.STRING(255),
-      allowNull: true,
-    },
       createdAt: {
         type: Sequelize.DATE,
         allowNull: false,

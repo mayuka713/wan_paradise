@@ -4,6 +4,11 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import authRoutes from './routes/auth';
 import session from 'express-session';
+import storesRoutes from './routes/stores';
+import prefectureRoutes from './routes/prefectures';
+import tagsRouter from './routes/tags';
+import storesRouter from './routes/stores';
+
 
 dotenv.config();
 
@@ -29,10 +34,12 @@ app.get('/', (req, res) => {
 });
 
 app.use('/auth', authRoutes);
+app.use('/stores',storesRoutes);
+app.use('/prefectures', prefectureRoutes);
+app.use('/tags', tagsRouter); 
+app.use('/api/stores', storesRouter); 
 
 app.listen(PORT, () => {
   console.log(`サーバーがポート${PORT}で起動しました。`);
-
-
-
 });
+

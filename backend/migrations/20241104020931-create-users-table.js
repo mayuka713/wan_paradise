@@ -1,12 +1,13 @@
-'use strict';//データベースに新しいテーブルが追加されるように設定されています。
+'use strict';//この1行目のコードは「厳格モード」。厳格モードを使うと、コードのエラーやバグを見つけやすくなり、安全なコードを書きやすくなります。
 
-
+//Sequelizeを使ってDBにusersの新しいテーブルを追加するためのマイグレ
 
 module.exports = {
-  async up(queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) //テーブルを作成するための関数
+  {
     await queryInterface.createTable('users', {
       id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER, 
         autoIncrement: true,
         primaryKey: true,
         allowNull: false,

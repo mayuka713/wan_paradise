@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Link, useParams, useNavigate, useLocation } from "react-router-dom";
-import "./PetshopPage.css";
+import "./PetShopPage.css";
 import PetshopImage from "../assets/images/Petshop/petshop.png";
+import PetShopRegionList from "./PetShopRegionList";
 
 const PetshopPage: React.FC = () => {
   const navigate = useNavigate();
 
+ 
   const handleClick = () => {
     navigate('/PetshopRegionsList');
   };
@@ -21,7 +23,5 @@ const PetshopPage: React.FC = () => {
   </div>
   );
 };
-
-
 
 export default PetshopPage;

@@ -11,6 +11,7 @@ const DogRunPage: React.FC = () => {
   const handleClick = () => {
     navigate('/DogrunRegionsList');
   };
+  
   return (
     <div style={{ textAlign: 'center', marginTop: '20px' }}>
     <h1>wan paradise</h1>

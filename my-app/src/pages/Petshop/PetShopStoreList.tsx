@@ -16,70 +16,68 @@ interface Tag {
   id: number;
   name: string;
 }
-
-const DogRunStoreList: React.FC = () => {
+const PetShopStoreList: React.FC = () => {
   const { prefectureId } = useParams<{ prefectureId: string }>();
   const [stores, setStores] = useState<Store[]>([]);
   const [tags, setTags] = useState<Tag[]>([]);
   const [selectedPrefecture, setSelectedPrefecture] = useState<string>("");
   const [selectedTagIds, setSelectedTagIds] = useState<number[]>([]);
 
-  // 店舗データの取得
+  //店舗データの取得
   useEffect(() => {
     const fetchStores = async () => {
       try {
-        const response = await fetch(
+        const response = await fetch (
           `http://localhost:5003/stores/list/${prefectureId}`
         );
         const data = await response.json();
         if (Array.isArray(data)) {
           setStores(data);
         } else {
-          console.error("APIのレスポンスが配列ではありません:", data);
+          console.error("APIのレスポンスが配列ではありません;", data);
           setStores([]);
-        }
-      } catch (error) {
-        console.error("店舗情報の取得に失敗しました:", error);
-        setStores([]);
-      }
-    };
-    fetchStores();
+         }
+        } catch (error) {
+          console.error("店舗情報の取得に失敗しました:", error);
+          setStores([]);
+        } 
+      };
+  fetchStores();
   }, [prefectureId]);
 
-  // 都道府県名の設定
+  //都道府県名の設定
   useEffect(() => {
-    const prefectureNames: { [key: string]: string } = {
-      "1": "北海道",
-      "60": "東京",
-      "61": "神奈川",
-      "70": "愛知",
-      "73": "京都",
-      "74": "大阪",
-      "75": "兵庫",
-    };
-
+   const prefectureNames: { [key: string]: string } = {
+    "1": "北海道",
+    "60": "東京",
+    "61": "神奈川",
+    "70": "愛知",
+    "73": "京都",
+    "74": "大阪",
+    "75": "兵庫",
+   };
+  
     setSelectedPrefecture(
-      prefectureNames[prefectureId ?? ""] || "ドッグラン情報がありません"
+      prefectureNames[prefectureId ?? ""] || "ペットショップ情報がありません"
     );
-  }, [prefectureId]);
+  },[prefectureId] );
 
-  // タグデータの取得
+  //タグデータの取得
   useEffect(() => {
     const fetchTags = async () => {
       try {
         const response = await fetch("http://localhost:5003/tags");
-        if (!response.ok) {
-          throw new Error(`HTTPエラー: ${response.status}`);
-        }
-        const data: Tag[] = await response.json();
-        setTags(data);
-      } catch (error) {
-        console.error("タグ情報の取得に失敗しました:", error);
+      if (!response.ok) {
+        throw new Error(`HTTPエラー: ${response.status}`);
+      }
+      const data: Tag[] = await response.json();
+      setTags(data);
+      }catch(error) {
+        console.error("タグの情報に失敗しました:", error);
       }
     };
-    fetchTags();
-  }, []);
-
+  fetchTags();
+  },[]);
   // タグ選択のハンドリング
   const handleTagClick = (tagId: number) => {
     setSelectedTagIds((prevSelectedTagIds) =>
@@ -88,7 +86,6 @@ const DogRunStoreList: React.FC = () => {
         : [...prevSelectedTagIds, tagId] // タグを追加
     );
   };
-
   // フィルタリングされた店舗一覧
   const filteredStores =
     selectedTagIds.length > 0
@@ -111,7 +108,7 @@ const DogRunStoreList: React.FC = () => {
         <>
           <h2>{selectedPrefecture}のドッグラン</h2>
           <p style={{ fontSize: "14px", marginBottom: "20px" }}>
-            行きたいドッグランの条件を探す
+            行きたいの条件を探す
           </p>
           {/* タグ選択エリア */}
           <div
@@ -170,10 +167,10 @@ const DogRunStoreList: React.FC = () => {
           )}
         </>
       ) : (
-        <p>該当するドッグランが見つかりません。</p>
+        <p>該当するペットショップが見つかりません。</p>
       )}
     </div>
   );
 };
 
-export default DogRunStoreList;
+export default PetShopStoreList;

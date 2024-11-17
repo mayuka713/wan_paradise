@@ -1,15 +1,15 @@
 import express, { Request, Response } from 'express';
 import pool from './db';  // データベース接続の設定
 import cors from 'cors';
-import storeRoutes from './routes/stores';
-import tagRoutes from './routes/tags';
+import storesRoutes  from './routes/stores';
+import tagRoutes from './routes/store-tags';
 
 const app = express();
 app.use(cors());
 app.use(express.json());// JSONを解析できるように設定
 
 // ルートの設定
-app.use('/stores', storeRoutes);
+app.use('/stores', storesRoutes);
 app.use('/tags',tagRoutes);
 
 // サーバーを起動する

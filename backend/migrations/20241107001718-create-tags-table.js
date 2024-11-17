@@ -1,3 +1,5 @@
+//tags というテーブルをデータベースに作成および削除するためのものです。
+
 'use strict';
 
 /** @type {import('sequelize-cli').Migration} */

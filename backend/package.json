@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js"
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+    "start": "node server.js",       
+    "dev": "nodemon server.js"     
   },
   "keywords": [],
   "author": "",
