@@ -1,6 +1,6 @@
 // App.tsx
 import React from "react";
-import { BrowserRouter as Router, Route, Routes, } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
@@ -13,13 +13,11 @@ import HospitalPage from "./pages/Hospital/HospitalPage";
 // ドッグランのページ
 import DogrunRegionList from "./pages/Dogrun/DogrunRegionList";
 import StoresList from "./components/StoresList";
-import DogRunStoreList from './pages/Dogrun/DogRunStoreList';
+import DogRunStoreList from "./pages/Dogrun/DogRunStoreList";
 
 //ドッグカフェのページ
 import DogCafeRegionList from "./pages/Dogcafe/DogCafeRegionList";
-
 import DogCafeStoreList from "./pages/Dogcafe/DogCafeStoreList";
-
 
 //ペットショップのページ
 import PetShopRegionList from "./pages/Petshop/PetShopRegionList";
@@ -28,8 +26,6 @@ import PetShopStoreList from "./pages/Petshop/PetShopStoreList";
 //病院のページ
 import HospitalRegionList from "./pages/Hospital/HospitalRegionList";
 import HospitalStoreList from "./pages/Hospital/HospitalStoreList";
-
-
 
 const App: React.FC = () => {
   return (
@@ -48,19 +44,25 @@ const App: React.FC = () => {
           <Route path="/dogrun/:prefectureId" element={<DogRunStoreList />} />
           {/* ドッグカフェページ */}
           <Route path="/dogcafe" element={<DogcafePage />} />
-          <Route path="/DogCafeRegionList" element={<DogCafeRegionList/>}/>
-          <Route path="/dogcafe/:prefectureId" element ={<DogCafeRegionList />}/>
+          <Route path="/DogCafeRegionList" element={<DogCafeRegionList />} />
+          <Route
+            path="/dogcafe/:prefectureId"
+            element={<DogCafeRegionList />}
+          />
 
-         {/* ペットショップページ */}
+          {/* ペットショップページ */}
           <Route path="/petshop" element={<PetshopPage />} />
-          <Route path="/petshopregionsList" element={<PetShopRegionList/>} />
+          <Route path="/petshopregionsList" element={<PetShopRegionList />} />
           <Route path="/pet/:prefectureId" element={<PetShopStoreList />} />
           {/* 病院ページ */}
           <Route path="/hospital" element={<HospitalPage />} />
-          <Route path="/hospitalregionsList" element={<HospitalRegionList/>} />
-          <Route path="/hospital/:prefectureId" element={ <HospitalStoreList />} />
+          <Route path="/hospitalregionsList" element={<HospitalRegionList />} />
+          <Route
+            path="/hospital/:prefectureId"
+            element={<HospitalStoreList />}
+          />
 
-          <Route path="/components/StoreList" element={<StoresList/>}/>
+          <Route path="/components/StoreList" element={<StoresList />} />
         </Routes>
       </div>
     </Router>
