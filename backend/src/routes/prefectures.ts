@@ -6,7 +6,7 @@ const router = Router();
 // `/prefectures`エンドポイントで全ての都道府県情報を取得するルート
 router.get('/', async (req: Request, res: Response) => {
   try {
-    const result = await pool.query('SELECT * FROM prefectures'); // prefecturesテーブルの全データを取得
+    const result = await pool.query('SELECT id, name, region FROM prefectures'); // prefecturesテーブルの全データを取得
     res.json(result.rows); // 結果をJSON形式で返す
   } catch (error) {
     console.error('Error fetching prefectures:', error);

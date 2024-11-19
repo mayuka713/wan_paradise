@@ -17,7 +17,7 @@ const HospitalPage: React.FC = () => {
                 全国の病院を探す
             </p>
             <div>
-                <img src={HospitalImage} alt="病院のイラスト" style={{ width: "100%" }} />
+                <img src={HospitalImage} alt="Hospital"/>
             </div>
         </div>
     );

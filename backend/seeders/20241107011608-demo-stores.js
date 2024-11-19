@@ -7,7 +7,7 @@ module.exports = {
       {
         name: 'つばさドッグラン',
         description: '海を眺めながら愛犬と遊ぶ。',
-        prefecture_id: 60, // 東京都のID
+        prefecture_id: 13, // 東京都のID
         city: '大田区',
         opening_hours: '7:00 - 21:00',
         address: '東京都大田区城南島4-2-2',
@@ -20,7 +20,7 @@ module.exports = {
       {
         name: 'イーノの森 Dog Garden',
         description: '事前予約制のドッグラン。マナーレッスンを受講可能。',
-        prefecture_id: 60, // 東京都のID
+        prefecture_id: 13, // 東京都のID
         city: '江東区',
         opening_hours: '土日祝:10:00 - 19:00 ',
         address: '東京都江東区夢の島3丁目2-1 東京夢の島マリーナ内',
@@ -31,9 +31,9 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        name: '4',
+        name: '駒沢オリンピックドックラン',
         description: '緑の広がる景色が特徴',
-        prefecture_id: 60, // 東京都のID
+        prefecture_id: 13, // 東京都のID
         city: '世田谷区',
         opening_hours: '常時開放',
         address: '東京都世田谷区駒沢公園1-1',
@@ -46,7 +46,7 @@ module.exports = {
       {
         name: '芝浦中央公園 ドッグラン',
         description: '小型犬・一般ゾーンに分かれているから遊ばせやすい',
-        prefecture_id: 60, // 東京都のID
+        prefecture_id: 13, // 東京都のID
         city: '港区',
         opening_hours: '10月～4月:7:00/5月～9月:6:00',
         address: '東京都港区港南1丁目2番28号',

@@ -9,7 +9,7 @@ interface Store {
   phone_number: string;
   store_url: string;
   store_img: string;
-  tags: number[];
+  tags: Tag[];
 }
 
 interface Tag {
@@ -32,7 +32,8 @@ const DogRunStoreList: React.FC = () => {
           `http://localhost:5003/stores/list/${prefectureId}`
         );
         const data = await response.json();
-        if (Array.isArray(data)) {
+
+        if (response.ok) {
           setStores(data);
         } else {
           console.error("APIのレスポンスが配列ではありません:", data);
@@ -50,12 +51,12 @@ const DogRunStoreList: React.FC = () => {
   useEffect(() => {
     const prefectureNames: { [key: string]: string } = {
       "1": "北海道",
-      "60": "東京",
-      "61": "神奈川",
-      "70": "愛知",
-      "73": "京都",
-      "74": "大阪",
-      "75": "兵庫",
+      "13": "東京",
+      "14": "神奈川",
+      "23": "愛知",
+      "26": "京都",
+      "27": "大阪",
+      "28": "兵庫",
     };
 
     setSelectedPrefecture(
@@ -68,9 +69,6 @@ const DogRunStoreList: React.FC = () => {
     const fetchTags = async () => {
       try {
         const response = await fetch("http://localhost:5003/tags");
-        if (!response.ok) {
-          throw new Error(`HTTPエラー: ${response.status}`);
-        }
         const data: Tag[] = await response.json();
         setTags(data);
       } catch (error) {
@@ -84,8 +82,8 @@ const DogRunStoreList: React.FC = () => {
   const handleTagClick = (tagId: number) => {
     setSelectedTagIds((prevSelectedTagIds) =>
       prevSelectedTagIds.includes(tagId)
-        ? prevSelectedTagIds.filter((id) => id !== tagId) // タグを解除
-        : [...prevSelectedTagIds, tagId] // タグを追加
+        ? prevSelectedTagIds.filter((id) => id !== tagId)
+        : [...prevSelectedTagIds, tagId]
     );
   };
 
@@ -93,11 +91,13 @@ const DogRunStoreList: React.FC = () => {
   const filteredStores =
     selectedTagIds.length > 0
       ? stores.filter((store) =>
-          store.tags.some((tag) => selectedTagIds.includes(tag))
+        selectedTagIds.every((tagId) =>
+          store.tags.some((tag) => tag.id === tagId)
         )
-      : stores;
+      ): stores;
 
-  const isPrefectureSupported = selectedPrefecture !== "ドッグラン情報がありません";
+  const isPrefectureSupported =
+    selectedPrefecture !== "ドッグラン情報がありません";
 
   return (
     <div
@@ -105,23 +105,20 @@ const DogRunStoreList: React.FC = () => {
         textAlign: "center",
         padding: "20px",
         backgroundColor: "#FAF3E0",
-      }}
-    >
+      }}>
       {isPrefectureSupported ? (
         <>
           <h2>{selectedPrefecture}のドッグラン</h2>
           <p style={{ fontSize: "14px", marginBottom: "20px" }}>
             行きたいドッグランの条件を探す
           </p>
-          {/* タグ選択エリア */}
           <div
             style={{
               display: "flex",
               flexWrap: "wrap",
               justifyContent: "center",
               gap: "10px",
-            }}
-          >
+            }}>
             {tags.map((tag) => (
               <button
                 key={tag.id}
@@ -136,41 +133,33 @@ const DogRunStoreList: React.FC = () => {
                   borderRadius: "20px",
                   cursor: "pointer",
                   fontSize: "14px",
-                }}
-              >
+                }}>
                 {tag.name}
               </button>
             ))}
           </div>
+          {filteredStores.map((store) => {
+            console.log("store_img:", store.store_img);
 
-          {/* フィルタリング結果の表示 */}
-          {selectedTagIds.length > 0 && filteredStores.length > 0 && (
-            <div style={{ marginTop: "30px" }}>
-              {filteredStores.map((store) => (
-                <div key={store.id} style={{ marginBottom: "20px" }}>
-                  <h3>{store.name}</h3>
-                  <p>{store.description}</p>
-                  <p>{store.address}</p>
-                  <a
-                    href={store.store_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    URL
-                  </a>
-                  <br />
-                  <img
-                    src={store.store_img}
-                    alt={store.name}
-                    style={{ width: "200px", height: "auto" }}
-                  />
-                </div>
-              ))}
-            </div>
-          )}
+            return (
+              <div key={store.id} style={{ marginBottom: "20px" }}>
+                <h3>{store.name}</h3>
+                <p>{store.description}</p>
+                <p>住所: {store.address}</p>
+                <a href={store.store_url}target="_blank" rel="noopener noreferrer">URL</a>
+                <br />
+                <img src={store.store_img || "/images/Dogrun/dogrun_tsubasa.png"} alt={store.name} style={{ width: "200px", height: "auto" }} onError={(e) => {
+                  e.currentTarget.src = "/images/Dogrun/dogrun_tsubasa.png"; // エラー時代替画像
+                  }}/>
+              </div>
+            );
+          })}
         </>
       ) : (
-        <p>該当するドッグランが見つかりません。</p>
+        <>
+          <h2>ドッグラン情報がありません</h2>
+          <p>該当するドッグランが見つかりません。</p>
+        </>
       )}
     </div>
   );

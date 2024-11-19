@@ -7,7 +7,7 @@ import session from 'express-session';
 import storesRoutes from './routes/stores';
 import prefectureRoutes from './routes/prefectures';
 import tagsRouter from './routes/tags';
-import storesRouter from './routes/stores';
+
 
 
 dotenv.config();
@@ -24,10 +24,11 @@ app.use(cors({
 
 // セッションミドルウェアの設定
 app.use(session({
-  secret: 'your_secret_key', // セッションの秘密鍵を設定
+  secret: process.env.SESSION_SECRET || 'default_secret_key', // セッションの秘密鍵
   resave: false,
   saveUninitialized: false,
 }));
+
 // ルートの設定
 app.get('/', (req, res) => {
   res.send('サーバーは正常に動作しています。');
@@ -37,7 +38,6 @@ app.use('/auth', authRoutes);
 app.use('/stores',storesRoutes);
 app.use('/prefectures', prefectureRoutes);
 app.use('/tags', tagsRouter); 
-app.use('/api/stores', storesRouter); 
 
 app.listen(PORT, () => {
   console.log(`サーバーがポート${PORT}で起動しました。`);

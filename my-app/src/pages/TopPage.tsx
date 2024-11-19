@@ -16,7 +16,9 @@ const TopPage: React.FC = () => (
     <header className="App-header">
       <h1>Wan Paradise</h1>
     </header>
-    <p className="main-title">色んなわんこに関わる情報をご紹介しております。</p>
+    <p className="main-title">ドッグラン、ドッグカフェ、ペットショップや動物病院など<br></br>
+      様々なわんこの情報をご紹介しております。</p>
+    
     {/* dogrun */}
     <div className="info-section">
       <div className="text-container">
