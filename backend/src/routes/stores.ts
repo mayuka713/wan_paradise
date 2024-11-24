@@ -25,62 +25,36 @@ router.get("/", async (req, res) => {
     res.json(result.rows); // 結果をJSON形式で返す
   } catch (error) {
     console.error("Error fetching stores:", error);
-    res.status(500).json({ error: "店舗情報を取得できませんでした" });
+    res.status(500).json({ error: "該当する店舗情報が見つかりませんでした" });
   }
 });
 
 // `prefectureID`に基づき店舗情報を取得するルート
-router.get("/list/:prefectureID", async (req, res) => {
-  const { prefectureID } = req.params;
-
+router.get("/list/:prefectureId", async (req, res) => {
+  const { prefectureId } = req.params;
   try {
     const query = `
-  SELECT 
-    stores.id AS store_id,
-    stores.name AS store_name,
-    stores.description AS store_description,
-    stores.address AS store_address,
-    stores.phone_number AS store_phone,
-    stores.store_url AS store_url,
-    stores.store_img AS store_img,
-    tags.id AS tag_id,
-    tags.name AS tag_name
-  FROM stores
-  LEFT JOIN "store-tags" ON stores.id = "store-tags".store_id
-  LEFT JOIN tags ON "store-tags".tag_id = tags.id
-  WHERE stores.prefecture_id = $1
-  ORDER BY stores.id, tags.id;
+      SELECT 
+        stores.id AS store_id,
+        stores.name AS store_name,
+        stores.description AS store_description,
+        stores.address AS store_address,
+        stores.phone_number AS store_phone,
+        stores.store_url AS store_url,
+        stores.store_img AS store_img
+      FROM stores
+      WHERE stores.prefecture_id = $1;
     `;
-  
-    const result = await pool.query(query, [prefectureID]);
-    if (result.rows.length === 0) {
-       return res.status(404).json({ error:'該当する店舗情報が見つかりませんでした'})
-    }
-    // 結果をグループ化して整形
-    const groupedStores = result.rows.reduce((acc: any[], row: any) => {
-      const store = acc.find((s) => s.id === row.store_id);
-      if (store) {
-        store.tags.push({ id: row.tag_id, name: row.tag_name });
-      } else {
-        acc.push({
-          id: row.store_id,
-          name: row.store_name,
-          description: row.store_description,
-          address: row.store_address,
-          phone: row.store_phone,
-          url: row.store_url,
-          tags: row.tag_id ? [{ id: row.tag_id, name: row.tag_name }] : [],
-        });
-      }
-      return acc;
-    }, []);
 
-    res.json(groupedStores);
+    const result = await pool.query(query, [prefectureId]);
+
+    res.status(200).json(result.rows);
   } catch (error) {
-    console.error("Error fetching stores by prefectureID:", error);
-    res.status(500).json({ error: "店舗情報を取得できませんでした" });
+    console.error("Error fetching stores by prefectureId:", error);
+    res.status(500).json({ message: "データ取得に失敗しました" });
   }
 });
+
 // タグに基づき店舗情報を取得するルート
 router.get("/tags", async (req, res) => {
   const { tags } = req.query;

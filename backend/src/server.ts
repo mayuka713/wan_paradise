@@ -7,6 +7,11 @@ import session from 'express-session';
 import storesRoutes from './routes/stores';
 import prefectureRoutes from './routes/prefectures';
 import tagsRouter from './routes/tags';
+import storesTagsRouter from './routes/store-tags';
+import exp from 'constants';
+import path from 'path';
+import tagsFacilityRouter from './routes/tags_facility';
+import dogcafetagsRouter from './routes/dogcafe_tags';
 
 
 
@@ -35,9 +40,12 @@ app.get('/', (req, res) => {
 });
 
 app.use('/auth', authRoutes);
-app.use('/stores',storesRoutes);
+app.use('/stores', storesRoutes);
 app.use('/prefectures', prefectureRoutes);
-app.use('/tags', tagsRouter); 
+app.use('/tags', tagsRouter);
+app.use('/stores-tags', storesTagsRouter);
+app.use('/tags_facility', tagsFacilityRouter);
+app.use('/dog_cafe_tags' , dogcafetagsRouter);
 
 app.listen(PORT, () => {
   console.log(`サーバーがポート${PORT}で起動しました。`);

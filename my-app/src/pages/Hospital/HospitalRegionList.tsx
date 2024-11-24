@@ -31,7 +31,7 @@ const DogrunRegionList: React.FC = () => {
   }, []); // 空の配列を依存配列として指定
 
   const handleClick = (id: number) => {
-    navigate(`/dogrun/${id}`);
+    navigate(`/hospital/${id}`);
   };
 
   // 地方ごとに都道府県を分類

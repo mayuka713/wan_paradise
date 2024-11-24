@@ -77,11 +77,12 @@
 }
 @media (max-width: 480px) {
   .App-header h1 {
-    font-size: 30px;
+    text-align: center;
   }
   .main-title {
     padding-left: 10px;
     font-size: 14px;
+    ;
   }
 
   .info-section {
@@ -113,7 +114,7 @@
   left: 40%;
  }
   .dogcafe-nametag{
-    padding-left: 20px;
+    padding-left: 30px;
     top: 130%;
   }
 

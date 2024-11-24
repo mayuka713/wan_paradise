@@ -54,7 +54,8 @@ router.get('/', async (req: Request, res: Response) => {
   try {
     // タグ情報を取得
     const result = await pool.query('SELECT * FROM tags ORDER BY id');
-    res.json(result.rows);
+    res.json(result.rows) 
+    //データーベースからtags tableで取得したデータをresに代入し、json形式で整形する。
   } catch (error) {
     console.error('タグ情報の取得に失敗しました:', error);
     res.status(500).json({ error: 'タグ情報を取得できませんでした' });

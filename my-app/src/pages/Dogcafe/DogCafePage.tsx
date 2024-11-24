@@ -1,6 +1,9 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams, useLocation } from "react-router-dom";
+import "./DogCafePage.css";
+import DogCafeImage from "../assets/images/Dogcafe/dogcafe.png";
 import DogCafeRegionList from "./DogCafeRegionList";
+
 
 const DogCafePage: React.FC = () => {
   const navigate = useNavigate();
@@ -16,11 +19,7 @@ const DogCafePage: React.FC = () => {
         全国のドッグカフェを探す
       </p>
       <div>
-      <img
-          src="/images/Dogcafe/dogcafe.png"
-          alt="ドッグカフェのイラスト"
-          style={{ width: "100%" }}
-        />
+        <img src="/images/Dogcafe/dogcafe.png" alt="ドッグカフェのイラスト" style={{ width: "100%" }} />
       </div>
     </div>
   );

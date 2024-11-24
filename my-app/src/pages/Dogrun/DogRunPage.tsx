@@ -3,7 +3,6 @@ import { Link, useNavigate, useParams, useLocation } from "react-router-dom";
 import "./DogRunPage.css";
 import DogrunImage from "../assets/images/Dogrun/dogrun.png";
 import DogrunRegionList from "./DogrunRegionList";
-import DogRunStoreList from "../assets/images/Dogrun/dogrun_tsubasa.png";
 
 const DogRunPage: React.FC = () => {
   const navigate = useNavigate();
@@ -19,7 +18,7 @@ const DogRunPage: React.FC = () => {
       全国のドッグランを探す
     </p>
     <div>
-      <img src= "/images/Dogrun/dogrun.png" alt="ドッグランのイラスト" style={{ width: '50%' }} />
+      <img src="assets/images/Dogrun/dogrun.png" alt="ドッグランのイラスト" style={{ width: '50%' }} />
     </div>
   </div>
   );
