@@ -1,10 +1,10 @@
-//tags というテーブルをデータベースに作成および削除するためのものです。
+
 
 'use strict';
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up(queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) { 
     await queryInterface.createTable('tags', {
       id: {
         type: Sequelize.INTEGER,

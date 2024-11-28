@@ -4,7 +4,7 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.bulkInsert(
-      "dogcafe_tags",
+      "dog_cafe_tags",
       [
         { name: "店内OK", createdAt: new Date(), updatedAt: new Date() },
         { name: "テラス席OK", createdAt: new Date(), updatedAt: new Date() },
@@ -15,6 +15,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete("dogcafe_tags", null, {});
+    await queryInterface.bulkDelete("dog_cafe_tags", null, {});
   }
 };

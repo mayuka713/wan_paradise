@@ -7,7 +7,7 @@ pool.query("SELECT 1", (err, res) => {
   if (err) {
     console.error("データベース接続に失敗しました:", err.message);
   } else {
-    console.log("データベース接続に成功しました:", res.rows);
+    console.log(res.rows);
   }
 });
 

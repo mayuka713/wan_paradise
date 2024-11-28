@@ -5,7 +5,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.addColumn('stores', 'prefecture-id',  {
+    await queryInterface.addColumn('stores', 'prefecture_id',  {
       type: Sequelize.INTEGER,
       allowNull: true,
       references: {
@@ -16,7 +16,7 @@ module.exports = {
       onDelete: 'SET NULL',
     });
   
-  await queryInterface.addColumn('store','tags', {
+  await queryInterface.addColumn('stores','tags', {
     type: Sequelize.INTEGER,
     allowNull: true,
     references: {
@@ -29,7 +29,8 @@ module.exports = {
 },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.removeColumn('stores', 'prefecture-id',);
+    
+    await queryInterface.removeColumn('stores', 'prefecture_id',);
     await queryInterface.removeColumn('stores', 'tags',);
   }
 };

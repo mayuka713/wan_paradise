@@ -15,13 +15,15 @@ import dogcafetagsRouter from './routes/dogcafe_tags';
 
 
 
+
+
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5003;
 
 // ミドルウェアの設定
-app.use(bodyParser.json());
+app.use(express.json());
 app.use(cors({
   origin: 'http://localhost:3000', // 許可するオリジンを指定
   credentials: true, // セッションやクッキーを共有する場合は true にする
@@ -43,9 +45,10 @@ app.use('/auth', authRoutes);
 app.use('/stores', storesRoutes);
 app.use('/prefectures', prefectureRoutes);
 app.use('/tags', tagsRouter);
-app.use('/stores-tags', storesTagsRouter);
+app.use('/stores-tags', storesTagsRouter); //店舗とタグの紐付け管理
 app.use('/tags_facility', tagsFacilityRouter);
-app.use('/dog_cafe_tags' , dogcafetagsRouter);
+app.use('/dog_cafe_tags', dogcafetagsRouter); 
+
 
 app.listen(PORT, () => {
   console.log(`サーバーがポート${PORT}で起動しました。`);

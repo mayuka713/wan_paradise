@@ -33,7 +33,7 @@ router.get('/stores/list/:prefectureId', async (req: PrefectureRequest, res: Res
   try {
     // `prefectureId` を条件に店舗情報を取得
     const stores = await pool.query<Store>(
-      'SELECT id, name, description, address, store_url, store_img,prefecture_id FROM stores WHERE prefecture_id = $1',
+      `SELECT id, name, description, address, store_url, store_img,prefecture_id FROM stores WHERE prefecture_id = $1`,
       [prefectureId]
     );
 

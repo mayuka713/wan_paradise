@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 
+
 // データの型を定義
 type Store = {
+  id: number;
   name: string;
   description: string;
   address: string;
@@ -23,18 +25,23 @@ const StoresList: React.FC = () => {
   }, []);
 
   return (
-    <div>
-      <h1>ドッグラン一覧</h1>
+    <>
+    <h1>ドッグラン一覧</h1>
+    {stores.length > 0 ? (
       <ul>
-        {stores.map((store, index) => (
-          <li key={index}>
+        {stores.map((store) => (
+          <button key={store.id}>
             <h2>{store.name}</h2>
             <p>{store.description}</p>
             <p>{store.address}</p>
-          </li>
+            </button>
         ))}
       </ul>
-    </div>
+      
+    ):(
+      <p>データがありません</p>
+    )}
+     </>
   );
 };
 

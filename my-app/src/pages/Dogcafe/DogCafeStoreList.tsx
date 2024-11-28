@@ -17,9 +17,11 @@ interface DogCafeTag {
   name: string;
 }
 
+
+
 const DogCafeStoreList: React.FC = () => {
   const { prefectureId } = useParams<{ prefectureId: string }>();
-  const [stores] = useState<Shop[]>([]);
+  const [stores, setStores ] = useState<Shop[]>([]);
   const [selectedDogCafeTagIds, setSelectedDogCafeTagIds] = useState<number[]>([]);
   const [dogCafeTags, setDogCafeTags] = useState<DogCafeTag[]>([]);
   const [selectedPrefecture, setSelectedPrefecture] = useState<string>("");
@@ -28,15 +30,40 @@ const DogCafeStoreList: React.FC = () => {
   useEffect(() => {
     const fetchDogCafeTags = async () => {
       try {
-        const response = await fetch("http://localhost:5003/dog_cafe_tags");
+        const response = await fetch(`http://localhost:5003/dog_cafe_tags/list?prefecture=${prefectureId}`);
         const data: DogCafeTag[] = await response.json();
         setDogCafeTags(data);
       } catch (error) {
         console.error("タグ情報の取得に失敗しました:", error);
       }
     };
+    if (prefectureId) {
     fetchDogCafeTags();
-  }, []);
+    }
+  }, [prefectureId]);
+
+  
+//店舗データの取得
+  useEffect(() => {
+    const fetchDogCafeStores = async () => {
+      try {
+        const queryParams = new URLSearchParams(); 
+         if (selectedDogCafeTagIds.length > 0) {
+          queryParams.append("tags", selectedDogCafeTagIds.join(","));
+         }
+         //APIからデータを取得する
+        const response = await fetch(`http://localhost:5003/dogcafetags?prefecture&${prefectureId}&&{queryParams.toString()}`);
+        const data: Shop[] =  await response.json();
+        setStores(data);
+    } catch (error) {
+      console.error("データー取得中にエラーが発生しました:", error);
+    }
+  };
+   if (prefectureId) {
+    fetchDogCafeStores();
+   }
+    }, [ prefectureId, selectedDogCafeTagIds]);
+
 
 
   // 店舗データのフィルタリング
@@ -104,7 +131,7 @@ const DogCafeStoreList: React.FC = () => {
           </div>
           <h3>店舗一覧</h3>
           <div>
-            {filteredDogCafeStores.map((store) => (
+            {stores.map((store) => (
               <div key={store.id}>
                 <h4>{store.name}</h4>
                 <p>{store.description}</p>
