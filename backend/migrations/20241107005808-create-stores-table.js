@@ -19,11 +19,6 @@ module.exports = {
         type: Sequelize.TEXT,
         allowNull: true,
       },
-      store_tag_id: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
-
-      },
       store_type: {
         type: Sequelize.STRING(100),
         allowNull: true,

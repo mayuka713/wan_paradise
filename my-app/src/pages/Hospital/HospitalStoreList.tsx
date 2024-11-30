@@ -45,7 +45,7 @@ const HospitalStoreList: React.FC = () => {
     const fetchHospitalStores = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5003/stores/list/${prefectureId}?tags=${selectedHospitalTags.join(",")}`
+          `http://localhost:5003/Hospital/list/${prefectureId}?tags=${selectedHospitalTags.join(",")}`
         );
         const data: Hospital[] = await response.json();
         setStores(data);

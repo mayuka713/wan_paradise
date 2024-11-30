@@ -15,6 +15,7 @@ interface Store {
 interface Tag {
   id: number;
   name: string;
+  tag_type: number;
   createdAt: string;
   updatedAt: string;
 }
