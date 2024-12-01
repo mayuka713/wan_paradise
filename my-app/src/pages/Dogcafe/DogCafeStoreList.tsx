@@ -21,7 +21,6 @@ interface Dog_cafe_tags {
 
 const DogCafesStoreList: React.FC = () => {
   const { prefectureId } = useParams<{ prefectureId: string }>();
-
   const [selectedDogCafeTagIds, setSelectedDogCafeTagIds] = useState<number[]>([]);
   const [dog_cafe_tags, setDogCafeTags] = useState<Dog_cafe_tags[]>([]);
   const [selectedPrefecture, setSelectedPrefecture] = useState<string>("");

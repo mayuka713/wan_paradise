@@ -7,7 +7,6 @@ import session from 'express-session';
 import storesRoutes from './routes/stores';
 import prefectureRoutes from './routes/prefectures';
 import tagsRouter from './routes/tags';
-import storesTagsRouter from './routes/store-tags';
 import exp from 'constants';
 import path from 'path';
 import tagsFacilityRouter from './routes/tags_facility';
@@ -44,8 +43,7 @@ app.get('/', (req, res) => {
 app.use('/auth', authRoutes);
 app.use('/stores', storesRoutes);
 app.use('/prefectures', prefectureRoutes);
-app.use('/tags', tagsRouter);
-app.use('/stores-tags', storesTagsRouter); //店舗とタグの紐付け管理
+app.use('/tags', tagsRouter); //店舗とタグの紐付け管理
 app.use('/tags_facility', tagsFacilityRouter);
 app.use('/dog_cafe_tags', dogcafetagsRouter); 
 
