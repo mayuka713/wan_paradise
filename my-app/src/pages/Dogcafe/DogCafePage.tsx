@@ -1,7 +1,6 @@
 import React from "react";
 import { Link, useNavigate, useParams, useLocation } from "react-router-dom";
 import "./DogCafePage.css";
-import DogCafeImage from "../assets/images/Dogcafe/dogcafe.png";
 import DogCafeRegionList from "./DogCafeRegionList";
 
 
@@ -19,7 +18,7 @@ const DogCafePage: React.FC = () => {
         全国のドッグカフェを探す
       </p>
       <div>
-        <img src="/images/Dogcafe/dogcafe.png" alt="ドッグカフェのイラスト" style={{ width: "100%" }} />
+        <img src="https://res.cloudinary.com/do4lxnof9/image/upload/v1733201770/wan_paradise/DogCafe/dogcafe.img.png" alt="ドッグカフェのイラスト" style={{ width: "100%" }} />
       </div>
     </div>
   );

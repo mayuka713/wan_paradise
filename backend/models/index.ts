@@ -2,7 +2,7 @@ import { Sequelize } from "sequelize";
 import StoreFactory from "./Store";
 import TagFactory from "./Tag";
 import StoreTagFactory from "./StoreTags";
-import DogCafesFactory from "./dogcafes";
+
 
 //自分のデーターベースにログインする
 const sequelize = new Sequelize(
@@ -24,6 +24,5 @@ sequelize
 const Store = StoreFactory(sequelize);
 const Tag = TagFactory(sequelize);
 const StoreTag = StoreTagFactory(sequelize);
-const DogCafes = DogCafesFactory(sequelize);
 
-export { sequelize, Store, Tag, StoreTag, DogCafes };
+export { sequelize, Store, Tag, StoreTag,  };

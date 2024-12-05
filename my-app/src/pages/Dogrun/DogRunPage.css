@@ -12,7 +12,7 @@
   align-items: center;
   padding: 5px 30px;
   border-radius: 20px;
-  font-family: "Noto sans-serif";
+  font-family:"NewCezannePro-M, FOT-ニューセザンヌ Pro M, sans-serif;",;
   font-size: 16px;
   font-weight: bold;
   color: #333;
@@ -72,3 +72,14 @@
   margin-top: 40%;
   height: auto;
 }
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+div {
+  cursor: pointer;
+  transition: transform  0.2s;
+}
+

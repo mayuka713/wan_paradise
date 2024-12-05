@@ -11,6 +11,7 @@ import DogRunPage from "./pages/Dogrun/DogRunPage"; // ドッグランページ�
 import DogrunRegionList from "./pages/Dogrun/DogrunRegionList";
 import StoresList from "./components/StoresList";
 import DogRunStoreList from "./pages/Dogrun/DogRunStoreList";
+import DogRunDetail  from "./pages/Dogrun/DogRunDetail";
 
 //ドッグカフェのページ
 import DogcafePage from "./pages/Dogcafe/DogCafePage";
@@ -43,14 +44,15 @@ const App: React.FC = () => {
           <Route path="/dogrun" element={<DogRunPage />} />
           <Route path="/DogrunRegionsList" element={<DogrunRegionList />} />
           <Route path="/dogrun/:prefectureId" element={<DogRunStoreList />} />
-          {/* ドッグカフェページ */}
+          <Route path="/dogrun/detail/:id" element = { <DogRunDetail />} /> 
+          {/* ドッグカフェページ */}   
           <Route path="/dogcafe" element={<DogcafePage />} />
           <Route path="/DogCafeRegionList" element={<DogCafeRegionList />} />
           <Route path="/dogcafe/:prefectureId" element={<DogCafeStoreList />}/>
           {/* ペットショップページ */}
           <Route path="/petshop" element={<PetshopPage />} />
           <Route path="/petshopregionsList" element={<PetShopRegionList />} />
-          <Route path="/pet/:prefectureId" element={<PetShopStoreList />} />
+          <Route path="/petshop/:prefectureId" element={<PetShopStoreList />} />
           {/* 病院ページ */}
           <Route path="/hospital" element={<HospitalPage />} />
           <Route path="/hospitalregionsList" element={<HospitalRegionList />} />

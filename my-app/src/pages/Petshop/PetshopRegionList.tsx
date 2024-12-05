@@ -46,26 +46,29 @@ const DogCafeRegionList: React.FC = () => {
     <div>
       <h2>全国のペットショップを探す</h2>
       <div>
-        {Object.keys(regions).length > 0 ? (
-          Object.keys(regions).map((region) => (
+          {Object.keys(regions).map((region) => (
             <div key={region}>
               <h3>{region}</h3>
               <p>
                 {regions[region].map((pref) => (
                   <span
                     key={pref.id}
-                    onClick={() => handleClick(pref.id)} // idを渡す
-                    style={{ cursor: 'pointer', color: pref.name === '東京' ? 'green' : 'black' }}
+                    onClick={() => handleClick(pref.id)} 
+                    style = {{ cursor: 'pointer', 
+                    color: ['札幌', '東京', '神奈川', '愛知'].includes(pref.name) 
+                    ? 'orange' 
+                    : 'black', 
+                    marginRight: '20px',
+                    marginBottom: '5px',
+                    display: 'inline-block',
+                  }}
                   >
-                    {pref.name}・
+                    {pref.name} 
                   </span>
                 ))}
               </p>
             </div>
-          ))
-        ) : (
-          <p>データを読み込んでいます...</p>
-        )}
+          ))}
       </div>
     </div>
   );

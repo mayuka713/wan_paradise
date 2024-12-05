@@ -1,60 +1,80 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-interface DogCafe {
+interface Store {
   store_id: number;
-  name: string;
-  description: string;
-  address: string;
-  phone_number: string;
+  store_name: string;
+  store_description: string;
+  store_address: string;
+  store_opening_hours: number;
+  store_phone_number: string;
   store_url: string;
   store_img: string;
   tags: { id: number; name: string }[];
 }
 
 
-interface Dog_cafe_tags {
+interface Tag{
   id: number;
   name: string;
-}
+  tag_type: number;
+} 
 
 
 const DogCafesStoreList: React.FC = () => {
   const { prefectureId } = useParams<{ prefectureId: string }>();
-  const [selectedDogCafeTagIds, setSelectedDogCafeTagIds] = useState<number[]>([]);
-  const [dog_cafe_tags, setDogCafeTags] = useState<Dog_cafe_tags[]>([]);
+  const [store, setStore] = useState<Store[]>([]);
+  const [type3Tag, setType3Tag] = useState<Tag[]>([]);
+  const [selectedTagIds, setSelectedTagIds] = useState<number[]>([]);
   const [selectedPrefecture, setSelectedPrefecture] = useState<string>("");
 
-  // タグデータの取得
+
+  //バックエンドへのリクエスト箇所
+  // タグの一覧
   useEffect(() => {
-    const fetchDogCafeTags = async () => {
+    const fetchTags = async () => {
       try {
-        const response = await fetch(`http://localhost:5003/dog_cafe_tags?/list?prefecture=${prefectureId}`);
-        const data: Dog_cafe_tags[] = await response.json();
-        setDogCafeTags(data);
+        const response = await fetch(`http://localhost:5003/tags`);//http://localhost:5003/tagsがバックエンドリクエスト先
+        const data: Tag[] = await response.json();
+        const type3 = data.filter((tag) => tag.tag_type === 3);
+        setType3Tag(type3);
       } catch (error) {
         console.error("タグ情報の取得に失敗しました:", error);
       }
     };
-    if (prefectureId) {
-    fetchDogCafeTags();
-    }
-  }, [prefectureId]);
+    fetchTags();
+  }, []);
 
 
-  // タグ選択ハンドラー
-  const handleClickDogCafeTag = (dogCafeTagId: number) => {
-    setSelectedDogCafeTagIds((prevSelectedDogCafeTagIds) =>
-      prevSelectedDogCafeTagIds.includes(dogCafeTagId)
-        ? prevSelectedDogCafeTagIds.filter((id) => id !== dogCafeTagId)
-        : [...prevSelectedDogCafeTagIds, dogCafeTagId]
-    );
-  };
+  // 店舗データを取得
+  useEffect(() => {
+    const fetchStores = async () => {
+      try {
+        let url;
+        if (selectedTagIds.length === 0) {
+          // タグが選択されていない場合は全店舗を取得
+          url = `http://localhost:5003/stores/list/store-type/${prefectureId}/3`;
+        } else { 
+          // タグが選択されている場合はフィルタリング
+          url = `http://localhost:5003/stores/list/tag/${prefectureId}?tagIds=${selectedTagIds.join(",")}`;
+        }
+        const response = await fetch(url);
+        const data = await response.json();
+        setStore(data);
+      } catch (error) {
+        console.error("店舗データの取得に失敗しました:", error);
+      }
+    };
+    fetchStores();
+  }, [prefectureId, selectedTagIds]);
 
-  // 都道府県名の設定
+
+
+
+  // 都道府県名を設定
   useEffect(() => {
     const prefectureNames: { [key: string]: string } = {
-      "1": "北海道",
+      "1":  "札幌",
       "13": "東京",
       "14": "神奈川",
       "23": "愛知",
@@ -62,13 +82,21 @@ const DogCafesStoreList: React.FC = () => {
       "27": "大阪",
       "28": "兵庫",
     };
-    setSelectedPrefecture(
-      prefectureNames[prefectureId ?? ""] || "ドッグカフェ情報がありません"
-    );
+    if (prefectureId && prefectureId in prefectureNames) {
+      setSelectedPrefecture(prefectureNames[prefectureId]);
+    } else {
+      setSelectedPrefecture("ドッグカフェ情報がありません");
+    }
   }, [prefectureId]);
 
-  const isPrefectureSupported =
-    selectedPrefecture !== "ドッグカフェ情報がありません";
+
+
+  // タグ選択のハンドリング
+  const handleTagClick = (tagId: number) => {
+    setSelectedTagIds((prev) =>
+      prev.includes(tagId) ? prev.filter((id) => id !== tagId) : [...prev, tagId]
+    );
+  };
 
   return (
     <div
@@ -78,33 +106,70 @@ const DogCafesStoreList: React.FC = () => {
         backgroundColor: "#FAF3E0",
       }}
     >
-      {isPrefectureSupported ? (
+      {selectedPrefecture === "ドッグカフェ情報がありません" ? (
+        <h2 style={{ fontWeight: "bold" }}>{selectedPrefecture}</h2>
+      ) : (
         <>
-          <h2>{selectedPrefecture}のドッグカフェ</h2>
-          <p>条件を絞り込む</p>
-          <div>
-            {dog_cafe_tags.map((dogCafeTag: Dog_cafe_tags ) => (
+          <h2 style={{ fontWeight: "bold" }}>{selectedPrefecture}のドッグカフェ</h2>
+          <p
+            style={{
+              fontSize: "14px",
+              marginBottom: "20px",
+              fontWeight: "bold",
+            }}
+          >
+            ドッグカフェの条件を絞り込む
+          </p>
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "center",
+              gap: "10px",
+            }}
+          >
+            {type3Tag.map((tag) => (
               <button
-                key={dogCafeTag.id}
-                onClick={() => handleClickDogCafeTag(dogCafeTag.id)}
+                key={tag.id}
+                onClick={() => handleTagClick(tag.id)}
                 style={{
-                  marginRight: "10px",
-                  backgroundColor: selectedDogCafeTagIds.includes(dogCafeTag.id)
-                    ? "#B6A28E"
-                    : "white",
+                  backgroundColor: selectedTagIds.includes(tag.id) ? "grey" : "white",
+                  color: "#282d27",
+                  padding: "10px 15px",
+                  border: "1px solid #333",
+                  borderRadius: "20px",
+                  cursor: "pointer",
+                  fontSize: "15px",
                 }}
               >
-                {dogCafeTag.name}
+                {tag.name}
               </button>
             ))}
           </div>
-          <h3>店舗一覧</h3>
-  
-        </>
-      ) : (
-        <>
-          <h2>ドッグカフェ情報がありません</h2>
-          <p>該当するデータが見つかりません。</p>
+          {store.length > 0 ? (
+            store.map((storeItem) => (
+              <div
+                key={storeItem.store_id}
+                style={{
+                  marginBottom: "30px",
+                  border: "1px solid #000000",
+                  borderRadius: "10px",
+                  padding: "20px",
+                  backgroundColor: "#fff",
+                }}
+              >
+                <img src={storeItem.store_img} alt={storeItem.store_name} style={{ width: "400px", height: "300px", borderRadius: "10px" }}/>
+                <p style={{ fontWeight: "bold" }}>{storeItem.store_name}</p>
+                <p>{storeItem.store_description}</p>
+                <p style={{ fontWeight: "bold", display: "inline" }}>住所:</p><p style={{ display: "inline"}}>{storeItem.store_address}</p>
+                <p style={{ display: "inline" }}>{storeItem.store_address}</p><br />
+                <p style= {{ fontWeight: "bold", display: "inline"}}>営業時間:</p> <p style={{ display: "inline"}}>{storeItem.store_opening_hours}</p><br />
+                <p style= {{ fontWeight: "bold", display: "inline"}}>電話: </p> <p style= {{ display: "inline" }}>{storeItem.store_phone_number}</p><br />
+                <a  href={storeItem.store_url} target="_blank" rel="noopener noreferrer">お店の詳細</a>
+              </div>
+            ))
+          ) :  null } {
+          }
         </>
       )}
     </div>
@@ -112,3 +177,8 @@ const DogCafesStoreList: React.FC = () => {
 };
 
 export default DogCafesStoreList;
+
+
+
+
+  

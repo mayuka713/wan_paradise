@@ -109,21 +109,24 @@
     height: auto;
     margin: 0 auto;
   }
- .dogrun-nametag {
-  top: 45%;
-  left: 40%;
- }
+  .dogrun-nametag {
+    top: 54%;
+    left: 40%;
+  }
   .dogcafe-nametag{
     padding-left: 30px;
-    top: 130%;
+    top: 140%;
+    left: 37%;
+    z-index: 10;
   }
 
   .petshop-nametag{
     top: 220%;
+    left: 45%;
   }
   .hospital-nametag{
-    top: 300%;
-    left: 50%;
+    top: 310%;
+    left: 44%;
   }
 
   .footer {

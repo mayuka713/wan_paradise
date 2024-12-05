@@ -13,6 +13,8 @@ const DogrunRegionList: React.FC = () => {
   const navigate = useNavigate();
   const [prefectures, setPrefectures] = useState<Prefecture[]>([]);
 
+
+
   useEffect(() => {
     const fetchPrefectures = async () => {
       try {
@@ -45,7 +47,7 @@ const DogrunRegionList: React.FC = () => {
 
   return (
     <div>
-      <h2>病院を探す</h2>
+      <h2>動物病院を探す</h2>
       <div>
         {Object.keys(regions).map((region) => (
           <div key={region}>
@@ -55,7 +57,14 @@ const DogrunRegionList: React.FC = () => {
                 <span
                   key={pref.id}
                   onClick={() => handleClick(pref.id)} // idを渡す
-                  style={{ cursor: 'pointer', color: pref.name === '東京' ? 'green' : 'black' }}
+                  style={{ cursor: 'pointer', 
+                  color: ['札幌','東京','神奈川','愛知','京都','大阪','兵庫'].includes(pref.name)
+                    ? 'orange'
+                    : 'black',
+                    marginRight:'20px',
+                    marginBottom:'5px',
+                    display: 'inline-block',
+                  }}
                 >
                   {pref.name}・
                 </span>
