@@ -71,8 +71,8 @@ const DogRunDetail: React.FC = () => {
           display: "inline-block",
           marginTop: "10px",
           padding: "10px 20px",
-          backgroundColor: "#007BFF",
-          color: "#fff",
+          fontSize: "13px",
+          color: "#00000",
           textDecoration: "none",
           borderRadius: "5px",
         }}

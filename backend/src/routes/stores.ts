@@ -29,6 +29,7 @@ router.get("/", async (req, res) => {
   }
 });
 
+//特定の都道府県(prefectureId)と店舗タイプ(store_type)に基づいて店舗情報を取得
 router.get("/list/store-type/:prefectureId/:store_type", async (req, res) => {
   const { prefectureId, store_type } = req.params;
 
@@ -68,7 +69,7 @@ router.get("/list/store-type/:prefectureId/:store_type", async (req, res) => {
 });
 
 
-
+//タグに基づく店舗情報の取得
 router.get("/list/tag/:prefectureId", async (req, res) => {
   const { prefectureId } = req.params;
   const { tagIds } = req.query;
@@ -95,7 +96,7 @@ router.get("/list/tag/:prefectureId", async (req, res) => {
       GROUP BY stores.id
     `;
 
-    const values = [prefectureId, tagIdArray, tagIdArray.length];
+    const values = [prefectureId, tagIdArray ];
     const result = await pool.query(query, values);
 
     if (result.rows.length === 0) {

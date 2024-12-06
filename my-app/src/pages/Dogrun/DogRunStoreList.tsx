@@ -25,6 +25,7 @@ const DogRunStoreList: React.FC = () => {
   const [type2Tag, setType2Tag] = useState<Tag[]>([]);
   const [selectedPrefecture, setSelectedPrefecture] = useState<string>("");
   const [selectedTagIds, setSelectedTagIds] = useState<number[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
 
   // 店舗データを取得する
@@ -84,6 +85,29 @@ const DogRunStoreList: React.FC = () => {
     };
     fetchStores();
   }, [prefectureId, selectedTagIds]);
+  
+  // タグデータを取得
+  useEffect(() => {
+    const fetchTags = async () => {
+      try {
+        const response = await fetch(`http://localhost:5003/tags`);
+        if (!response.ok) {
+          throw new Error("タグ情報の取得に失敗しました");
+        }
+        const data: Tag[] = await response.json();
+        const type1 = data.filter((tag) => tag.tag_type === 1);
+        const type2 = data.filter((tag) => tag.tag_type === 2);
+  
+        setType1Tag(type1);
+        setType2Tag(type2);
+        setError(null); // エラーをリセット
+      } catch (error) {
+        console.error(error);
+        setError("タグ情報の取得に失敗しました");
+      }
+    };
+    fetchTags();
+  }, []);
 
 
   // 各都道府県の表示
@@ -109,7 +133,9 @@ const DogRunStoreList: React.FC = () => {
     );
   };
 
+  
   return (
+
     <div
       style={{
         textAlign: "center",
@@ -142,20 +168,19 @@ const DogRunStoreList: React.FC = () => {
               key={tag.id}
               onClick={() => handleTagClick(tag.id)}
               style={{
-                backgroundColor: selectedTagIds.includes(tag.id) ? "grey" : "white",
+                backgroundColor: selectedTagIds.includes(tag.id) ? "#859F3D" : "white",
                 color: "#282d27",
                 padding: "10px 15px",
-                border: "1px solid #333",
                 borderRadius: "20px",
                 cursor: "pointer",
                 fontSize: "15px",
+                transition: "all 0.3s ease",
               }}
             >
               {tag.name}
             </button>
           ))}
-
-        </div>
+         </div>
         <p
           style={{
             fontSize: "14px",
@@ -173,39 +198,37 @@ const DogRunStoreList: React.FC = () => {
             gap: "10px",
           }}
         >
-          {type2Tag.map((tag) => (
+          {type2Tag.map((tag) => (//ドッグランの設備
             <button
               key={tag.id}
               onClick={() => handleTagClick(tag.id)}
               style={{
-                backgroundColor: selectedTagIds.includes(tag.id) ? "grey" : "white",
-                color: "#282d27",
+                backgroundColor: selectedTagIds.includes(tag.id) ? "#859F3D" : "white",
+                color:  selectedTagIds.includes(tag.id) ? "white" : "black",
                 padding: "10px 15px",
-                border: "1px solid #333",
                 borderRadius: "20px",
                 cursor: "pointer",
                 fontSize: "15px",
+                transition: "all 0.3s ease",
               }}
             >
               {tag.name}
             </button>
           ))}
         </div>
-        {store && store.length > 0 && (
+        { store.length > 0 ? (
           store.map((storeItem) => (
             <Link
-              to={`/dogrun/detail/${storeItem.store_id}`}
+              key= {storeItem.store_id}
+              to= {`/dogrun/detail/${storeItem.store_id}`}
               style={{
                 display: "inline-block",
                 marginTop: "10px",
                 padding: "10px 15px",
-                backgroundColor: "gr",
-
                 borderRadius: "5px",
               }}
             >
               <div
-                key={storeItem.store_id}
                 style={{
                   marginBottom: "30px",
                   border: "1px solid #000000",
@@ -226,6 +249,8 @@ const DogRunStoreList: React.FC = () => {
               </div>
             </Link>
           ))
+        ) : (
+          <p>ドッグラン情報がありませんでした</p>
         )}
       </>
     </div>
