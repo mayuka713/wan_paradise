@@ -11,10 +11,7 @@ p {
   transition: color 0.3s ease; /* ホバー時のアニメーション */
 
 }
-p:hover {
-  color: #7dc59d; /* ホバー時に色を濃く */
-  cursor: pointer;
-}
+
 .header {
   font-size: 30px;
   font-weight: bold;

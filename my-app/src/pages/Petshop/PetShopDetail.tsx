@@ -17,6 +17,7 @@ const PetShopDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [store, setStore] = useState<Store | null>(null);
 
+  const MAP_API_KEY = "AIzaSyBamO2vaf6PMNHy3bhMJd_2FO2I6IUgEpE";
   // 店舗情報を取得
   useEffect(() => {
     const fetchStore = async () => {
@@ -64,7 +65,7 @@ const PetShopDetail: React.FC = () => {
           width="100%"
           height="300"
           style={{ border: "0", borderRadius: "8px" }}
-          src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBamO2vaf6PMNHy3bhMJd_2FO2I6IUgEpE&q=${encodeURIComponent(
+          src={`https://www.google.com/maps/embed/v1/place?key=${MAP_API_KEY}&q=${encodeURIComponent(
             store.store_address
           )}`}
           allowFullScreen

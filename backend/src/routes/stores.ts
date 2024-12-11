@@ -34,6 +34,10 @@ router.get("/", async (req, res) => {
 router.get("/list/store-type/:prefectureId/:store_type", async (req, res) => {
   const { prefectureId, store_type } = req.params;
 
+  const parsedPrefectureId = parseInt(prefectureId, 10);
+  const parsedStoreType = parseInt(store_type, 10);
+
+
   try {
     // クエリを構築
     const query = `
@@ -75,6 +79,8 @@ router.get("/list/store-type/:prefectureId/:store_type", async (req, res) => {
 router.get("/list/tag/:prefectureId", async (req, res) => {
   const { prefectureId } = req.params;
   const { tagIds } = req.query;
+
+
 
   if (!tagIds) {
     return res.status(400).json({ message: "タグIDを指定してください" });
@@ -124,6 +130,9 @@ router.get("/list/tag/:prefectureId", async (req, res) => {
 
 router.get("/detail/:id", async (req, res) => {
   const { id } = req.params; // パラメータからidを取得
+
+
+
   try {
     const query = `
       SELECT 

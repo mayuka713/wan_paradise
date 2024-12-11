@@ -1,0 +1,27 @@
+.review-container {
+  padding: 20px;
+  background-color: white;
+}
+.review-title {
+  margin-bottom:  20px;
+}
+
+.review-card {
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.review-rating {
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.review-comment {
+  line-height: 1.5;
+  white-space: pre-wrap;
+}

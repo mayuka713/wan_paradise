@@ -81,40 +81,29 @@ const DogRunStoreList: React.FC = () => {
   };
 
   // 店舗データとレビューを取得して設定する関数
-  const fetchStoresWithReviews = async () => {
+  const fetchStores = async () => {
     try {
       let storeUrl = `http://localhost:5003/stores/list/${prefectureId}`;
       if (selectedTagIds.length > 0) {
         storeUrl = `http://localhost:5003/stores/list/tag/${prefectureId}?tagIds=${selectedTagIds.join(",")}`;
       }
 
-      const [storeResponse, reviewResponse] = await Promise.all([
-        fetch(storeUrl),
-        fetch(`http://localhost:5003/reviews`),
-      ]);
+      const storeResponse = await fetch(storeUrl);
 
-      if (!storeResponse.ok || !reviewResponse.ok) {
+      if (!storeResponse.ok) {
         throw new Error("サーバーからデータを取得できませんでした");
       }
 
       const storeData: Store[] = await storeResponse.json();
-      const allReviews: Review[] = await reviewResponse.json();
-
-      const storesWithReviews = storeData.map((store) => {
-        const reviews = allReviews.filter((review) => review.store_id === store.store_id);
-        return { ...store, reviews };
-      });
-
-      setStore(storesWithReviews);
+      setStore(storeData);
     } catch (error) {
       console.error("データ取得中にエラーが発生しました:", error);
-      setError("店舗データの取得に失敗しました");
     }
   };
 
   // 店舗データとレビューを取得する
   useEffect(() => {
-    fetchStoresWithReviews();
+    fetchStores();
   }, [prefectureId, selectedTagIds]);
 
   return (
@@ -218,7 +207,7 @@ const DogRunStoreList: React.FC = () => {
               ))}
             </div>
             {error && <p style={{ color: "red" }}>{error}</p>}
-            {store.length > 0 ? (
+            {store.length > 0  &&
               store.map((storeItem) => (
                 <Link
                   key={storeItem.store_id}
@@ -255,37 +244,14 @@ const DogRunStoreList: React.FC = () => {
                     <br />
                     <p style={{ fontWeight: "bold", display: "inline" }}>営業時間:</p>{" "}
                     <p style={{ display: "inline " }}>{storeItem.store_opening_hours}</p>
-                    <h4>口コミ</h4>
-                    {storeItem.reviews && storeItem.reviews.length > 0 ? (
-                      storeItem.reviews.map((review) => (
-                        <div key={review.id}>
-                          <p >評価: {review.rating}</p>
-                          <p
-                            style={{
-                              textOverflow: "ellipsis",
-                              whiteSpace: "nowrap",
-                              overflow: "hidden",
-                              fontWeight: "bold",
-                            }}
-                          >
-                            コメント: {review.comment}
-                          </p>
-                        </div>
-                      ))
-                    ) : (
-                      <p>まだ口コミはありません</p>
-                    )}
-                  </div>
-                </Link>
-              ))
-            ) : (
-              <p>ドッグラン情報がありませんでした</p>
+                     </div>
+                  </Link>
+                  ))}
+              </>
             )}
-          </>
-        )}
-      </div>
-    </>
-  );
-};
+        </div>
+       </>
+     );
+   };
 
 export default DogRunStoreList;
