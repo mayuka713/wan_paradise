@@ -1,15 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 
-
 interface Store {
   store_id: number;
   store_name: string;
   store_description: string;
   store_address: string;
+  store_opening_hours: string;
   store_phone_number: string;
   store_dogrun_detail: string;
   store_img: string;
+  reviews: Review[];
+}
+
+interface Review {
+  id: number;
+  store_id: number;
+  rating: number;
+  comment: string;
 }
 
 interface Tag {
@@ -27,66 +35,7 @@ const DogRunStoreList: React.FC = () => {
   const [selectedTagIds, setSelectedTagIds] = useState<number[]>([]);
   const [error, setError] = useState<string | null>(null);
 
-
-  // 店舗データを取得する
-  useEffect(() => {
-    const fetchStores = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:5003/stores/list/${prefectureId}`
-        );
-        const data = await response.json();
-        setStore(data);
-      } catch (error) {
-        console.error("店舗データの取得に失敗しました:", error);
-      }
-    };
-    fetchStores();
-  }, [prefectureId]);
-
-  // タグの一覧
-  useEffect(() => {
-    const fetchTags = async () => {
-      try {
-        const response = await fetch(`http://localhost:5003/tags`);
-        const data: Tag[] = await response.json();
-        //タグを分類する
-        const type1 = data.filter((tag) => tag.tag_type === 1);
-        const type2 = data.filter((tag) => tag.tag_type === 2);
-
-        //状態を更新する
-        setType1Tag(type1);
-        setType2Tag(type2);
-      } catch (error) {
-        console.error("タグ情報の取得に失敗しました:", error);
-      }
-    };
-    fetchTags();
-  }, []);
-
-  // 店舗データを取得
-  useEffect(() => {
-    const fetchStores = async () => {
-      try {
-        let url;
-        if (selectedTagIds.length === 0) {
-          // タグが選択されていない場合は全店舗を取得
-          url = `http://localhost:5003/stores/list/store-type/${prefectureId}/1`;
-        } else {
-          // タグが選択されている場合はフィルタリング
-          url = `http://localhost:5003/stores/list/tag/${prefectureId}?tagIds=${selectedTagIds.join(",")}`;
-        }
-        const response = await fetch(url);
-        const data = await response.json();
-        setStore(data);
-      } catch (error) {
-        console.error("店舗データの取得に失敗しました:", error);
-      }
-    };
-    fetchStores();
-  }, [prefectureId, selectedTagIds]);
-  
-  // タグデータを取得
+  // タグの一覧を取得する
   useEffect(() => {
     const fetchTags = async () => {
       try {
@@ -97,7 +46,7 @@ const DogRunStoreList: React.FC = () => {
         const data: Tag[] = await response.json();
         const type1 = data.filter((tag) => tag.tag_type === 1);
         const type2 = data.filter((tag) => tag.tag_type === 2);
-  
+
         setType1Tag(type1);
         setType2Tag(type2);
         setError(null); // エラーをリセット
@@ -108,7 +57,6 @@ const DogRunStoreList: React.FC = () => {
     };
     fetchTags();
   }, []);
-
 
   // 各都道府県の表示
   useEffect(() => {
@@ -121,9 +69,8 @@ const DogRunStoreList: React.FC = () => {
       "27": "大阪",
       "28": "兵庫",
     };
-    setSelectedPrefecture(
-      prefectureNames[prefectureId ?? ""] || "ドッグラン情報がありません"
-    );
+    const selectedName = prefectureNames[prefectureId ?? ""] || "ドッグラン情報がありません";
+    setSelectedPrefecture(selectedName);
   }, [prefectureId]);
 
   // タグ選択のハンドリング
@@ -133,127 +80,211 @@ const DogRunStoreList: React.FC = () => {
     );
   };
 
-  
+  // 店舗データとレビューを取得して設定する関数
+  const fetchStoresWithReviews = async () => {
+    try {
+      let storeUrl = `http://localhost:5003/stores/list/${prefectureId}`;
+      if (selectedTagIds.length > 0) {
+        storeUrl = `http://localhost:5003/stores/list/tag/${prefectureId}?tagIds=${selectedTagIds.join(",")}`;
+      }
+
+      const [storeResponse, reviewResponse] = await Promise.all([
+        fetch(storeUrl),
+        fetch(`http://localhost:5003/reviews`),
+      ]);
+
+      if (!storeResponse.ok || !reviewResponse.ok) {
+        throw new Error("サーバーからデータを取得できませんでした");
+      }
+
+      const storeData: Store[] = await storeResponse.json();
+      const allReviews: Review[] = await reviewResponse.json();
+
+      const storesWithReviews = storeData.map((store) => {
+        const reviews = allReviews.filter((review) => review.store_id === store.store_id);
+        return { ...store, reviews };
+      });
+
+      setStore(storesWithReviews);
+    } catch (error) {
+      console.error("データ取得中にエラーが発生しました:", error);
+      setError("店舗データの取得に失敗しました");
+    }
+  };
+
+  // 店舗データとレビューを取得する
+  useEffect(() => {
+    fetchStoresWithReviews();
+  }, [prefectureId, selectedTagIds]);
+
   return (
+    <>
+      {/* ヘッダー */}
+      <header
+        style={{
+          fontFamily: "NewCezannePro-M, FOT-ニューセザンヌ Pro M, sans-serif",
+          textAlign: "center",
+          fontSize: "20px",
+          fontWeight: "bold",
+          backgroundColor: "rgb(250, 243, 224)",
+          color: "black",
+          padding: "10px 0",
+        }}
+      >
+        wan paradise
+      </header>
 
-    <div
-      style={{
-        textAlign: "center",
-        padding: "20px",
-        backgroundColor: "#FAF3E0",
-      }}
-    >
-
-      <>
-        <h2>{selectedPrefecture}のドッグラン</h2>
-        <p
-          style={{
-            fontSize: "14px",
-            marginBottom: "20px",
-            fontWeight: "bold",
-          }}
-        >
-          ドッグランの条件を絞り込む
-        </p>
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "center",
-            gap: "10px",
-          }}
-        >
-          {type1Tag.map((tag) => (
-            <button
-              key={tag.id}
-              onClick={() => handleTagClick(tag.id)}
-              style={{
-                backgroundColor: selectedTagIds.includes(tag.id) ? "#859F3D" : "white",
-                color: "#282d27",
-                padding: "10px 15px",
-                borderRadius: "20px",
-                cursor: "pointer",
-                fontSize: "15px",
-                transition: "all 0.3s ease",
-              }}
-            >
-              {tag.name}
-            </button>
-          ))}
-         </div>
-        <p
-          style={{
-            fontSize: "14px",
-            marginBottom: "20px",
-            fontWeight: "bold",
-          }}
-        >
-          ドッグランの設備
-        </p>
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "center",
-            gap: "10px",
-          }}
-        >
-          {type2Tag.map((tag) => (//ドッグランの設備
-            <button
-              key={tag.id}
-              onClick={() => handleTagClick(tag.id)}
-              style={{
-                backgroundColor: selectedTagIds.includes(tag.id) ? "#859F3D" : "white",
-                color:  selectedTagIds.includes(tag.id) ? "white" : "black",
-                padding: "10px 15px",
-                borderRadius: "20px",
-                cursor: "pointer",
-                fontSize: "15px",
-                transition: "all 0.3s ease",
-              }}
-            >
-              {tag.name}
-            </button>
-          ))}
-        </div>
-        { store.length > 0 ? (
-          store.map((storeItem) => (
-            <Link
-              key= {storeItem.store_id}
-              to= {`/dogrun/detail/${storeItem.store_id}`}
-              style={{
-                display: "inline-block",
-                marginTop: "10px",
-                padding: "10px 15px",
-                borderRadius: "5px",
-              }}
-            >
-              <div
-                style={{
-                  marginBottom: "30px",
-                  border: "1px solid #000000",
-                  borderRadius: "10px",
-                  padding: "20px",
-                  backgroundColor: "#fff",
-                }}
-              >
-                <img
-                  src={storeItem.store_img}
-                  alt={storeItem.store_name}
-                  style={{ width: "400px", height: "300px", borderRadius: "10px" }}
-                />
-                <p style={{ fontWeight: "bold" }}>{storeItem.store_name}</p>
-                <p>{storeItem.store_description}</p>
-                <p style={{ fontWeight: "bold", display: "inline" }}>住所:</p> <p style={{ display: "inline" }}>{storeItem.store_address}</p>
-                <p>電話: {storeItem.store_phone_number}</p>
-              </div>
-            </Link>
-          ))
+      <div
+        style={{
+          textAlign: "center",
+          padding: "20px",
+          backgroundColor: "#FAF3E0",
+        }}
+      >
+        {selectedPrefecture === "ドッグラン情報がありません" ? (
+          <h2>{selectedPrefecture}</h2>
         ) : (
-          <p>ドッグラン情報がありませんでした</p>
+          <>
+            <h2>{selectedPrefecture}のドッグラン</h2>
+
+            <p
+              style={{
+                fontSize: "14px",
+                marginBottom: "20px",
+                fontWeight: "bold",
+              }}
+            >
+              ドッグランの条件を絞り込む
+            </p>
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "center",
+                gap: "10px",
+              }}
+            >
+              {type1Tag.map((tag) => (
+                <button
+                  key={tag.id}
+                  onClick={() => handleTagClick(tag.id)}
+                  style={{
+                    backgroundColor: selectedTagIds.includes(tag.id) ? "#859F3D" : "white",
+                    color: "#282d27",
+                    padding: "10px 15px",
+                    borderRadius: "20px",
+                    cursor: "pointer",
+                    fontSize: "15px",
+                    transition: "all 0.3s ease",
+                  }}
+                >
+                  {tag.name}
+                </button>
+              ))}
+            </div>
+            <p
+              style={{
+                fontSize: "14px",
+                marginBottom: "20px",
+                fontWeight: "bold",
+              }}
+            >
+              ドッグランの設備
+            </p>
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "center",
+                gap: "10px",
+              }}
+            >
+              {type2Tag.map((tag) => (
+                <button
+                  key={tag.id}
+                  onClick={() => handleTagClick(tag.id)}
+                  style={{
+                    backgroundColor: selectedTagIds.includes(tag.id) ? "#859F3D" : "white",
+                    color: selectedTagIds.includes(tag.id) ? "white" : "black",
+                    padding: "10px 15px",
+                    borderRadius: "20px",
+                    cursor: "pointer",
+                    fontSize: "15px",
+                    transition: "all 0.3s ease",
+                  }}
+                >
+                  {tag.name}
+                </button>
+              ))}
+            </div>
+            {error && <p style={{ color: "red" }}>{error}</p>}
+            {store.length > 0 ? (
+              store.map((storeItem) => (
+                <Link
+                  key={storeItem.store_id}
+                  to={`/dogrun/detail/${storeItem.store_id}`}
+                  style={{
+                    display: "inline-block",
+                    marginTop: "10px",
+                    padding: "10px 15px",
+                    borderRadius: "5px",
+                    textDecoration: "none",
+                    color: "inherit",
+                  }}
+                >
+                  <div
+                    style={{
+                      marginBottom: "30px",
+                      border: "1px solid #000000",
+                      borderRadius: "10px",
+                      padding: "20px",
+                      backgroundColor: "#fff",
+                    }}
+                  >
+                    <img
+                      src={storeItem.store_img}
+                      alt={storeItem.store_name}
+                      style={{ width: "300px", height: "300px", borderRadius: "10px" }}
+                    />
+                    <p style={{ fontWeight: "bold" }}>{storeItem.store_name}</p>
+                    <p>{storeItem.store_description}</p>
+                    <p style={{ fontWeight: "bold", display: "inline" }}>住所:</p>{" "}
+                    <p style={{ display: "inline" }}>{storeItem.store_address}</p>
+                    <br />
+                    <p style={{ fontWeight: "bold", display: "inline" }}>電話: {storeItem.store_phone_number}</p>
+                    <br />
+                    <p style={{ fontWeight: "bold", display: "inline" }}>営業時間:</p>{" "}
+                    <p style={{ display: "inline " }}>{storeItem.store_opening_hours}</p>
+                    <h4>口コミ</h4>
+                    {storeItem.reviews && storeItem.reviews.length > 0 ? (
+                      storeItem.reviews.map((review) => (
+                        <div key={review.id}>
+                          <p >評価: {review.rating}</p>
+                          <p
+                            style={{
+                              textOverflow: "ellipsis",
+                              whiteSpace: "nowrap",
+                              overflow: "hidden",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            コメント: {review.comment}
+                          </p>
+                        </div>
+                      ))
+                    ) : (
+                      <p>まだ口コミはありません</p>
+                    )}
+                  </div>
+                </Link>
+              ))
+            ) : (
+              <p>ドッグラン情報がありませんでした</p>
+            )}
+          </>
         )}
-      </>
-    </div>
+      </div>
+    </>
   );
 };
 

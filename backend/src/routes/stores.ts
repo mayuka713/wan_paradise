@@ -1,4 +1,4 @@
-import { Router, Request, Response, response, query } from "express";
+import { Router, Request, Response, query } from "express";
 import pool from "../db";
 
 const router = Router();
@@ -15,6 +15,7 @@ interface Store {
   address: string;
   phone: string;
   url: string;
+  opening_hours: string;
   tags: Tag[];
 }
 
@@ -36,17 +37,18 @@ router.get("/list/store-type/:prefectureId/:store_type", async (req, res) => {
   try {
     // クエリを構築
     const query = `
-      SELECT 
-        stores.id AS store_id,
-        stores.name AS store_name,
-        stores.description AS store_description,
-        stores.address AS store_address,
-        stores.phone_number AS store_phone_number,
-        stores.store_url AS store_url,
-        stores.store_img AS store_img
-      FROM stores
-      WHERE stores.prefecture_id = $1
-      AND stores.store_type= $2;
+     SELECT 
+    stores.id AS store_id,
+    stores.name AS store_name,
+    stores.description AS store_description,
+    stores.address AS store_address,
+    stores.phone_number AS store_phone_number,
+    stores.store_url AS store_url,
+    stores.store_img AS store_img,
+    stores.opening_hours AS store_opening_hours
+  FROM stores
+  WHERE stores.prefecture_id = $1
+  AND stores.store_type = $2;
     `;
 
     // パラメータを設定
@@ -88,12 +90,23 @@ router.get("/list/tag/:prefectureId", async (req, res) => {
           stores.address AS store_address,
           stores.phone_number AS store_phone_number,
           stores.store_url AS store_url,
-          stores.store_img AS store_img
+          stores.store_img AS store_img,
+          stores.opening_hours AS store_opening_hours,
+          ARRAY_AGG(tags.name) AS tags
       FROM stores
       JOIN stores_tags ON stores.id = stores_tags.store_id
+      JOIN tags ON stores_tags.tag_id = tags.id 
       WHERE stores.prefecture_id = $1
         AND stores_tags.tag_id = ANY($2::int[])
-      GROUP BY stores.id
+      GROUP BY 
+          stores.id,
+          stores.name,
+          stores.description,
+          stores.address,
+          stores.phone_number,
+          stores.store_url,
+          stores.store_img,
+          stores.opening_hours
     `;
 
     const values = [prefectureId, tagIdArray ];
@@ -121,6 +134,7 @@ router.get("/detail/:id", async (req, res) => {
         stores.phone_number AS store_phone_number,
         stores.store_url AS store_url,
         stores.store_img AS store_img,
+        stores.opening_hours AS store_opening_hours,
         ARRAY_AGG(tags.name) AS tags
       FROM stores
       LEFT JOIN stores_tags ON stores.id = stores_tags.store_id

@@ -17,17 +17,21 @@ import DogRunDetail  from "./pages/Dogrun/DogRunDetail";
 import DogcafePage from "./pages/Dogcafe/DogCafePage";
 import DogCafeRegionList from "./pages/Dogcafe/DogCafeRegionList";
 import DogCafeStoreList from "./pages/Dogcafe/DogCafeStoreList";
+import DogCafeDetail  from "./pages/Dogcafe/DogCafeDetail";
 
 //ペットショップのページ
 import PetshopPage from "./pages/Petshop/PetShopPage";
 import PetShopRegionList from "./pages/Petshop/PetShopRegionList";
 import PetShopStoreList from "./pages/Petshop/PetShopStoreList";
+import PetShopDetail from "./pages/Petshop/PetShopDetail";
 
 //病院のページ
 
 import HospitalPage from "./pages/Hospital/HospitalPage";
 import HospitalRegionList from "./pages/Hospital/HospitalRegionList";
 import HospitalStoreList from "./pages/Hospital/HospitalStoreList";
+import HospitalDetail from "./pages/Hospital/HospitalDetail";
+
 
 const App: React.FC = () => {
   return (
@@ -49,15 +53,19 @@ const App: React.FC = () => {
           <Route path="/dogcafe" element={<DogcafePage />} />
           <Route path="/DogCafeRegionList" element={<DogCafeRegionList />} />
           <Route path="/dogcafe/:prefectureId" element={<DogCafeStoreList />}/>
+          <Route path="/dogcafe/detail/:id" element = {<DogCafeDetail/>} />
           {/* ペットショップページ */}
           <Route path="/petshop" element={<PetshopPage />} />
           <Route path="/petshopregionsList" element={<PetShopRegionList />} />
           <Route path="/petshop/:prefectureId" element={<PetShopStoreList />} />
+          <Route path="/petshop/detail/:id" element = {<PetShopDetail/>} />
           {/* 病院ページ */}
           <Route path="/hospital" element={<HospitalPage />} />
           <Route path="/hospitalregionsList" element={<HospitalRegionList />} />
           <Route path="/hospital/:prefectureId" element={<HospitalStoreList />}/>
-          
+          <Route path="/hospital/detail/:id" element = {<HospitalDetail/>} />
+
+
           <Route path="/components/StoreList" element={<StoresList />} />
         </Routes>
       </div>

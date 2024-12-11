@@ -19,7 +19,7 @@ const DogRunPage: React.FC = () => {
       全国のドッグランを探す
     </p>
     <div>
-      <img src="assets/images/Dogrun/dogrun.png" alt="ドッグランのイラスト" style={{ width: '50%' }} />
+      <img src="https://res.cloudinary.com/do4lxnof9/image/upload/v1733709421/wan_paradise/DogRun/dogrun.illust.png" alt="ドッグランのイラスト" style={{ width: '50%' }} />
     </div>
   </div>
   );

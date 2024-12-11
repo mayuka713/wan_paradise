@@ -1,5 +1,4 @@
 import { Sequelize } from "sequelize";
-import StoreFactory from "./Store";
 import TagFactory from "./Tag";
 import StoreTagFactory from "./StoreTags";
 
@@ -21,8 +20,7 @@ sequelize
   .then(() => console.log("データベースに接続成功"))
   .catch((error) => console.error("データベース接続エラー:", error));
 
-const Store = StoreFactory(sequelize);
 const Tag = TagFactory(sequelize);
 const StoreTag = StoreTagFactory(sequelize);
 
-export { sequelize, Store, Tag, StoreTag,  };
+export { sequelize, Tag, StoreTag,  };

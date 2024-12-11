@@ -4,7 +4,7 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.bulkInsert('prefectures', [
-      { name: '札幌', region: '北海道', createdAt: new Date(), updatedAt: new Date() },
+      { name: '北海道', region: '北海道', createdAt: new Date(), updatedAt: new Date() },
       { name: '青森県', region: '東北', createdAt: new Date(), updatedAt: new Date() },
       { name: '岩手県', region: '東北', createdAt: new Date(), updatedAt: new Date() },
       { name: '宮城県', region: '東北', createdAt: new Date(), updatedAt: new Date() },

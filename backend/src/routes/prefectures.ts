@@ -1,5 +1,5 @@
-import { Router, Request, Response } from 'express';
-import pool from '../db'; // データベース接続を提供するファイル (例: db.ts)
+import { Router, Request , Response } from 'express';
+import pool  from '../db'; // データベース接続を提供するファイル (例: db.ts)
 
 const router = Router();
 

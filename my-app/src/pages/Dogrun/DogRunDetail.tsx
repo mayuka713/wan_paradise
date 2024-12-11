@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-
-
 interface Store {
   store_id: number;
   store_name: string;
   store_description: string;
   store_address: string;
+  store_opening_hours: string;
   store_phone_number: string;
   store_url: string;
   store_img: string;
@@ -28,6 +27,8 @@ const DogRunDetail: React.FC = () => {
           throw new Error(`サーバーエラー: ${response.status}`);
         }
         const data = await response.json();
+        console.log(data);
+        
         setStore(data);
       } catch (error) {
         console.error("店舗情報の取得に失敗しました:", error);
@@ -35,11 +36,6 @@ const DogRunDetail: React.FC = () => {
     };
     fetchStores();
   }, [id]);
-
- 
-
-
-
 
   // storeがnullの場合の処理
   if (!store) {
@@ -51,7 +47,7 @@ const DogRunDetail: React.FC = () => {
   } 
   return (
     <div style={{ padding: "20px", backgroundColor: "#FAF3E0", textAlign: "center" }}>
-      <h1>{store.store_name}</h1>
+     <h1 style={{ fontSize: '1rem' }}>{store.store_name}</h1>
       <img
         src={store.store_img}
         alt={store.store_name}
@@ -62,7 +58,21 @@ const DogRunDetail: React.FC = () => {
         <strong>住所: </strong>
         {store.store_address}
       </p>
+    {/*/Google map 埋め込み*/}
+      <div style={{ margin: "20px 0"}}>
+       <iframe 
+       title="Google Map"
+       width="100%"
+       height="300"
+       style={{ border: "0", borderRadius: "8px" }}
+       src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBamO2vaf6PMNHy3bhMJd_2FO2I6IUgEpE&q=${encodeURIComponent(
+         store.store_address
+       )}`}
+       allowFullScreen
+       ></iframe>
+      </div>
       <p>電話番号: {store.store_phone_number}</p>
+      <p>営業時間: {store.store_opening_hours}</p>  
       <a
         href={store.store_url}
         target="_blank"

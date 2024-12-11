@@ -4,13 +4,13 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.bulkInsert('stores', [
-      //北海道 ドッグラン
-      {
+      //北海道 ドッグラン 1
+      { 
         name: 'わんぱーく西野',
         description: '自然に囲まれた2000坪のドッグランで、大型犬でも楽しめます。',
         store_type: 1,
-        prefecture_id: 1, // 北海道
-        opening_hours: '9:30〜20:00',
+        prefecture_id: 1, 
+        opening_hours: '9:30〜20:00 (定休日)元旦のみ休業',
         address: '北海道札幌市西区小別沢13',
         phone_number: '011-667-0418',
         store_url: 'http://wanpark.la.coocan.jp/',
@@ -18,12 +18,12 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
-      {
+      { 
         name: 'バーナードスクエア',
         description: 'ドッグカフェに併設されたドッグランで、広々とした敷地が特徴です。',
         store_type: 1,
         prefecture_id: 1, // 北海道
-        opening_hours: '12:00〜19:00',
+        opening_hours: '11:00〜20:00 （ラストオーダー 19:30）(定休日) 木曜日' ,
         address: '北海道札幌市南区中ノ沢1-11-17',
         phone_number: '011-578-5576',
         store_url: 'http://www.bsq.jp/top.html',
@@ -35,8 +35,8 @@ module.exports = {
         name: 'ドッグラン＆カフェ プロムナード',
         description: '飼い主さんはもちろんワンちゃん用のメニューも充実しているドッグラン＆ドッグカフェです。',
         store_type: 1,
-        prefecture_id: 1, // 北海道
-        opening_hours: '11:00〜17:00',
+        prefecture_id: 1, 
+        opening_hours: '夏季（4月〜8月）: 11:00～18:00 冬季（9月〜3月）: 11:00～17:00 (定休日) 木曜日（※水曜日にご来店の際は、事前にお電話での確認をおすすめします）',
         address: '北海道千歳市みどり台北1丁目8-1',
         phone_number: '0123-22-0086',
         store_url: 'https://c-promenade.com/',
@@ -44,13 +44,12 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
-      //北海道ドッグカフェここから
       {
         name: 'SUNNYSPOT',
         description: 'ドッグカフェに併設されたドッグランで、田園風景に囲まれたのどかな空間です。',
         store_type: 1,
-        prefecture_id: 1, // 北海道
-        opening_hours: '10月～4月 10:30 ～ 18:00、5月～9月 10:30 ～ 18:30',
+        prefecture_id: 1, 
+        opening_hours: '10月～4月 10:30 ～ 18:00、5月～9月 10:30 ～ 18:30  (定休日)月曜日、火曜日、水曜日（祝日の場合は営業）',
         address: '北海道上川郡東川町西11号北24番地',
         phone_number: '0166-82-4004',
         store_url: 'https://sunnyspot.pupu.jp/',
@@ -58,8 +57,59 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
-
-      //北海道ドッグカフェここまで ------------------
+      {
+        name: '鹿公園ドッグラン',
+        description: '飼い主さんはもちろんワンちゃん用のメニューも充実しているドッグラン＆ドッグカフェです。',
+        store_type: 1,
+        prefecture_id: 1, 
+        opening_hours: '24時間営業',
+        address: '北海道勇払郡安平町追分白樺2丁目1',
+        phone_number: '0145-25-2496',
+        store_url: 'https://dogrun-uzuz.com/dogruns/359',
+        store_img: '',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: 'ノーザンホースパーク',
+        description: '新千歳空港より車で15分。旅の途中に気軽に立ち寄れる馬と自然のテーマパークです。',
+        store_type: 1,
+        prefecture_id: 1, 
+        opening_hours: '夏季（4月15日～11月5日）:9:00～17:00 冬季（11月6日～4月9日）: 休園日:10:00～16:00 4月10日～4月14日',
+        address: '北海道苫小牧市美沢114-7',
+        phone_number: '0144-58-2216',
+        store_url: 'https://www.northern-horsepark.jp/price/',
+        store_img: '',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: '樽井川公園 ドッグラン',
+        description: '広さ3,300㎡の無料ドッグラン。',
+        store_type: 1,
+        prefecture_id: 1, // 北海道
+        opening_hours: '24時間利用可能 (毎年4月上旬から12月上旬まで利用可能です。ただし、冬季（12月中旬から4月中旬）は閉鎖されます。)',
+        address: '北海道石狩市花川北6条1丁目30番地2',
+        phone_number: '0133-72-3111',
+        store_url: 'https://www.city.ishikari.hokkaido.jp/soshiki/toshis/2915.html',
+        store_img: '',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      }, 
+      {
+        name: 'いわみざわ公園 ドッグラン',
+        description: 'いわみざわ公園は北海道岩見沢市の南東部の丘陵地帯にあり約183ヘクタールの広さを持つ総合公園です。',
+        store_type: 1,
+        prefecture_id: 1, // 北海道
+        opening_hours: '  利用時間:9:00～17:00 冬期間閉鎖（開設期間は休場日なし）',
+        address: '北海道岩見沢市志文町794',
+        phone_number: '0126-25-6111',
+        store_url: 'https://iwamizawa-park.com/',
+        store_img: 'https://res.cloudinary.com/do4lxnof9/image/upload/v1732681763/wan_paradise/DogRun/Promnard.dogrun-Hokkaido.png',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    
 
       //東京ドッグランここから
       {
@@ -114,6 +164,47 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+       
+      {
+        name: 'SUNNYSPOT',
+        description: 'ドッグカフェに併設されたドッグランで、田園風景に囲まれたのどかな空間です。',
+        store_type: 1,
+        prefecture_id: 13, // 北海道
+        opening_hours: '10月～4月 10:30 ～ 18:00、5月～9月 10:30 ～ 18:30',
+        address: '北海道上川郡東川町西11号北24番地',
+        phone_number: '0166-82-4004',
+        store_url: 'https://sunnyspot.pupu.jp/',
+        store_img: 'https://res.cloudinary.com/do4lxnof9/image/upload/v1732681766/wan_paradise/DogRun/Sunnyspot.dogrun-Hokkaido.png',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: 'SUNNYSPOT',
+        description: 'ドッグカフェに併設されたドッグランで、田園風景に囲まれたのどかな空間です。',
+        store_type: 1,
+        prefecture_id: 13, // 北海道
+        opening_hours: '10月～4月 10:30 ～ 18:00、5月～9月 10:30 ～ 18:30',
+        address: '北海道上川郡東川町西11号北24番地',
+        phone_number: '0166-82-4004',
+        store_url: 'https://sunnyspot.pupu.jp/',
+        store_img: 'https://res.cloudinary.com/do4lxnof9/image/upload/v1732681766/wan_paradise/DogRun/Sunnyspot.dogrun-Hokkaido.png',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: 'SUNNYSPOT',
+        description: 'ドッグカフェに併設されたドッグランで、田園風景に囲まれたのどかな空間です。',
+        store_type: 1,
+        prefecture_id: 13, // 北海道
+        opening_hours: '10月～4月 10:30 ～ 18:00、5月～9月 10:30 ～ 18:30',
+        address: '北海道上川郡東川町西11号北24番地',
+        phone_number: '0166-82-4004',
+        store_url: 'https://sunnyspot.pupu.jp/',
+        store_img: 'https://res.cloudinary.com/do4lxnof9/image/upload/v1732681766/wan_paradise/DogRun/Sunnyspot.dogrun-Hokkaido.png',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      //東京ドッグランここまで
       //神奈川ドッグラン
       {
         name: '海の公園 ドッグラン',
@@ -151,6 +242,58 @@ module.exports = {
         phone_number: '045-476-2820',
         store_url: 'http://www.shinyoko-dogrun.com/',
         store_img: 'https://res.cloudinary.com/do4lxnof9/image/upload/v1733109800/wan_paradise/DogRun/shinyokohama.dogrun-kanagawa.png',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: 'アーセンプレイス',
+        description: '横須賀市秋谷「子安の里」にある ドッグラン併設のガーデンカフェです。',
+        store_type: 1,
+        prefecture_id: 14, // 神奈川県
+        opening_hours: '11:00〜16:00',
+        address: '神奈川県横須賀市秋谷3741',
+        phone_number: '046-856-9210',
+        store_url: 'https://earthen-place.com/',
+        store_img: 'https://res.cloudinary.com/do4lxnof9/image/upload/v1733109775/wan_paradise/DogRun/earthplace.dogrun-kanagawa.png',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: 'アーセンプレイス',
+        description: '横須賀市秋谷「子安の里」にある ドッグラン併設のガーデンカフェです。',
+        store_type: 1,
+        prefecture_id: 14, // 神奈川県
+        opening_hours: '11:00〜16:00',
+        address: '神奈川県横須賀市秋谷3741',
+        phone_number: '046-856-9210',
+        store_url: 'https://earthen-place.com/',
+        store_img: 'https://res.cloudinary.com/do4lxnof9/image/upload/v1733109775/wan_paradise/DogRun/earthplace.dogrun-kanagawa.png',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: 'アーセンプレイス',
+        description: '横須賀市秋谷「子安の里」にある ドッグラン併設のガーデンカフェです。',
+        store_type: 1,
+        prefecture_id: 14, // 神奈川県
+        opening_hours: '11:00〜16:00',
+        address: '神奈川県横須賀市秋谷3741',
+        phone_number: '046-856-9210',
+        store_url: 'https://earthen-place.com/',
+        store_img: 'https://res.cloudinary.com/do4lxnof9/image/upload/v1733109775/wan_paradise/DogRun/earthplace.dogrun-kanagawa.png',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: 'アーセンプレイス',
+        description: '横須賀市秋谷「子安の里」にある ドッグラン併設のガーデンカフェです。',
+        store_type: 1,
+        prefecture_id: 14, // 神奈川県
+        opening_hours: '11:00〜16:00',
+        address: '神奈川県横須賀市秋谷3741',
+        phone_number: '046-856-9210',
+        store_url: 'https://earthen-place.com/',
+        store_img: 'https://res.cloudinary.com/do4lxnof9/image/upload/v1733109775/wan_paradise/DogRun/earthplace.dogrun-kanagawa.png',
         createdAt: new Date(),
         updatedAt: new Date(),
       },

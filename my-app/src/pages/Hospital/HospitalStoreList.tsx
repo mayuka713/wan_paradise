@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-
+import { useParams, Link } from "react-router-dom";
 
 interface Store {
   store_id: number;
   store_name: string;
   store_description: string;
   store_address: string;
-  store_opening_hours: number;
+  store_opening_hours: string;
   store_phone_number: string;
   store_url: string;
   store_img: string;
-  tags: { id: number; name: string }[];
 }
 
 interface Tag {
@@ -21,46 +19,50 @@ interface Tag {
 }
 
 const HospitalStoreList: React.FC = () => {
-  const { prefectureId } = useParams<{ prefectureId: string }>(); // URLのパラメータから都道府県IDを取得する
-  const [store, setStore] = useState<Store[]>([]);// 病院リストの状態を定義する
-  const [type4Tag, setType4Tag] = useState<Tag[]>([]);
+  const { prefectureId } = useParams<{ prefectureId: string }>();
+  const [store, setStore] = useState<Store[]>([]);
+  const [type5Tag, setType5Tag] = useState<Tag[]>([]);
   const [selectedTagIds, setSelectedTagIds] = useState<number[]>([]);
   const [selectedPrefecture, setSelectedPrefecture] = useState<string>("");
+  const [error, setError] = useState<string | null>(null);
 
-  // タグの一覧
-  useEffect(() => {
-    const fetchTags = async () => {
-      try {
-        const response = await fetch(`http://localhost:5003/tags`); // タグデータを取得
-        const data: Tag[] = await response.json();
-        const type4 = data.filter((tag) => tag.tag_type === 4);
-        setType4Tag(type4); // 取得したデータを状態に設定
-      } catch (error) {
-        console.error("タグデータの取得に失敗しました:", error);
-      }
-    };
-    fetchTags();
-  }, []);
-
-  //病院データの取得
+  // 店舗データを取得
   useEffect(() => {
     const fetchStores = async () => {
       try {
         let url;
-        if ( selectedTagIds.length === 0) {
+        if (selectedTagIds.length === 0) {
           url = `http://localhost:5003/stores/list/store-type/${prefectureId}/4`;
         } else {
           url = `http://localhost:5003/stores/list/tag/${prefectureId}?tagIds=${selectedTagIds.join(",")}`;
         }
+        
         const response = await fetch(url);
         const data = await response.json();
         setStore(data);
       } catch (error) {
-        console.error("病院データの取得に失敗しました:", error);
+        console.error("店舗データの取得に失敗しました:", error);
       }
     };
     fetchStores();
   }, [prefectureId, selectedTagIds]);
+
+  //バックエンドへのリクエスト箇所
+  // タグの一覧
+  useEffect(() => {
+    const fetchTags = async () => {
+      try {
+        const response = await fetch(`http://localhost:5003/tags`);//http://localhost:5003/tagsがバックエンドリクエスト先
+        const data: Tag[] = await response.json();
+        const type5 = data.filter((tag) => tag.tag_type === 5);
+        setType5Tag(type5);
+      } catch (error) {
+        console.error("タグ情報の取得に失敗しました:", error);
+        setError("タグの情報の取得に失敗しました");
+      }
+    };
+    fetchTags();
+  }, []);
 
 
   // 都道府県名を設定
@@ -74,32 +76,50 @@ const HospitalStoreList: React.FC = () => {
       "27": "大阪",
       "28": "兵庫",
     };
-    if (prefectureId && prefectureId in prefectureNames) {
-      setSelectedPrefecture(prefectureNames[prefectureId]);
-    } else {
-      setSelectedPrefecture("動物病院の情報がありません");
-    }
+    const selectedName = prefectureNames[prefectureId ?? ""] || "動物病院の情報がありません";
+    setSelectedPrefecture(selectedName);
   }, [prefectureId]);
 
-  //タグ選択のハンドリング
+
+
+  // タグ選択のハンドリング
   const handleTagClick = (tagId: number) => {
     setSelectedTagIds((prev) =>
       prev.includes(tagId) ? prev.filter((id) => id !== tagId) : [...prev, tagId]
     );
   };
 
+
   return (
-    <div style={{
-      textAlign: 'center',
-      padding: '20px',
-      backgroundColor: '#FAF3E0',
-    }}
+    <>
+    {/* ヘッダー */}
+    <header
+      style={{
+        fontFamily: "NewCezannePro-M, FOT-ニューセザンヌ Pro M, sans-serif",
+        textAlign: "center",
+        fontSize: "20px",
+        fontWeight: "bold",
+        backgroundColor: "rgb(250, 243, 224)",
+        color: "black",
+        padding: "10px 0",
+      }}
     >
-      {selectedPrefecture === "動物病院の情報がありません" ? (
+      wan paradise
+    </header>
+
+    <div
+      style={{
+        textAlign: "center",
+        padding: "20px",
+        backgroundColor: "#FAF3E0",
+      }}>
+     {error ? (
+          <p style={{ color: "red" }}>{error}</p>
+     ) : selectedPrefecture === "動物病院の情報がありません" ? (
         <h2 style={{ fontWeight: "bold" }}>{selectedPrefecture}</h2>
       ) : (
         <>
-          <h2 style={{ fontWeight: "bold" }}>{selectedPrefecture}の動物病院</h2>
+          <h2 style={{ fontWeight: "bold" }}>{selectedPrefecture}の動物病院の一覧</h2>
           <p
             style={{
               fontSize: "14px",
@@ -117,7 +137,7 @@ const HospitalStoreList: React.FC = () => {
               gap: "10px",
             }}
           >
-            {type4Tag.map((tag) => (
+            {type5Tag.map((tag) => (
               <button
                 key={tag.id}
                 onClick={() => handleTagClick(tag.id)}
@@ -137,31 +157,46 @@ const HospitalStoreList: React.FC = () => {
           </div>
           {store.length > 0 ? (
             store.map((storeItem) => (
-              <div
+              <Link
                 key={storeItem.store_id}
+                to={`/hospital/detail/${storeItem.store_id}`}
                 style={{
-                  marginBottom: "30px",
-                  border: "1px solid #000000",
-                  borderRadius: "10px",
-                  padding: "20px",
-                  backgroundColor: "#fff",
+                  display: "inline-block",
+                  marginTop: "10px",
+                  padding: "10px 15px",
+                  borderRadius: "5px",
                 }}
               >
-                <img src={storeItem.store_img} alt={storeItem.store_name} style={{ width: "400px", height: "300px", borderRadius: "10px" }} />
-                <p style={{ fontWeight: "bold" }}>{storeItem.store_name}</p>
-                <p>{storeItem.store_description}</p>
-                <p style={{ fontWeight: "bold", display: "inline" }}>住所:</p><p style={{ display: "inline" }}>{storeItem.store_address}</p>
-                <p style={{ display: "inline" }}>{storeItem.store_address}</p><br />
-                <p style={{ fontWeight: "bold", display: "inline" }}>営業時間:</p> <p style={{ display: "inline" }}>{storeItem.store_opening_hours}</p><br />
-                <p style={{ fontWeight: "bold", display: "inline" }}>電話: </p> <p style={{ display: "inline" }}>{storeItem.store_phone_number}</p><br />
-                <a href={storeItem.store_url} target="_blank" rel="noopener noreferrer">お店の詳細</a>
-              </div>
+                <div
+                  style={{
+                    marginBottom: "30px",
+                    border: "1px solid #000000",
+                    borderRadius: "10px",
+                    padding: "20px",
+                    backgroundColor: "#fff",
+                  }}
+                >
+                  <img
+                    src={storeItem.store_img}
+                    alt={storeItem.store_name}
+                    style={{ width: "400px", height: "300px", borderRadius: "10px" }}
+                  />
+                  <p style={{ fontWeight: "bold" }}>{storeItem.store_name}</p>
+                  <p>{storeItem.store_description}</p>
+                  <p style={{ fontWeight: "bold", display: "inline" }}>住所:</p> <p style={{ display: "inline" }}>{storeItem.store_address}</p>
+                  <p>電話: {storeItem.store_phone_number}</p>
+                </div>
+              </Link>
             ))
-          ) : null} {
-          }
+          ) : (
+            <p>動物病院の情報がありませんでした</p>
+          )}
         </>
       )}
     </div>
-  );
-};
+    </>
+    );
+  };
+
 export default HospitalStoreList;
+

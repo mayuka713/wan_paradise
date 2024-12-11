@@ -1,12 +1,11 @@
-//都道府県ごとに分類したドッグラン情報を地域ごとに表示し、各都道府県名をクリックすることで該当のドッグランページに遷移できるようにする
-
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./DogRunRegionList.css";
 
 interface Prefecture {
   id: number;
   name: string;
-  region: string; 
+  region: string;
 }
 
 const DogrunRegionList: React.FC = () => {
@@ -16,7 +15,7 @@ const DogrunRegionList: React.FC = () => {
   useEffect(() => {
     const fetchPrefectures = async () => {
       try {
-        const response = await fetch('http://localhost:5003/prefectures/'); // エンドポイントを確認
+        const response = await fetch("http://localhost:5003/prefectures/");
         if (!response.ok) {
           throw new Error("Failed to fetch prefectures");
         }
@@ -27,14 +26,13 @@ const DogrunRegionList: React.FC = () => {
       }
     };
 
-    fetchPrefectures(); // ページが開かれた時にリクエストを実行
-  }, []); // 空の配列を依存配列として指定
+    fetchPrefectures();
+  }, []);
 
   const handleClick = (id: number) => {
     navigate(`/dogrun/${id}`);
   };
 
-  // reduce関数を使って、都道府県をregion（地方）ごとにグループ化。
   const regions = prefectures.reduce((acc: { [region: string]: Prefecture[] }, prefecture) => {
     if (!acc[prefecture.region]) {
       acc[prefecture.region] = [];
@@ -44,25 +42,23 @@ const DogrunRegionList: React.FC = () => {
   }, {});
 
   return (
-    <div>
-      <h2>DogRunを探す</h2>
-      <div>
+    <div className="region-list-container">
+      <h2 className="region-list-title">DogRunを探す</h2>
+      <div className="region-list-content">
         {Object.keys(regions).map((region) => (
-          <div key={region}>
-            <h3>{region}</h3>
-            <p>
+          <div key={region} className="region-section">
+            <h3 className="region-title">{region}</h3>
+            <div className="prefecture-list">
               {regions[region].map((pref) => (
-                <span
+                <button
                   key={pref.id}
-                  onClick={() => handleClick(pref.id)} // idを渡す
-                  style={{ cursor: 'pointer', color: pref.name === '東京' ? 'green' : 'black',
-                    marginRight: '10px',
-                   }}
+                  onClick={() => handleClick(pref.id)}
+                  className= "prefecture-button "
                 >
                   {pref.name}
-                </span>
+                </button>
               ))}
-            </p>
+            </div>
           </div>
         ))}
       </div>
