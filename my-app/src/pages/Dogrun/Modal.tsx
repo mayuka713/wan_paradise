@@ -6,9 +6,10 @@ interface ModalProps {
   show: boolean;
   onClose: () => void;
   onSubmit: (rating: number, comment: string) => void;
-}
+  storeName: string;
+} 
 
-const Modal: React.FC<ModalProps> = ({ show, onClose, onSubmit }) => {
+const Modal: React.FC<ModalProps> = ({ show, onClose, onSubmit ,storeName}) => {
   const [selectedRating, setSelectedRating] = useState<number>(0); // 評価の初期値
   const [comment, setComment] = useState<string>(""); // コメントの初期値
 
@@ -42,6 +43,7 @@ const Modal: React.FC<ModalProps> = ({ show, onClose, onSubmit }) => {
         <span className="close" onClick={onClose}>
           &times;
         </span>
+        <h1>{storeName}</h1>
         <h2>口コミを投稿</h2>
         <form onSubmit={handleSubmit} style={{ marginTop: "20px" }}>
           <div style={{ marginBottom: "10px" }}>
@@ -62,7 +64,7 @@ const Modal: React.FC<ModalProps> = ({ show, onClose, onSubmit }) => {
           </div>
           <div style={{ marginBottom: "10px" }}>
             <label>
-              コメント:
+              口コミ:
               <textarea
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}

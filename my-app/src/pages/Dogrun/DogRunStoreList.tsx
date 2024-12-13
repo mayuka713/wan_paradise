@@ -81,30 +81,27 @@ const DogRunStoreList: React.FC = () => {
   };
 
   // 店舗データとレビューを取得して設定する関数
-  const fetchStores = async () => {
-    try {
-      let storeUrl = `http://localhost:5003/stores/list/${prefectureId}`;
-      if (selectedTagIds.length > 0) {
-        storeUrl = `http://localhost:5003/stores/list/tag/${prefectureId}?tagIds=${selectedTagIds.join(",")}`;
-      }
-
-      const storeResponse = await fetch(storeUrl);
-
-      if (!storeResponse.ok) {
-        throw new Error("サーバーからデータを取得できませんでした");
-      }
-
-      const storeData: Store[] = await storeResponse.json();
-      setStore(storeData);
-    } catch (error) {
-      console.error("データ取得中にエラーが発生しました:", error);
-    }
-  };
-
-  // 店舗データとレビューを取得する
   useEffect(() => {
+    const fetchStores = async () => {
+      try {
+        const response = await fetch(`http://localhost:5003/stores/list/${prefectureId}`);
+        console.log("リクエストURL:", `http://localhost:5003/stores/list/${prefectureId}`);
+  
+        if (!response.ok) {
+          throw new Error("データ取得に失敗しました");
+        }
+  
+        const data = await response.json();
+        console.log("取得した店舗データ:", data);
+        setStore(data);
+      } catch (error) {
+        console.error("データ取得中にエラーが発生しました:", error);
+      }
+    };
+  
     fetchStores();
-  }, [prefectureId, selectedTagIds]);
+  }, [prefectureId]);
+  
 
   return (
     <>

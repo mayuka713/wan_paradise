@@ -28,9 +28,9 @@ interface PrefectureRequest extends Request {
 }
 
 // `/stores/list/:prefectureId` エンドポイント: 都道府県IDに基づいて店舗情報を取得
-router.get('/stores/list/:prefecture', async (req: PrefectureRequest, res: Response) => {
+router.get('/list/tag/:prefectureId', async (req: PrefectureRequest, res: Response) => {
   const { prefectureId } = req.params;
-  const prefectureIdNum = parseInt(prefectureId); // 数値に変換
+  const {tagIds} = req.query;
 
   try {
     // `prefectureId` を条件に店舗情報を取得

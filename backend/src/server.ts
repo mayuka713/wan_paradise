@@ -11,10 +11,12 @@ import tagsFacilityRouter from './routes/tags_facility';
 import dogcafetagsRouter from './routes/dogcafe_tags';
 import reviewRouter from './routes/review'; // モデルをインポート
 
+
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5003;
+
 
 // ミドルウェアの設定
 app.use(express.json());
@@ -40,7 +42,7 @@ app.use('/prefectures', prefectureRoutes);
 app.use('/tags', tagsRouter);
 app.use('/tags_facility', tagsFacilityRouter);
 app.use('/dog_cafe_tags', dogcafetagsRouter);
-app.use('/reviews', reviewRouter)
+app.use('/reviews', reviewRouter);
 
 // サーバー起動
 app.listen(PORT, () => {

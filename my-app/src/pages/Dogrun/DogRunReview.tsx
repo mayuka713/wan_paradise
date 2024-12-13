@@ -22,7 +22,9 @@ const ReviewList: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedRating, setSelectedRating] = useState<number>(0);
   const [averageRating, setAverageRating] = useState<number>(0);
+  const [storeName, setStoreName] = useState<string>("");
 
+  //口コミを取得
   useEffect(() => {
     const fetchReviews = async () => {
       try {
@@ -48,9 +50,24 @@ const ReviewList: React.FC = () => {
       }
     };
 
-    fetchReviews();
-  }, [storeId]);
 
+ //店舗名を取得する
+  const fetchStoreName = async () => {
+    try {
+      const response = await fetch(`http://localhost:5003/stores/store-name/${storeId}`);
+      const data = await response.json();
+      console.log("取得した店舗データ");
+      setStoreName(data.store_name);
+    } catch (error){
+      setError("店舗情報の取得に失敗しました");
+    }
+  };
+  fetchReviews();
+  fetchStoreName();
+}, [storeId]);
+
+
+//口コミ投稿処理
   const handleReviewSubmit = async (rating: number, comment: string) => {
     try {
       console.log("storeId:", storeId);
@@ -86,6 +103,7 @@ const ReviewList: React.FC = () => {
   return (
     <div className="review-container">
       {/* 平均評価を表示 */}
+      <h1 className = "store-name">{storeName || "店舗名を取得中"}</h1>
       <div className="average-rating">
         {[1, 2, 3, 4, 5].map((value) => (
           <span
@@ -96,20 +114,9 @@ const ReviewList: React.FC = () => {
           </span>
         ))}
       </div>
-
-      {/* 星の選択 */}
-      <div className="star-rating">
-        {[1, 2, 3, 4, 5].map((value) => (
-          <span
-            key={value}
-            className={`star ${value <= selectedRating ? "selected" : ""}`}
-            onClick={() => handleStarClick(value)}
-          >
-            ★
-          </span>
-        ))}
-      </div>
-
+      <span className="average-rating-value">
+        {averageRating.toFixed(1)} 
+      </span>
       <h2 className="review-title">口コミ一覧</h2>
       <button onClick={() => setShowModal(true)} style={{ marginTop: "20px" }}>
         投稿
@@ -121,7 +128,7 @@ const ReviewList: React.FC = () => {
             <strong>評価:</strong> {review.rating}
           </p>
           <p className="review-comment">
-            <strong>コメント:</strong> {review.comment}
+            <strong>口コミ:</strong> {review.comment}
           </p>
         </div>
       ))}
@@ -130,6 +137,7 @@ const ReviewList: React.FC = () => {
           show={showModal}
           onClose={() => setShowModal(false)}
           onSubmit={(rating: number, comment: string) => handleReviewSubmit(rating, comment)}
+          storeName={storeName} 
         />
       )}
     </div>
