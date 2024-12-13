@@ -25,3 +25,15 @@
   line-height: 1.5;
   white-space: pre-wrap;
 }
+
+.star-rating {
+  display: flex;
+  flex-direction: row;
+}
+
+.star {
+  font-size: 2rem; /* 星のサイズ */
+  color: #ccc; /* デフォルトの色（グレー） */
+  cursor: pointer; /* ホバー時にカーソルを変える */
+}
+

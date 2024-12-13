@@ -7,7 +7,7 @@ interface Store {
   store_description: string;
   store_address: string;
   store_opening_hours: string;
-  store_phone_number: string;
+  store_phone_number: string;  
   store_dogrun_detail: string;
   store_img: string;
   reviews: Review[];

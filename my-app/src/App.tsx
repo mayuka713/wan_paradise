@@ -12,7 +12,8 @@ import DogrunRegionList from "./pages/Dogrun/DogrunRegionList";
 import StoresList from "./components/StoresList";
 import DogRunStoreList from "./pages/Dogrun/DogRunStoreList";
 import DogRunDetail  from "./pages/Dogrun/DogRunDetail";
-import ReviewList from "./pages/Dogrun//DogRunReview";
+import DogRunReview from "./pages/Dogrun/DogRunReview";
+
 
 
 //ドッグカフェのページ
@@ -51,7 +52,8 @@ const App: React.FC = () => {
           <Route path="/DogrunRegionsList" element={<DogrunRegionList />} />
           <Route path="/dogrun/:prefectureId" element={<DogRunStoreList />} />
           <Route path="/dogrun/detail/:id" element = { <DogRunDetail />} /> 
-          <Route path="/dogrun/reviews/:storeId" element = {<ReviewList/>} />
+          <Route path="/dogrun/reviews/:storeId" element = {<DogRunReview/>} />
+
           {/* ドッグカフェページ */}   
           <Route path="/dogcafe" element={<DogcafePage />} />
           <Route path="/DogCafeRegionList" element={<DogCafeRegionList />} />
@@ -69,7 +71,9 @@ const App: React.FC = () => {
           <Route path="/hospital/detail/:id" element = {<HospitalDetail/>} />
 
 
+        
           <Route path="/components/StoreList" element={<StoresList />} />
+          <Route path="/store/:storeId" element={<DogRunReview />} />
         </Routes>
       </div>
     </Router>

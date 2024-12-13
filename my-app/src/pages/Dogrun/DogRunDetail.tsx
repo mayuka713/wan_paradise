@@ -128,20 +128,10 @@ const DogRunDetail: React.FC = () => {
       </div>
       <p>電話番号: {store.store_phone_number}</p>
       <p>営業時間: {store.store_opening_hours}</p>
-      <h4>口コミ</h4>
       {store.reviews && store.reviews.length > 0 ? (
         store.reviews.map((review) => (
           <div key={review.id}>
-            <p
-              style={{
-                textOverflow: "ellipsis",
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-                fontWeight: "bold",
-              }}
-            >
-              コメント: {review.comment}
-            </p>
+
           </div>
         ))
       ) : (
@@ -159,10 +149,11 @@ const DogRunDetail: React.FC = () => {
             color: "#000000",
             textDecoration: "none",
             borderRadius: "5px",
-            backgroundColor: "#ccc"
+            backgroundColor: "#ccc",
+            
           }}
         >
-          もっと口コミを見る
+          口コミを見る
         </Link>
       )}
       <br /><br />
