@@ -28,7 +28,7 @@ const ReviewList: React.FC = () => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await fetch(`http://localhost:5003/reviews/${storeId}`);
+        const response = await fetch('http://localhost:5003/reviews');
         const data = await response.json();
 
         // 明示的に created_at で降順ソート
@@ -125,7 +125,15 @@ const ReviewList: React.FC = () => {
       {reviews.map((review) => (
         <div key={review.id} className="review-card">
           <p className="review-rating">
-            <strong>評価:</strong> {review.rating}
+  
+            {[1, 2, 3, 4, 5].map ((value) => (
+              <span key= {value} className= {`star ${value <= review.rating ? "selected" : ""}`}
+               >
+                ★
+              </span>
+              
+            ))}
+        <strong>{review.rating}.0</strong> 
           </p>
           <p className="review-comment">
             <strong>口コミ:</strong> {review.comment}

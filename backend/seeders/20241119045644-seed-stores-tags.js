@@ -65,17 +65,17 @@ module.exports = {
    { store_id: 7,  tag_id: 14, createdAt: new Date(), updatedAt: new Date() },
 
    { store_id: 8,  tag_id: 1, createdAt: new Date(), updatedAt: new Date() },
-   { store_id: 8,  tag_id: 3, createdAt: new Date(), updatedAt: new Date() },
    { store_id: 8,  tag_id: 4, createdAt: new Date(), updatedAt: new Date() },
    { store_id: 8,  tag_id: 5, createdAt: new Date(), updatedAt: new Date() },
+   { store_id: 8,  tag_id: 6, createdAt: new Date(), updatedAt: new Date() },
    { store_id: 8,  tag_id: 8, createdAt: new Date(), updatedAt: new Date() },
    { store_id: 8,  tag_id: 12, createdAt: new Date(), updatedAt: new Date() },
    { store_id: 8,  tag_id: 13, createdAt: new Date(), updatedAt: new Date() },
    { store_id: 8,  tag_id: 14, createdAt: new Date(), updatedAt: new Date() },
 
+
 //東京ドッグラン--------------
    { store_id: 9,  tag_id: 1, createdAt: new Date(), updatedAt: new Date() },
-   { store_id: 9,  tag_id: 3, createdAt: new Date(), updatedAt: new Date() },
    { store_id: 9,  tag_id: 4, createdAt: new Date(), updatedAt: new Date() },
    { store_id: 9,  tag_id: 5, createdAt: new Date(), updatedAt: new Date() },
    { store_id: 9,  tag_id: 8, createdAt: new Date(), updatedAt: new Date() },

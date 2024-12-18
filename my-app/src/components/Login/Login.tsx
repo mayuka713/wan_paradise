@@ -23,7 +23,6 @@ function Login(): JSX.Element {
       console.log("Response status:", response.status); 
       if (response.ok) {
         const data = await response.json();
-        alert("ログイン成功！");
         setErrorMessage("");
         navigate("/top");
       } else {

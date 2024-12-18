@@ -1,5 +1,0 @@
-id,name,description,store_tag_id,prefecture,city,opening_hours,address,phone_number,store_url,store_img,source,createdAt,updatedAt,prefecture_id
-9,つばさドッグラン,海を眺めながら愛犬と遊ぶ。,,,大田区,7:00 - 21:00,東京都大田区城南島4-2-2,123-456-7890,https://seaside-park.jp/park_jonan/tsubasadogrun/,/public/images/dogrun/dogrun_tsubasa.png,,2024-11-18 20:46:17.333+09,2024-11-18 20:46:17.333+09,13
-10,イーノの森 Dog Garden,事前予約制のドッグラン。マナーレッスンを受講可能。,,,江東区,土日祝:10:00 - 19:00 ,東京都江東区夢の島3丁目2-1 東京夢の島マリーナ内,123-456-7890,https://seaside-park.jp,../page/assets/images/dogrun/inforest.png,,2024-11-18 20:46:17.333+09,2024-11-18 20:46:17.333+09,13
-12,芝浦中央公園 ドッグラン,小型犬・一般ゾーンに分かれているから遊ばせやすい,,,港区,10月～4月:7:00/5月～9月:6:00,東京都港区港南1丁目2番28号,123-456-7890,https://seaside-park.jp,https://example.com/image.jpg,,2024-11-18 20:46:17.333+09,2024-11-18 20:46:17.333+09,13
-11,駒沢オリンピックドッグラン,緑の広がる景色が特徴的なドッグラン。,,,世田谷区,常時開放,東京都世田谷区駒沢公園1-1,123-456-7890,https://www.tokyo-park.or.jp/park/komazawa-olympic/#park,/public/images/dogrun/dogrun_komazawa.png,,2024-11-18 20:46:17.333+09,2024-11-18 20:46:17.333+09,13

@@ -1,0 +1,85 @@
+body {
+  font-family: "NewCezannePro-M, FOT-ニューセザンヌ Pro M, sans-serif;";
+}
+
+/* 全体のスタイル */
+.favorite-container {
+  padding: 20px;
+  text-align: center;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+}
+
+
+
+.app-header {
+  margin-bottom: 20px;
+}
+
+.favorite-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.favorite-item {
+  position:relative;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin: 25px auto;
+  padding: 45px;
+  padding-bottom: 0;
+  max-width: 400px;
+  background-color: #fff;
+  text-align: left;
+  display: flex;
+  align-items: center;
+
+}
+
+.favorite-title {
+  position: absolute;
+  display: flex;
+  font-size: 15px;
+  top: 0;
+  color: #333;
+}
+
+.favorite-image {
+  width: 100%; 
+  height: auto;
+  display: block;
+  margin: 0 auto; 
+}
+
+
+.star {
+  color: #ccc;
+  font-size: 1.2rem;
+}
+
+
+
+
+@media (max-width: 480px)  {
+ .app-header {
+    font-size: 12px;
+    font-family: "NewCezannePro-M, FOT-ニューセザンヌ Pro M, sans-serif;"
+  }
+
+ .favorite-item {
+  flex-direction: column;
+  text-align: center;
+ }
+
+ .favorite-title {
+   text-align: center;
+   right: 130px;
+ }
+ .favorite-image { 
+  width: 100%; 
+  height: 180px; /* 縦横比を維持 */
+  display: block; /* 余計なスペースを除去 */
+  margin: 0 auto; 
+ }
+}

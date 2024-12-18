@@ -20,6 +20,6 @@
     "types": ["node", "express", "express-session"]
    
   },
-  "include": ["src/**/*", "types/**/*", "models/**/*"], 
+  "include": ["src/**/*", "types/**/*", "models/**/*", "../my-app/src/context"], 
   "exclude": ["node_modules", "dist"]
   }

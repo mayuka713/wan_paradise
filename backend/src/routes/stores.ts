@@ -1,5 +1,6 @@
 import { Router, Request, Response } from "express";
 import pool from "../db";
+import cors from "cors";
 
 const router = Router();
 
@@ -55,16 +56,37 @@ router.get("/list/tag/:prefectureId", async (req, res) => {
   const { prefectureId } = req.params;
   const { tagIds } = req.query;
 
+  if (!tagIds) {
+    return res.status(400).json({ message: "タグIDを指定してください。" });
+  }
+
+  let tagIdArray: number[];
   try {
-    const tagIdArray = (tagIds as string).split(",").map(Number);
+    tagIdArray = (tagIds as string).split(",").map(Number);
+  } catch (error) {
+    console.error("タグIDのパース中にエラーが発生しました:", error);
+    return res.status(400).json({ message: "無効なタグIDが指定されました。" });
+  }
+
+  console.log("リクエストパラメータ:", { prefectureId, tagIdArray });
+
+  try {
     const query = `
-      SELECT stores.id AS store_id, stores.name AS store_name, stores.description AS store_description,
-             stores.address AS store_address, stores.phone_number AS store_phone_number,
-             stores.store_url, stores.store_img, stores.opening_hours AS store_opening_hours
+      SELECT 
+        stores.id AS store_id, 
+        stores.name AS store_name, 
+        stores.description AS store_description,
+        stores.address AS store_address, 
+        stores.phone_number AS store_phone_number,
+        stores.store_url, 
+        stores.store_img, 
+        stores.opening_hours AS store_opening_hours
       FROM stores
       JOIN stores_tags ON stores.id = stores_tags.store_id
-      WHERE stores.prefecture_id = $1 AND stores.store_type AND stores_tags.tag_id = ANY($2::int[])
-      GROUP BY stores.id 
+      WHERE stores.prefecture_id = $1 
+        AND stores.store_type = 1
+        AND stores_tags.tag_id = ANY($2::int[])
+      GROUP BY stores.id;
     `;
     const result = await pool.query(query, [parseInt(prefectureId, 10), tagIdArray]);
 
@@ -78,6 +100,7 @@ router.get("/list/tag/:prefectureId", async (req, res) => {
     res.status(500).json({ message: "サーバーエラーが発生しました。" });
   }
 });
+
 
 // 店舗の詳細情報を取得
 router.get("/detail/:id", async (req, res) => {

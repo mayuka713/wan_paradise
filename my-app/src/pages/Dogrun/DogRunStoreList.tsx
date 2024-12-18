@@ -84,9 +84,14 @@ const DogRunStoreList: React.FC = () => {
   useEffect(() => {
     const fetchStores = async () => {
       try {
-        const response = await fetch(`http://localhost:5003/stores/list/${prefectureId}`);
-        console.log("リクエストURL:", `http://localhost:5003/stores/list/${prefectureId}`);
+        let url = `http://localhost:5003/stores/list/${prefectureId}`;
+        if (selectedTagIds.length > 0) {
+          url = `http://localhost:5003/stores/list/tag/${prefectureId}?tagIds=${selectedTagIds.join(",")}`;
+        }
   
+        console.log("リクエストURL:", url);
+  
+        const response = await fetch(url);
         if (!response.ok) {
           throw new Error("データ取得に失敗しました");
         }
@@ -100,7 +105,7 @@ const DogRunStoreList: React.FC = () => {
     };
   
     fetchStores();
-  }, [prefectureId]);
+  }, [prefectureId, selectedTagIds]);
   
 
   return (

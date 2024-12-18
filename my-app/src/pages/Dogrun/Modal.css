@@ -48,6 +48,3 @@
   color: orange; /* 選択された星の色 */
 }
 
-.star:hover {
-  color: orange; /* ホバー時の色 */
-}
