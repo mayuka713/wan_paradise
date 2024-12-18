@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import "../App.css";
 import "./TopPage.css";
 import { useFavorites, FavoriteItem }  from "../context/FavoriteContext";
+import HamburgerMenu from "../HamburgerMenu";
+import "../HamburgerMenu.css";
 import DogrunImage from "../pages/assets/images/Dogrun/dogrun.png";
 import dogcafe from "../pages/assets/images/Dogcafe/dogcafe.png";
 import petshop from "../pages/assets/images/Petshop/petshop.png";
@@ -11,7 +13,10 @@ import dogrunNameTag from "../pages/assets/images/Dogrun/dogrun-nametag.png";
 import dogCafeNameTag from "../pages/assets/images/Dogcafe/dogcafe-nametag.png";
 import petshopNameTag from "../pages/assets/images/Petshop/petshop-nametag.png";
 import hospitalNameTag from "../pages/assets/images/Hospital/hospital-nametag.png";
-import HamburgerMenu from "../HamburgerMenu";
+
+const TopPage: React.FC = () =>  {
+  const { addFavorite } = useFavorites(); //useFavoriteでお気に入り機能を取得
+
 
 
 const items: FavoriteItem[] = [
@@ -21,53 +26,15 @@ const items: FavoriteItem[] = [
   { id: 4, name: "動物病院", image: hospital },
 ];
 
-const TopPage: React.FC = () =>  {
-  const { addFavorite } = useFavorites(); //useFavoriteでお気に入り機能を取得
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-    console.log("Menu state:", !isOpen)};
-
-  const handleAddFavorite = (item: FavoriteItem) => {
-    addFavorite(item);
-  };
-
-  
-
   return (
     <div className="container">
-        {/* ハンバーガーメニュー */}
-        <div className="hamburger-menu">
-        <button
-          className={`hamburger-icon ${isOpen ? "open" : ""}`}
-          onClick={toggleMenu}
-          aria-label="メニューを開く"
-        >
-          <span className="line"></span>
-          <span className="line"></span>
-          <span className="line"></span>
-        </button>
+     {/* ハンバーガーメニュー */}
+     <HamburgerMenu/>
 
-        <nav className={`menu ${isOpen ? "open" : ""}`}>
-          <ul>
-            <li><a href="top">ホーム</a></li>
-            <li><a href="/favorites">お気に入り</a></li>
-            <li><a href="/dogrun">ドッグラン</a></li>
-            <li><a href="/dogcafe">ドッグカフェ</a></li>
-            <li><a href="/petshop">ペットショップ</a></li>
-            <li><a href="/hospital">動物病院</a></li>
-          </ul>
-        </nav>
-      </div>
-      
-        {/* ナビゲーション */}
-         <nav>
-          <Link to="/favorites" className="favorites-link">Menu</Link>
-        </nav>
       <header className="App-header">
         <h1>Wan Paradise</h1>
      
+     {/* ヘッダー */}
       </header>
       <p className="main-title">ドッグラン、ドッグカフェ、ペットショップや動物病院など<br></br>
         様々なわんこの情報をご紹介しております。</p>

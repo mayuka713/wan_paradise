@@ -95,7 +95,6 @@ const HospitalStoreList: React.FC = () => {
     {/* ヘッダー */}
     <header
       style={{
-        fontFamily: "NewCezannePro-M, FOT-ニューセザンヌ Pro M, sans-serif",
         textAlign: "center",
         fontSize: "20px",
         fontWeight: "bold",

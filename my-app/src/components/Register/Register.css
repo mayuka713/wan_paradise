@@ -30,7 +30,6 @@ input {
 button {
   display: inline-block;
   padding: 0.75em 1em;
-  background-color: #4caf50;
   color: rgb(16, 16, 16);
   border: none;
   border-radius: 5px;

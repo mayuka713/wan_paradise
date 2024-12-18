@@ -44,25 +44,23 @@ const DogrunRegionList: React.FC = () => {
   }, {});
 
   return (
-    <div>
-      <h2>DogCafeを探す</h2>
-      <div>
+    <div className="region-list-container">
+      <h2 className="region-list-title">DogCafeを探す</h2>
+      <div className="region-list-content">
         {Object.keys(regions).map((region) => (
-          <div key={region}>
-            <h3>{region}</h3>
-            <p>
+          <div key={region} className="region-section">
+            <h3 className="region-title">{region}</h3>
+            <div className="prefecture-list">
               {regions[region].map((pref) => (
-                <span
-                  key={pref.id}
-                  onClick={() => handleClick(pref.id)} // idを渡す
-                  style={{ cursor: 'pointer', color: pref.name === '東京' ? 'green' : 'black',
-                    marginRight: '10px',
-                   }}
-                >
+                <button 
+                 key={pref.id}
+                 onClick={() => handleClick(pref.id)}
+                 className="prefecture-button"
+                 >
                   {pref.name}
-                </span>
+                 </button>
               ))}
-            </p>
+            </div>
           </div>
         ))}
       </div>

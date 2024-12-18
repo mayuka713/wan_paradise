@@ -13,24 +13,18 @@ const HamburgerMenu: React.FC = () => {
   return (
     <div className= "hamburger-menu">
       <button 
-        className={`hamburger-icon ${isOpen ? "open" : ""}`}
+        className={`menu-button ${isOpen ? "open" : ""}`}
         onClick={toggleMenu}
         aria-label= "メニューを開く"
         >
-          
-        <span className="line"></span>
-        <span className="line"></span>
-        <span className="line"></span>
-        </button>
+           {/* 状態に応じてテキストを変更する */}
+        {isOpen ? "Close" : "Menu"}
+        <span className="menu-underline"></span> 
+      </button>
 
      {/* メニュー項目 */}
-   <nav className="menu open">
-
-
+     <nav className={`menu ${isOpen ? "open" : ""}`}>
       <ul>
-        <li>
-          <a href="/">ホーム</a>
-        </li>
         <li>
           <a href="/favorites">お気に入り</a>
         </li>

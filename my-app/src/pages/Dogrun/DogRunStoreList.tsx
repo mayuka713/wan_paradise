@@ -113,7 +113,6 @@ const DogRunStoreList: React.FC = () => {
       {/* ヘッダー */}
       <header
         style={{
-          fontFamily: "NewCezannePro-M, FOT-ニューセザンヌ Pro M, sans-serif",
           textAlign: "center",
           fontSize: "20px",
           fontWeight: "bold",
@@ -239,12 +238,12 @@ const DogRunStoreList: React.FC = () => {
                     />
                     <p style={{ fontWeight: "bold" }}>{storeItem.store_name}</p>
                     <p>{storeItem.store_description}</p>
-                    <p style={{ fontWeight: "bold", display: "inline" }}>住所:</p>{" "}
+                    <p style={{ fontWeight: "bold", display: "inline" }}>住所:</p>
                     <p style={{ display: "inline" }}>{storeItem.store_address}</p>
                     <br />
                     <p style={{ fontWeight: "bold", display: "inline" }}>電話: {storeItem.store_phone_number}</p>
                     <br />
-                    <p style={{ fontWeight: "bold", display: "inline" }}>営業時間:</p>{" "}
+                    <p style={{ fontWeight: "bold", display: "inline" }}>営業時間:</p>
                     <p style={{ display: "inline " }}>{storeItem.store_opening_hours}</p>
                      </div>
                   </Link>

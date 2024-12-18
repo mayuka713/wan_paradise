@@ -18,7 +18,7 @@ interface Review {
 // 全てのレビューを取得
 router.get('/', async (req: Request, res: Response) => {
   try {
-    const result = await pool.query<Review>('SELECT * FROM reviews ORDER BY id');
+    const result = await pool.query<Review>('SELECT * FROM reviews ORDER BY created_at DESC');
     res.json(result.rows); // 全レビューをJSON形式で返す
   } catch (error) {
     console.error('レビューの取得中にエラーが発生しました:', error);

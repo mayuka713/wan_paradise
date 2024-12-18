@@ -24,9 +24,10 @@
   margin-bottom: 20px;
 }
 
-.region-title {
+.region-title-dogcafe {
   font-size: 20px;
   font-weight: bold;
+  color: bisque;
   margin-bottom: 10px;
 }
 
@@ -47,6 +48,6 @@
 }
 
 .prefecture-button:hover {
-  color: #4caf50;
+  color: hsl(50, 25%, 35%);
   background-color: #f9f9f9;
 }
