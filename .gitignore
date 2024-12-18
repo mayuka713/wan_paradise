@@ -19,3 +19,4 @@ Thumbs.db
 # その他無視したいファイルやフォルダ
 # 例:
 # coverage/
+/my-app/public/images/Dogrun/VSCode-darwin-universal.zip
