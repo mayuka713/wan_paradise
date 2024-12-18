@@ -68,8 +68,9 @@ const DogCafesStoreList: React.FC = () => {
   }, [prefectureId]);
 
    // タグ選択のハンドリング
-   const handleTagClick = (tagId: number) => {
-    setSelectedTagIds((prev: number []) => 
+  const [selectedTagIds, setSelectedTagIds] = useState<number[]>([]);
+   
+  setSelectedTagIds((prev: number []) => 
      prev.includes(tagId) ? prev.filter((id: number) => id !== tagId)
     ); 
 
