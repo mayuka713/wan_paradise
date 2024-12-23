@@ -28,17 +28,36 @@ router.get("/store-name/:store_id", async (req, res) => {
 });
 
 // 都道府県ごとの店舗情報を取得
-router.get("/list/:prefectureId", async (req, res) => {
-  const { prefectureId } = req.params;
+router.get("/list/:prefectureId/:storeType", async (req, res) => {
+  const { prefectureId, storeType } = req.params;
+
+  // 都道府県IDと店舗タイプを数値に変換
+  const prefectureIdNum = parseInt(prefectureId, 10);
+  const storeTypeNum = parseInt(storeType, 10);
+
+  if (isNaN(prefectureIdNum)) {
+    return res.status(400).json({ message: "無効な都道府県IDが指定されました。" });
+  }
+
+  if (isNaN(storeTypeNum)) {
+    return res.status(400).json({ message: "無効な店舗タイプが指定されました。" });
+  }
 
   try {
     const query = `
-      SELECT id AS store_id, name AS store_name, description AS store_description, address AS store_address, 
-             phone_number AS store_phone_number, store_url, store_img, opening_hours AS store_opening_hours
+      SELECT id AS store_id, 
+        name AS store_name, 
+        description AS store_description, 
+        address AS store_address, 
+        phone_number AS store_phone_number, 
+        store_url, 
+        store_img,
+        opening_hours AS store_opening_hours
       FROM stores
-      WHERE prefecture_id = $1 AND store_type = 1
+      WHERE prefecture_id = $1 
+        AND store_type = $2
     `;
-    const result = await pool.query(query, [parseInt(prefectureId, 10)]);
+    const result = await pool.query(query, [prefectureIdNum, storeTypeNum]);
 
     if (result.rows.length === 0) {
       return res.status(404).json({ message: "該当する店舗が見つかりませんでした。" });
@@ -46,14 +65,14 @@ router.get("/list/:prefectureId", async (req, res) => {
 
     res.status(200).json(result.rows);
   } catch (error) {
-    console.error("店舗情報の取得中にエラーが発生しました:", error);
+    console.error("/list/:prefectureId/:storeTypeエラー", error);
     res.status(500).json({ message: "サーバーエラーが発生しました。" });
   }
 });
 
 // タグに基づく店舗情報を取得
-router.get("/list/tag/:prefectureId", async (req, res) => {
-  const { prefectureId } = req.params;
+router.get("/list/tag/:prefectureId/:store_type", async (req, res) => {
+  const { prefectureId, store_type } = req.params;
   const { tagIds } = req.query;
 
   if (!tagIds) {
@@ -68,27 +87,39 @@ router.get("/list/tag/:prefectureId", async (req, res) => {
     return res.status(400).json({ message: "無効なタグIDが指定されました。" });
   }
 
-  console.log("リクエストパラメータ:", { prefectureId, tagIdArray });
-
   try {
     const query = `
       SELECT 
-        stores.id AS store_id, 
-        stores.name AS store_name, 
-        stores.description AS store_description,
-        stores.address AS store_address, 
-        stores.phone_number AS store_phone_number,
-        stores.store_url, 
-        stores.store_img, 
-        stores.opening_hours AS store_opening_hours
-      FROM stores
-      JOIN stores_tags ON stores.id = stores_tags.store_id
-      WHERE stores.prefecture_id = $1 
-        AND stores.store_type = 1
-        AND stores_tags.tag_id = ANY($2::int[])
-      GROUP BY stores.id;
+      stores.id AS store_id, 
+      stores.name AS store_name, 
+      stores.description AS store_description,
+      stores.address AS store_address, 
+      stores.phone_number AS store_phone_number,
+      stores.store_url, 
+      stores.store_img, 
+      stores.opening_hours AS store_opening_hours
+    FROM stores
+    JOIN stores_tags ON stores.id = stores_tags.store_id
+    WHERE stores.prefecture_id = $1
+      AND stores.store_type = $2
+      AND stores_tags.tag_id = ANY($3::int[])
+    GROUP BY 
+    stores.id, 
+    stores.name, 
+    stores.description,
+    stores.address, 
+    stores.phone_number,
+    stores.store_url, 
+    stores.store_img, 
+    stores.opening_hours
+  HAVING COUNT(stores_tags.tag_id) = $4;
     `;
-    const result = await pool.query(query, [parseInt(prefectureId, 10), tagIdArray]);
+    const result = await pool.query(query, [
+      parseInt(prefectureId, 10),
+      parseInt(store_type, 10),
+      tagIdArray,
+      tagIdArray.length
+    ]);
 
     if (result.rows.length === 0) {
       return res.status(404).json({ message: "該当する店舗情報が見つかりませんでした。" });
@@ -138,3 +169,4 @@ router.get("/detail/:id", async (req, res) => {
 });
 
 export default router;
+

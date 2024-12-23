@@ -18,7 +18,7 @@ interface Review {
 // 全てのレビューを取得
 router.get('/', async (req: Request, res: Response) => {
   try {
-    const result = await pool.query<Review>('SELECT * FROM reviews ORDER BY created_at DESC');
+    const result = await pool.query<Review>('SELECT * FROM reviews ORDER BY "createdAt" DESC;');
     res.json(result.rows); // 全レビューをJSON形式で返す
   } catch (error) {
     console.error('レビューの取得中にエラーが発生しました:', error);
@@ -32,7 +32,7 @@ router.get('/:store_id', async (req: Request, res: Response) => {
 
   try {
     const result = await pool.query<Review>(
-      'SELECT *, AVG(rating) OVER() AS average_rating FROM reviews WHERE store_id = $1 ORDER BY created_at DESC',
+      'SELECT *, AVG(rating) OVER() AS average_rating FROM reviews WHERE store_id = $1 ORDER BY "createdAt" DESC',
       [parseInt(store_id, 10)] // store_id を数値に変換
     );
 
@@ -59,7 +59,7 @@ router.get('/:store_id', async (req: Request, res: Response) => {
   try {
      // データベースへの挿入処理
     const result = await pool.query(
-      "INSERT INTO reviews (store_id, rating, comment, created_at, updated_at ) VALUES ($1, $2, $3, now(), now()) RETURNING *",
+      "INSERT INTO reviews (store_id, rating, comment, createAt, updatedAt ) VALUES ($1, $2, $3, now(), now()) RETURNING *",
       [store_id, rating, comment]
     );
     res.status(201).json(result.rows[0]);

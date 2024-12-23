@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import "./DogRunReviewList.css";
-import "./Modal.css";
-import Modal from "./Modal";
+import PetShopModal from "./PetShopModal";
 
 type Review = {
   id: number;
@@ -15,7 +13,7 @@ type Review = {
   updated_at: string;
 };
 
-const ReviewList: React.FC = () => {
+const PetShopReviewList: React.FC = () => {
   const { storeId } = useParams<{ storeId: string }>();
   const [reviews, setReviews] = useState<Review[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -141,7 +139,7 @@ const ReviewList: React.FC = () => {
         </div>
       ))}
       {showModal && (
-        <Modal
+        <PetShopModal
           show={showModal}
           onClose={() => setShowModal(false)}
           onSubmit={(rating: number, comment: string) => handleReviewSubmit(rating, comment)}
@@ -152,4 +150,4 @@ const ReviewList: React.FC = () => {
   );
 };
 
-export default ReviewList;
+export default PetShopReviewList;

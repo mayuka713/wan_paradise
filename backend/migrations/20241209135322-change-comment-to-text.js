@@ -11,7 +11,7 @@ module.exports = {
 
   async down (queryInterface, Sequelize) {
     await queryInterface.changeColumn('reviews', 'comment', {
-      type: Sequelize.DATE,
+      type: Sequelize.STRING,
       allowNull: false,
     });
   },

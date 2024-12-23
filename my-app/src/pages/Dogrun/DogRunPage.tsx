@@ -1,7 +1,6 @@
 import React from "react";
 import { Link, useNavigate, useParams, useLocation } from "react-router-dom";
 import "./DogRunPage.css";
-import DogrunImage from "../assets/images/Dogrun/dogrun.png";
 import DogrunRegionList from "./DogrunRegionList";
 
 

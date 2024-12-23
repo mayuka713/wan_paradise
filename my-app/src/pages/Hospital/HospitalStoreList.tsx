@@ -68,13 +68,9 @@ const HospitalStoreList: React.FC = () => {
   // 都道府県名を設定
   useEffect(() => {
     const prefectureNames: { [key: string]: string } = {
-      "1": "札幌",
+      "1": "北海道",
       "13": "東京",
-      "14": "神奈川",
-      "23": "愛知",
-      "26": "京都",
       "27": "大阪",
-      "28": "兵庫",
     };
     const selectedName = prefectureNames[prefectureId ?? ""] || "動物病院の情報がありません";
     setSelectedPrefecture(selectedName);

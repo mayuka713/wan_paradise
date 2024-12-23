@@ -63,11 +63,7 @@ const DogRunStoreList: React.FC = () => {
     const prefectureNames: { [key: string]: string } = {
       "1": "北海道",
       "13": "東京",
-      "14": "神奈川",
-      "23": "愛知",
-      "26": "京都",
       "27": "大阪",
-      "28": "兵庫",
     };
     const selectedName = prefectureNames[prefectureId ?? ""] || "ドッグラン情報がありません";
     setSelectedPrefecture(selectedName);
@@ -84,15 +80,12 @@ const DogRunStoreList: React.FC = () => {
   useEffect(() => {
     const fetchStores = async () => {
       try {
-        let url = `http://localhost:5003/stores/list/${prefectureId}`;
+        let url = `http://localhost:5003/stores/list/${prefectureId}/1`;
         if (selectedTagIds.length > 0) {
-          url = `http://localhost:5003/stores/list/tag/${prefectureId}?tagIds=${selectedTagIds.join(",")}`;
+          url = `http://localhost:5003/stores/list/tag/${prefectureId}/1?tagIds=${selectedTagIds.join(",")}`;
         }
-  
-        console.log("リクエストURL:", url);
-  
         const response = await fetch(url);
-        if (!response.ok) {
+          if (!response.ok) {
           throw new Error("データ取得に失敗しました");
         }
   
@@ -245,14 +238,14 @@ const DogRunStoreList: React.FC = () => {
                     <br />
                     <p style={{ fontWeight: "bold", display: "inline" }}>営業時間:</p>
                     <p style={{ display: "inline " }}>{storeItem.store_opening_hours}</p>
-                     </div>
+                    </div>
                   </Link>
                   ))}
               </>
             )}
         </div>
-       </>
-     );
-   };
+      </>
+    );
+  };
 
 export default DogRunStoreList;

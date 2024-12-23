@@ -7,9 +7,8 @@ import storesRoutes from './routes/stores';
 import prefectureRoutes from './routes/prefectures';
 import tagsRouter from './routes/tags';
 import tagsFacilityRouter from './routes/tags_facility';
-import dogcafetagsRouter from './routes/dogcafe_tags';
 import reviewRouter from './routes/review';
-import favoriteRoutes from "./routes/favorites";
+import favoriteRoutes from './routes/favorites';
 
 dotenv.config();
 
@@ -40,9 +39,10 @@ app.use('/stores', storesRoutes);
 app.use('/prefectures', prefectureRoutes);
 app.use('/tags', tagsRouter);
 app.use('/tags_facility', tagsFacilityRouter);
-app.use('/dog_cafe_tags', dogcafetagsRouter);
 app.use('/reviews', reviewRouter);
-app.use('/favorites', favoriteRoutes); 
+app.use('/favorites', favoriteRoutes);
+
+
 
 // サーバー起動
 app.listen(PORT, () => {

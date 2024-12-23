@@ -1,3 +1,4 @@
+
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
@@ -25,9 +26,10 @@ import DogCafeDetail from "./pages/Dogcafe/DogCafeDetail";
 
 // ペットショップのページ
 import PetshopPage from "./pages/Petshop/PetShopPage";
-import PetShopRegionList from "./pages/Petshop/PetShopRegionList";
+import PetShopRegionList from "./pages/Petshop/PetshopRegionList";
 import PetShopStoreList from "./pages/Petshop/PetShopStoreList";
 import PetShopDetail from "./pages/Petshop/PetShopDetail";
+import PetShopReview from "./pages/Petshop/PetShopReviewList";
 
 // 病院のページ
 import HospitalPage from "./pages/Hospital/HospitalPage";
@@ -67,6 +69,7 @@ const App: React.FC = () => {
             <Route path="/petshopregionsList" element={<PetShopRegionList />} />
             <Route path="/petshop/:prefectureId" element={<PetShopStoreList />} />
             <Route path="/petshop/detail/:id" element={<PetShopDetail />} />
+            <Route path="/petshop/reviews/:storeId" element={<PetShopReview />} />
 
             {/* 病院ページ */}
             <Route path="/hospital" element={<HospitalPage />} />
