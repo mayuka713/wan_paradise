@@ -81,10 +81,10 @@ const PetShopStoreList: React.FC = () => {
   useEffect(() => {
     const fetchStores = async () => {
       try {
-        let url = `http://localhost:5003/petshop/list/${prefectureId}/`;
+        let url = `http://localhost:5003/stores/list/${prefectureId}/3`;
 
         if (selectedTagIds.length > 0) {
-          url = `http://localhost:5003/petshop/list/tag/${prefectureId}?tagIds=${selectedTagIds.join(",")}`;
+          url = `http://localhost:5003/stores/list/tag/${prefectureId}/3?tagIds=${selectedTagIds.join(",")}`;
         }
         const response = await fetch(url);
         if (!response.ok) {

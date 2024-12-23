@@ -124,17 +124,15 @@ const ReviewList: React.FC = () => {
       {error && reviews.length > 0 && <p style={{ color: "red" }}>{error}</p>}
       {reviews.map((review) => (
         <div key={review.id} className="review-card">
-          <p className="review-rating">
-  
+          <div className="review-rating">
             {[1, 2, 3, 4, 5].map ((value) => (
               <span key= {value} className= {`star ${value <= review.rating ? "selected" : ""}`}
               >
                 ★
               </span>
-              
             ))}
         <strong>{review.rating}.0</strong> 
-          </p>
+          </div>
           <p className="review-comment">
             <strong>口コミ:</strong> {review.comment}
           </p>

@@ -79,6 +79,18 @@
 .favorite-button.active {
   background-color: #f3af5c;
 }
+/* 星のスタイル */
+.star {
+  font-size: 24px; /* 星の大きさ */
+  color: gray; /* デフォルトの星の色 */
+  margin: 0 2px; /* 星の間隔 */
+  display: inline-block;
+  transition: color 0.3s ease; /* 色変更のスムーズなアニメーション */
+}
+
+.star.selected {
+  color: gold; /* 選択された星の色 */
+}
 
 
 @media (max-width: 480px) {
@@ -96,6 +108,9 @@
   .container .link {
     padding: 8px 15px;
     font-size: 12px;
+  }
+  .star {
+    font-size: 18px; /* 小さい画面用に星を小さく */
   }
 
 }

@@ -37,44 +37,44 @@ const DogRunDetail: React.FC = () => {
         //店舗データ取得
         const storeResponse = await fetch(`http://localhost:5003/stores/detail/${id}`);
         if (!storeResponse.ok) throw new Error("店舗情報の取得に失敗しました");
-       
+
         const storeData: Store = await storeResponse.json();
         setStore(storeData);
 
         //お気に入り状態を取得
         const favoriteResponse = await fetch(`http://localhost:5003/favorites/${userId}`);
-     
-        const favoriteData: {store_id: number}[] = await favoriteResponse.json();
+
+        const favoriteData: { store_id: number }[] = await favoriteResponse.json();
         setIsFavorite(favoriteData.some((fav) => fav.store_id === storeData.store_id));
-      } catch (err:any) {
+      } catch (err: any) {
         console.error(err.message);
         setError("データの取得に失敗しました");
       }
     };
-   fetchStoreAndFavorite();
-  },[id]);
+    fetchStoreAndFavorite();
+  }, [id]);
 
-   // お気に入りの追加・解除
-   const handleFavoriteClick = async () => {
+  // お気に入りの追加・解除
+  const handleFavoriteClick = async () => {
     try {
       const response = await fetch("http://localhost:5003/favorites", {
         method: isFavorite ? "DELETE" : "POST",
-        headers: { 
-          "Content-Type": "application/json" ,// 送るデータがJSON形式だと伝える
-      },
-      body: JSON.stringify({
-        user_id: userId, // userIdを使用
-        store_id: store?.store_id, // 動的に現在のstore_idを使用
-      }),
-    })
-    .then((response) => response.json())
-    .then((data) => console.log("お気に入りデータ:", data))
-    .catch((error) => console.error("エラー:", error));
+        headers: {
+          "Content-Type": "application/json",// 送るデータがJSON形式だと伝える
+        },
+        body: JSON.stringify({
+          user_id: userId, // userIdを使用
+          store_id: store?.store_id, // 動的に現在のstore_idを使用
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => console.log("お気に入りデータ:", data))
+        .catch((error) => console.error("エラー:", error));
 
       setIsFavorite(!isFavorite); // お気に入り状態をトグル
     } catch (error) {
-      console.log (userId);
-      console.log (store);
+      console.log(userId);
+      console.log(store);
       console.error("お気に入り更新エラー:", error);
       setError("お気に入りの更新に失敗しました");
     }
@@ -152,7 +152,7 @@ const DogRunDetail: React.FC = () => {
         alt={store.store_name}
         style={{ width: "100%", borderRadius: "8px" }}
       />
-         {/* お気に入りボタン */}
+      {/* お気に入りボタン */}
       <button
         onClick={handleFavoriteClick}
         style={{
@@ -167,13 +167,41 @@ const DogRunDetail: React.FC = () => {
       >
         {isFavorite ? "お気に入り" : "お気に入り解除"}
       </button>
-      {/* 評価を表示したい場合: 平均評価などを算出 */}
-      {store.reviews && store.reviews.length > 0 && (
-        <p> {
-          // 例：平均評価を表示 (ratingの平均値を計算する)
-          (store.reviews.reduce((sum, rev) => sum + rev.rating, 0) / store.reviews.length).toFixed(1)
-        }</p>
+
+      {/* 平均評価を星で表示 */}
+      {store.reviews && store.reviews.length > 0 ? (
+        <div style={{ margin: "20px 0" }}>
+          <div style={{ fontSize: "24px", color: "gray" }}>
+            {[1, 2, 3, 4, 5].map((value) => (
+              <span
+                key={value}
+                className={`star ${value <=
+                    Math.round(
+                      (store.reviews?.reduce((sum, rev) => sum + rev.rating, 0) ?? 0) /
+                      (store.reviews?.length || 1) // ゼロ除算を防ぐ
+                    )
+                    ? "selected"
+                    : ""
+                  }`}
+              >
+                ★
+              </span>
+            ))}
+          </div>
+          <p style={{ fontSize: "14px", fontWeight: "bold" }}>
+            {(
+              (store.reviews?.reduce((sum, rev) => sum + rev.rating, 0) ?? 0) /
+              (store.reviews?.length || 1) // ゼロ除算を防ぐ
+            ).toFixed(1)}{" "}
+          </p>
+        </div>
+      ) : (
+        <p style={{ marginTop: "20px" }}>まだ口コミはありません</p>
       )}
+
+
+
+      {/* 店舗情報 */}
       <p>
         <strong>住所: </strong>
         {store.store_address}
@@ -213,7 +241,7 @@ const DogRunDetail: React.FC = () => {
             textDecoration: "none",
             borderRadius: "5px",
             backgroundColor: "#ccc",
-            
+
           }}
         >
           口コミを見る

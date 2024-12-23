@@ -89,36 +89,36 @@ router.get("/list/tag/:prefectureId/:store_type", async (req, res) => {
 
   try {
     const query = `
-      SELECT 
-      stores.id AS store_id, 
-      stores.name AS store_name, 
-      stores.description AS store_description,
-      stores.address AS store_address, 
-      stores.phone_number AS store_phone_number,
-      stores.store_url, 
-      stores.store_img, 
-      stores.opening_hours AS store_opening_hours
-    FROM stores
-    JOIN stores_tags ON stores.id = stores_tags.store_id
-    WHERE stores.prefecture_id = $1
-      AND stores.store_type = $2
-      AND stores_tags.tag_id = ANY($3::int[])
-    GROUP BY 
-    stores.id, 
-    stores.name, 
-    stores.description,
-    stores.address, 
-    stores.phone_number,
-    stores.store_url, 
-    stores.store_img, 
-    stores.opening_hours
-  HAVING COUNT(stores_tags.tag_id) = $4;
+        SELECT 
+        stores.id AS store_id, 
+        stores.name AS store_name, 
+        stores.description AS store_description,
+        stores.address AS store_address, 
+        stores.phone_number AS store_phone_number,
+        stores.store_url, 
+        stores.store_img, 
+        stores.opening_hours AS store_opening_hours
+      FROM stores
+      JOIN stores_tags ON stores.id = stores_tags.store_id
+      WHERE stores.prefecture_id = $1
+        AND stores.store_type = $2
+        AND stores_tags.tag_id = ANY($3::int[])
+      GROUP BY 
+        stores.id, 
+        stores.name, 
+        stores.description,
+        stores.address, 
+        stores.phone_number,
+        stores.store_url, 
+        stores.store_img, 
+        stores.opening_hours
+      HAVING COUNT(stores_tags.tag_id) = $4;
     `;
     const result = await pool.query(query, [
-      parseInt(prefectureId, 10),
-      parseInt(store_type, 10),
-      tagIdArray,
-      tagIdArray.length
+      parseInt(prefectureId, 10), 
+      parseInt(store_type, 10), 
+      tagIdArray, 
+      tagIdArray.length // HAVING句でタグの数を指定
     ]);
 
     if (result.rows.length === 0) {
@@ -131,7 +131,6 @@ router.get("/list/tag/:prefectureId/:store_type", async (req, res) => {
     res.status(500).json({ message: "サーバーエラーが発生しました。" });
   }
 });
-
 
 // 店舗の詳細情報を取得
 router.get("/detail/:id", async (req, res) => {

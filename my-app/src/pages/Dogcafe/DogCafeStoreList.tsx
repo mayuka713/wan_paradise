@@ -54,31 +54,34 @@ const DogCafeStoreList: React.FC = () => {
     setSelectedPrefecture(prefectureNames[prefectureId ?? ""] || "ドッグカフェ情報がありません");
   }, [prefectureId]);
 
-  // 店舗データ取得
-  useEffect(() => {
-    const fetchStores = async () => {
-      try {
-        const queryString = selectedTagIds.length > 0 ? `?tagIds=${selectedTagIds.join(",")}` : "";
-        const response = await fetch(`http://localhost:5003/dogcafe/list/${prefectureId}${queryString}`);
-        if (!response.ok) {
-          throw new Error("店舗データの取得に失敗しました");
-        }
-        const data: Store[] = await response.json();
-        setStore(data);
-      } catch (error) {
-        console.error("店舗データ取得エラー:", error);
-        setError("店舗データの取得に失敗しました");
-      }
-    };
-    fetchStores();
-  }, [prefectureId, selectedTagIds]);
 
-  // タグ選択ロジック
+  // タグ選択のハンドリング
   const handleTagClick = (tagId: number) => {
     setSelectedTagIds((prev) =>
       prev.includes(tagId) ? prev.filter((id) => id !== tagId) : [...prev, tagId]
     );
   };
+  // 店舗データ取得
+  useEffect(() => {
+    const fetchStores = async () => {
+      try {
+        let url = `http://localhost:5003/stores/list/${prefectureId}/2`;
+        if ( selectedTagIds.length > 0) {
+          url = `http://localhost:5003/stores/list/tag/${prefectureId}/2?tagIds=${selectedTagIds.join(",")}`;
+        }
+        const response = await fetch(url);
+          if (!response.ok) {
+            throw new Error("データ取得に失敗しました");
+          }
+          const data = await response.json();
+          console.log("取得した店舗データ:", data);
+          setStore(data);
+      } catch (error) {
+        console.error("店舗データ取得エラー:", error);
+      }
+    };
+    fetchStores();
+  }, [prefectureId, selectedTagIds]);
 
   return (
     <>
