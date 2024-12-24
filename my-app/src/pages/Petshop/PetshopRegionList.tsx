@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./PetshopRegionList.css";
 
 interface Prefecture {
   id: number;
@@ -43,32 +44,25 @@ const DogCafeRegionList: React.FC = () => {
   }, {});
 
   return (
-    <div>
-      <h2>全国のペットショップを探す</h2>
-      <div>
-          {Object.keys(regions).map((region) => (
-            <div key={region}>
-              <h3>{region}</h3>
-              <p>
-                {regions[region].map((pref) => (
-                  <span
-                    key={pref.id}
-                    onClick={() => handleClick(pref.id)} 
-                    style = {{ cursor: 'pointer', 
-                    color: ['札幌', '東京', '神奈川', '愛知'].includes(pref.name) 
-                    ? 'orange' 
-                    : 'black', 
-                    marginRight: '20px',
-                    marginBottom: '5px',
-                    display: 'inline-block',
-                  }}
-                  >
-                    {pref.name} 
-                  </span>
-                ))}
-              </p>
+    <div className="region-list-container">
+      <h2 className="region-list-title">ペットショップを探す</h2>
+      <div className="region-list-content">
+        {Object.keys(regions).map((region) => (
+          <div key={region} className="region-section">
+            <h3 className="region-title-hospital">{region}</h3>
+            <div className="prefecture-list">
+              {regions[region].map((pref) => (
+                <button
+                  key={pref.id}
+                  onClick={() => handleClick(pref.id)}
+                  className="prefecture-button"
+                >
+                  {pref.name}
+                </button>
+              ))}
             </div>
-          ))}
+          </div>
+        ))}
       </div>
     </div>
   );

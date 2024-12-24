@@ -246,69 +246,81 @@ module.exports = {
 
         // 東京ペットショップ
         { store_id: 42, tag_id: 20, createdAt: new Date(), updatedAt: new Date() },
+        { store_id: 42, tag_id: 21, createdAt: new Date(), updatedAt: new Date() },
 
         { store_id: 43, tag_id: 20, createdAt: new Date(), updatedAt: new Date() },
+        { store_id: 43, tag_id: 21, createdAt: new Date(), updatedAt: new Date() },
       
-        { store_id: 44, tag_id: 21, createdAt: new Date(), updatedAt: new Date() },
+        { store_id: 44, tag_id: 20, createdAt: new Date(), updatedAt: new Date() },
+        { store_id: 44, tag_id: 22, createdAt: new Date(), updatedAt: new Date() },
 
         { store_id: 45, tag_id: 22, createdAt: new Date(), updatedAt: new Date() },
         
-        { store_id: 46, tag_id: 22, createdAt: new Date(), updatedAt: new Date() },
+        { store_id: 46, tag_id: 20, createdAt: new Date(), updatedAt: new Date() },
 
 
         // 大阪ペットショップ
-        { store_id: 47, tag_id: 18, createdAt: new Date(), updatedAt: new Date() },
-        { store_id: 48, tag_id: 18, createdAt: new Date(), updatedAt: new Date() },
-        { store_id: 49, tag_id: 18, createdAt: new Date(), updatedAt: new Date() },
-        { store_id: 50, tag_id: 18, createdAt: new Date(), updatedAt: new Date() },
-        { store_id: 51, tag_id: 18, createdAt: new Date(), updatedAt: new Date() },
+        { store_id: 47, tag_id: 20, createdAt: new Date(), updatedAt: new Date() },        
+        { store_id: 47, tag_id: 21, createdAt: new Date(), updatedAt: new Date() },        
+
+        { store_id: 48, tag_id: 22, createdAt: new Date(), updatedAt: new Date() },             
+
+        { store_id: 49, tag_id: 20, createdAt: new Date(), updatedAt: new Date() },
+
+        { store_id: 50, tag_id: 22, createdAt: new Date(), updatedAt: new Date() },
+
+        { store_id: 51, tag_id: 21, createdAt: new Date(), updatedAt: new Date() },
 
 
         // 北海道病院
         { store_id: 52, tag_id: 23, createdAt: new Date(), updatedAt: new Date() },
-        { store_id: 52, tag_id: 24, createdAt: new Date(), updatedAt: new Date() },
         { store_id: 52, tag_id: 25, createdAt: new Date(), updatedAt: new Date() },
         { store_id: 52, tag_id: 26, createdAt: new Date(), updatedAt: new Date() },
         { store_id: 52, tag_id: 27, createdAt: new Date(), updatedAt: new Date() },
 
-        { store_id: 53, tag_id: 23, createdAt: new Date(), updatedAt: new Date() },
-        { store_id: 53, tag_id: 24, createdAt: new Date(), updatedAt: new Date() },
+        { store_id: 53, tag_id: 25, createdAt: new Date(), updatedAt: new Date() },
         { store_id: 53, tag_id: 26, createdAt: new Date(), updatedAt: new Date() },
         { store_id: 53, tag_id: 27, createdAt: new Date(), updatedAt: new Date() },
 
         { store_id: 54, tag_id: 23, createdAt: new Date(), updatedAt: new Date() },
         { store_id: 54, tag_id: 25, createdAt: new Date(), updatedAt: new Date() },
+        { store_id: 54, tag_id: 26, createdAt: new Date(), updatedAt: new Date() },
         { store_id: 54, tag_id: 27, createdAt: new Date(), updatedAt: new Date() },
 
         { store_id: 55, tag_id: 23, createdAt: new Date(), updatedAt: new Date() },
-        { store_id: 55, tag_id: 24, createdAt: new Date(), updatedAt: new Date() },
         { store_id: 55, tag_id: 25, createdAt: new Date(), updatedAt: new Date() },
         { store_id: 55, tag_id: 26, createdAt: new Date(), updatedAt: new Date() },
+        { store_id: 55, tag_id: 27, createdAt: new Date(), updatedAt: new Date() },
 
-        { store_id: 56, tag_id: 23, createdAt: new Date(), updatedAt: new Date() },
-        { store_id: 56, tag_id: 24, createdAt: new Date(), updatedAt: new Date() },
         { store_id: 56, tag_id: 25, createdAt: new Date(), updatedAt: new Date() },
-        { store_id: 56, tag_id: 26, createdAt: new Date(), updatedAt: new Date() },
+        { store_id: 56, tag_id: 27, createdAt: new Date(), updatedAt: new Date() },
+        { store_id: 56, tag_id: 28, createdAt: new Date(), updatedAt: new Date() },
 
-        { store_id: 57, tag_id: 24, createdAt: new Date(), updatedAt: new Date() },
+        { store_id: 57, tag_id: 23, createdAt: new Date(), updatedAt: new Date() },
+        { store_id: 57, tag_id: 25, createdAt: new Date(), updatedAt: new Date() },
         { store_id: 57, tag_id: 26, createdAt: new Date(), updatedAt: new Date() },
         { store_id: 57, tag_id: 27, createdAt: new Date(), updatedAt: new Date() },
+        { store_id: 57, tag_id: 28, createdAt: new Date(), updatedAt: new Date() },
+
+        { store_id: 58, tag_id: 25, createdAt: new Date(), updatedAt: new Date() },
+        { store_id: 58, tag_id: 26, createdAt: new Date(), updatedAt: new Date() },
+        { store_id: 58, tag_id: 27, createdAt: new Date(), updatedAt: new Date() },
 
         // 東京病院
-        { store_id: 58, tag_id: 24, createdAt: new Date(), updatedAt: new Date() },
         { store_id: 59, tag_id: 24, createdAt: new Date(), updatedAt: new Date() },
         { store_id: 60, tag_id: 24, createdAt: new Date(), updatedAt: new Date() },
         { store_id: 61, tag_id: 24, createdAt: new Date(), updatedAt: new Date() },
         { store_id: 62, tag_id: 24, createdAt: new Date(), updatedAt: new Date() },
         { store_id: 63, tag_id: 24, createdAt: new Date(), updatedAt: new Date() },
+        { store_id: 64, tag_id: 24, createdAt: new Date(), updatedAt: new Date() },
 
         // 大阪病院
-        { store_id: 64, tag_id: 27, createdAt: new Date(), updatedAt: new Date() },
         { store_id: 65, tag_id: 27, createdAt: new Date(), updatedAt: new Date() },
         { store_id: 66, tag_id: 27, createdAt: new Date(), updatedAt: new Date() },
         { store_id: 67, tag_id: 27, createdAt: new Date(), updatedAt: new Date() },
         { store_id: 68, tag_id: 27, createdAt: new Date(), updatedAt: new Date() },
         { store_id: 69, tag_id: 27, createdAt: new Date(), updatedAt: new Date() },
+      
 
 
       ]

@@ -58,7 +58,7 @@ const DogRunStoreList: React.FC = () => {
     fetchTags();
   }, []);
 
-  // 各都道府県の表示
+  // 各都道府県を設定
   useEffect(() => {
     const prefectureNames: { [key: string]: string } = {
       "1": "北海道",

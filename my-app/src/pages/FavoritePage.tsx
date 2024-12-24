@@ -49,7 +49,7 @@ const FavoritePage: React.FC = () => {
 
    //口コミデータの取得
 
-   useEffect(() => {
+  useEffect(() => {
     const fetchReviews = async () => {
       try {
         const response = await fetch("http://localhost:5003/reviews", {
@@ -66,9 +66,9 @@ const FavoritePage: React.FC = () => {
     } catch (error) {
       console.error(error);
     }
-   };
+  };
 
-   fetchReviews();
+  fetchReviews();
   }, []);
 
 
@@ -94,7 +94,6 @@ const FavoritePage: React.FC = () => {
                 />
                 {/* 店舗画像 */}
                 <h2 className="favorite-title">{favorite.store_name}</h2>
-            
               {/* 口コミデータ表示 */}
               {reviews
                 .filter((review) => review.store_id === favorite.store_id)
@@ -107,7 +106,7 @@ const FavoritePage: React.FC = () => {
                           className={`star ${
                             value <= review.rating ? "selected" : ""}`}
                         >
-                          ★
+                        ★
                         </span>
                       ))}
                       <strong>{review.rating}.0</strong>
@@ -115,8 +114,8 @@ const FavoritePage: React.FC = () => {
                   </div>
                 ))}
             </li>
-         </Link>  
-         ))
+        </Link>  
+        ))
         ) : (
           <p className="no-favorites">お気に入りがまだ登録されていません。</p>
         )}

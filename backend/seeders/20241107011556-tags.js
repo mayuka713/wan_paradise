@@ -32,6 +32,8 @@ module.exports = {
         { name: "駐車場あり", tag_type: 4, createdAt: new Date(), updatedAt: new Date() },
         { name: "トリミングあり", tag_type: 4, createdAt: new Date(), updatedAt: new Date() },
         { name: "ペットホテル併設", tag_type: 4, createdAt: new Date(), updatedAt: new Date() },
+  
+        
       
         //hospital
         { name: "駅から近い", tag_type: 5, createdAt: new Date(), updatedAt: new Date() },

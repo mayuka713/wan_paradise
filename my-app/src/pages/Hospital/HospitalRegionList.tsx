@@ -46,30 +46,23 @@ const DogrunRegionList: React.FC = () => {
   }, {});
 
   return (
-    <div>
-      <h2>動物病院を探す</h2>
-      <div>
-        {Object.keys(regions).map((region) => (
-          <div key={region}>
-            <h3>{region}</h3>
-            <p>
-              {regions[region].map((pref) => (
-                <span
-                  key={pref.id}
-                  onClick={() => handleClick(pref.id)} // idを渡す
-                  style={{ cursor: 'pointer', 
-                  color: ['札幌','東京','神奈川','愛知','京都','大阪','兵庫'].includes(pref.name)
-                    ? 'orange'
-                    : 'black',
-                    marginRight:'20px',
-                    marginBottom:'5px',
-                    display: 'inline-block',
-                  }}
+    <div className="region-list-container">
+      <h2 className="region-list-title">動物病院を探す</h2>
+        <div className="region-list-content">
+          {Object.keys(regions).map((region) => (
+            <div key={region} className="region-section">
+            <h3 className="region-title-dogcafe">{region}</h3>
+            <div className="prefecture-list">
+            {regions[region].map((pref) => (
+              <button
+                key={pref.id}
+                onClick={() => handleClick(pref.id)}
+                className= "prefecture-button "
                 >
-                  {pref.name}・
-                </span>
+                  {pref.name}
+                  </button>
               ))}
-            </p>
+          </div>
           </div>
         ))}
       </div>
