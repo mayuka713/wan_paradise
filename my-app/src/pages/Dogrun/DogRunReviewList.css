@@ -26,14 +26,38 @@
   white-space: pre-wrap;
 }
 
-.star-rating {
-  display: flex;
-  flex-direction: row;
+
+/* 星全体のコンテナ */
+.star-container {
+  position: relative;
+  font-size: 24px; /* 星のサイズ */
+  display: inline-block;
+  line-height: 1;
 }
 
-.star {
-  font-size: 2rem; /* 星のサイズ */
-  color: #ccc; /* デフォルトの色（グレー） */
-  cursor: pointer; /* ホバー時にカーソルを変える */
+/* 背景の星（灰色） */
+.stars-background {
+  color: #ccc; /* 灰色の星 */
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap; /* 星が1行に並ぶ */
+  overflow: hidden; /* はみ出した部分を隠す */
 }
 
+/* 塗りつぶされた星（ゴールド） */
+.stars-filled {
+  color: #FFD700; /* ゴールドの星 */
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap; /* 星が1行に並ぶ */
+  overflow: hidden; /* はみ出した部分を隠す */
+}
+
+/* 平均評価 */
+.average-rating-value {
+  font-size: 16px;
+  font-weight: bold;
+  margin-left: 5px;
+}

@@ -45,19 +45,23 @@ router.get("/list/:prefectureId/:storeType", async (req, res) => {
 
   try {
     const query = `
-      SELECT id AS store_id, 
-        name AS store_name, 
-        description AS store_description, 
-        address AS store_address, 
-        phone_number AS store_phone_number, 
-        store_url, 
-        store_img,
-        opening_hours AS store_opening_hours
+      SELECT 
+        stores.id AS store_id, 
+        stores.name AS store_name, 
+        stores.description AS store_description, 
+        stores.address AS store_address, 
+        stores.phone_number AS store_phone_number, 
+        stores.store_url, 
+        stores.store_img, 
+        stores.opening_hours AS store_opening_hours,
+        COALESCE(json_agg(reviews.*) FILTER (WHERE reviews.id IS NOT NULL), '[]') AS reviews
       FROM stores
-      WHERE prefecture_id = $1 
-        AND store_type = $2
+      LEFT JOIN reviews ON stores.id = reviews.store_id
+      WHERE stores.prefecture_id = $1 
+        AND stores.store_type = $2
+      GROUP BY stores.id;
     `;
-    const result = await pool.query(query, [prefectureIdNum, storeTypeNum]);
+    const result = await pool.query(query, [parseInt(prefectureId, 10), parseInt(storeType, 10)]);
 
     if (result.rows.length === 0) {
       return res.status(404).json({ message: "該当する店舗が見つかりませんでした。" });
@@ -97,9 +101,11 @@ router.get("/list/tag/:prefectureId/:store_type", async (req, res) => {
         stores.phone_number AS store_phone_number,
         stores.store_url, 
         stores.store_img, 
-        stores.opening_hours AS store_opening_hours
+        stores.opening_hours AS store_opening_hours,
+        COALESCE(json_agg(reviews.*) FILTER (WHERE reviews.id IS NOT NULL), '[]') AS reviews
       FROM stores
-      JOIN stores_tags ON stores.id = stores_tags.store_id
+      LEFT JOIN stores_tags ON stores.id = stores_tags.store_id
+      LEFT JOIN reviews ON stores.id = reviews.store_id
       WHERE stores.prefecture_id = $1
         AND stores.store_type = $2
         AND stores_tags.tag_id = ANY($3::int[])

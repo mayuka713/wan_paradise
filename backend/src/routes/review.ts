@@ -48,7 +48,7 @@ router.get('/:store_id', async (req: Request, res: Response) => {
 });
 
 //新規レビュー投稿
- router.post('/', async (req, res) => {
+router.post('/', async (req, res) => {
   const { store_id, rating, comment } = req.body;
 
   console.log("受信データ:", req.body);
@@ -59,7 +59,7 @@ router.get('/:store_id', async (req: Request, res: Response) => {
   try {
      // データベースへの挿入処理
     const result = await pool.query(
-      "INSERT INTO reviews (store_id, rating, comment, createAt, updatedAt ) VALUES ($1, $2, $3, now(), now()) RETURNING *",
+      `INSERT INTO reviews ("store_id", "rating", "comment", "createdAt", "updatedAt") VALUES ($1, $2, $3, now(), now()) RETURNING *`,
       [store_id, rating, comment]
     );
     res.status(201).json(result.rows[0]);

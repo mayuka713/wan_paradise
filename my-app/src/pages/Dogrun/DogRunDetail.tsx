@@ -168,6 +168,7 @@ const DogRunDetail: React.FC = () => {
         {isFavorite ? "お気に入り" : "お気に入り解除"}
       </button>
 
+
       {/* 平均評価を星で表示 */}
       {store.reviews && store.reviews.length > 0 ? (
         <div style={{ margin: "20px 0" }}>
@@ -176,12 +177,12 @@ const DogRunDetail: React.FC = () => {
               <span
                 key={value}
                 className={`star ${value <=
-                    Math.round(
-                      (store.reviews?.reduce((sum, rev) => sum + rev.rating, 0) ?? 0) /
-                      (store.reviews?.length || 1) // ゼロ除算を防ぐ
-                    )
-                    ? "selected"
-                    : ""
+                  Math.round(
+                    (store.reviews?.reduce((sum, rev) => sum + rev.rating, 0) ?? 0) /
+                    (store.reviews?.length || 1) // ゼロ除算を防ぐ
+                  )
+                  ? "selected"
+                  : ""
                   }`}
               >
                 ★

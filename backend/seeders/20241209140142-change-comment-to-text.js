@@ -11,10 +11,9 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.removeColumn('reviews', 'comment');
-    await queryInterface.addColumn('reviews', 'comment', {
-      type: Sequelize.DATE, // 元の型に戻す
-      allowNull: false,
+    await queryInterface.removeColumn('reviews', 'comment', {
+      type: Sequelize.STRING,
+      allowNull: true,
     });
   },
 };

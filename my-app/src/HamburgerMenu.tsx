@@ -1,48 +1,41 @@
 import React, { useState } from "react";
 import "./HamburgerMenu.css";
 
-const HamburgerMenu: React.FC = () => {
+const HamburgerMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-    console.log("Menu state:", !isOpen);
+  const menuItems = [
+    { label: "お気に入り", link: "/favorites" },
+    { label: "ドッグラン", link: "/dogrun" },
+    { label: "ドッグカフェ", link: "/dogcafe" },
+    { label: "ペットショップ", link: "/petshop" },
+    { label: "動物病院", link: "/hospital" },
+
+  ];
+  const togglwMenu = () => {
+    setIsOpen((prev) => !prev);
+
   };
-  
-
   return (
-    <div className= "hamburger-menu">
-      <button 
-        className={`menu-button ${isOpen ? "open" : ""}`}
-        onClick={toggleMenu}
-        aria-label= "メニューを開く"
-        >
-           {/* 状態に応じてテキストを変更する */}
-        {isOpen ? "Close" : "Menu"}
-        <span className="menu-underline"></span> 
-      </button>
+    <div className="hamburger-menu">
+      <label className="burger" htmlFor="burger">
+        <input type="checkbox" id="burger" onClick={togglwMenu} />
+        <span />
+        <span />
+        <span />
+      </label>
+      <nav className={`menu ${isOpen ? "visible" : ""}`}>
+        <ul>
+          {/*メニュー項目をループで表示*/}
+          {menuItems.map((item, index) => (
+            <li key={index}>
+              <a href={item.link}>{item.label}</a>
+            </li>
+          ))}
 
-     {/* メニュー項目 */}
-     <nav className={`menu ${isOpen ? "open" : ""}`}>
-      <ul>
-        <li>
-          <a href="/favorites">お気に入り</a>
-        </li>
-        <li>
-          <a href="/dogrun">ドッグラン</a>
-        </li>
-        <li>
-          <a href="/dogcafe">ドッグカフェ</a>
-        </li>
-        <li>
-          <a href="/petshop">ペットショップ</a>
-        </li>
-        <li>
-          <a href="/hospital">動物病院</a>
-        </li>
-      </ul>
-    </nav>
-  </div>
+        </ul>
+      </nav>
+    </div>
   );
 };
 

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
+import "./DogRunStoreList.css";
 
 interface Store {
   store_id: number;
@@ -7,7 +8,7 @@ interface Store {
   store_description: string;
   store_address: string;
   store_opening_hours: string;
-  store_phone_number: string;  
+  store_phone_number: string;
   store_dogrun_detail: string;
   store_img: string;
   reviews: Review[];
@@ -65,18 +66,17 @@ const DogRunStoreList: React.FC = () => {
       "13": "東京",
       "27": "大阪",
     };
-    const selectedName = prefectureNames[prefectureId ?? ""] || "ドッグラン情報がありません";
-    setSelectedPrefecture(selectedName);
+    setSelectedPrefecture(prefectureNames[prefectureId ?? ""] || "ドッグラン情報がありません");
   }, [prefectureId]);
 
-  // タグ選択のハンドリング
+  // タグ選択の処理
   const handleTagClick = (tagId: number) => {
     setSelectedTagIds((prev) =>
       prev.includes(tagId) ? prev.filter((id) => id !== tagId) : [...prev, tagId]
     );
   };
 
-  // 店舗データとレビューを取得して設定する関数
+  // 店舗データの取得
   useEffect(() => {
     const fetchStores = async () => {
       try {
@@ -85,10 +85,9 @@ const DogRunStoreList: React.FC = () => {
           url = `http://localhost:5003/stores/list/tag/${prefectureId}/1?tagIds=${selectedTagIds.join(",")}`;
         }
         const response = await fetch(url);
-          if (!response.ok) {
+        if (!response.ok) {
           throw new Error("データ取得に失敗しました");
         }
-  
         const data = await response.json();
         console.log("取得した店舗データ:", data);
         setStore(data);
@@ -96,156 +95,61 @@ const DogRunStoreList: React.FC = () => {
         console.error("データ取得中にエラーが発生しました:", error);
       }
     };
-  
     fetchStores();
   }, [prefectureId, selectedTagIds]);
-  
+
 
   return (
     <>
-      {/* ヘッダー */}
-      <header
-        style={{
-          textAlign: "center",
-          fontSize: "20px",
-          fontWeight: "bold",
-          backgroundColor: "rgb(250, 243, 224)",
-          color: "black",
-          padding: "10px 0",
-        }}
-      >
-        wan paradise
-      </header>
+    <header className="header">Wan Paradise</header>
+    <div className="content">
+      {selectedPrefecture === "ドッグラン情報がありません" ? (
+        <h2>{selectedPrefecture}</h2>
+      ) : (
+        <>
+          <h2>{selectedPrefecture}のドッグラン</h2>
+          <div className="tags-container">
+            {store.map((storeItem) => {
+            const reviews = storeItem.reviews || []; // reviewsがundefinedの場合、空配列を使用
+            const averageRating =
+              reviews.length > 0
+                ? reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length
+                : 0;
+            
+            console.log("reviews:", reviews);
+            console.log("averageRating:", averageRating);
+            console.log("Width of stars-filled:", (averageRating / 5) * 100);
 
-      <div
-        style={{
-          textAlign: "center",
-          padding: "20px",
-          backgroundColor: "#FAF3E0",
-        }}
-      >
-        {selectedPrefecture === "ドッグラン情報がありません" ? (
-          <h2>{selectedPrefecture}</h2>
-        ) : (
-          <>
-            <h2>{selectedPrefecture}のドッグラン</h2>
-
-            <p
-              style={{
-                fontSize: "14px",
-                marginBottom: "20px",
-                fontWeight: "bold",
-              }}
-            >
-              ドッグランの条件を絞り込む
-            </p>
-            <div
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                justifyContent: "center",
-                gap: "10px",
-              }}
-            >
-              {type1Tag.map((tag) => (
-                <button
-                  key={tag.id}
-                  onClick={() => handleTagClick(tag.id)}
-                  style={{
-                    backgroundColor: selectedTagIds.includes(tag.id) ? "#859F3D" : "white",
-                    color: "#282d27",
-                    padding: "10px 15px",
-                    borderRadius: "20px",
-                    cursor: "pointer",
-                    fontSize: "15px",
-                    transition: "all 0.3s ease",
+              return (
+                <Link to={`/dogrun/detail/${storeItem.store_id}`} className="store-item" key={storeItem.store_id}>
+                  <img src={storeItem.store_img} alt={storeItem.store_name} className="store-image" />
+                  <div className="star-container">
+                  {/*背景を星*/}
+                  <div className="stars-background">★★★★★</div>
+                  {/* 塗りつぶし部分 */}
+                  <div className="stars-filled"
+                    style= {{
+                      width: `${(averageRating / 5) * 100}%`,
                   }}
-                >
-                  {tag.name}
-                </button>
-              ))}
-            </div>
-            <p
-              style={{
-                fontSize: "14px",
-                marginBottom: "20px",
-                fontWeight: "bold",
-              }}
-            >
-              ドッグランの設備
-            </p>
-            <div
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                justifyContent: "center",
-                gap: "10px",
-              }}
-            >
-              {type2Tag.map((tag) => (
-                <button
-                  key={tag.id}
-                  onClick={() => handleTagClick(tag.id)}
-                  style={{
-                    backgroundColor: selectedTagIds.includes(tag.id) ? "#859F3D" : "white",
-                    color: selectedTagIds.includes(tag.id) ? "white" : "black",
-                    padding: "10px 15px",
-                    borderRadius: "20px",
-                    cursor: "pointer",
-                    fontSize: "15px",
-                    transition: "all 0.3s ease",
-                  }}
-                >
-                  {tag.name}
-                </button>
-              ))}
-            </div>
-            {error && <p style={{ color: "red" }}>{error}</p>}
-            {store.length > 0  &&
-              store.map((storeItem) => (
-                <Link
-                  key={storeItem.store_id}
-                  to={`/dogrun/detail/${storeItem.store_id}`}
-                  style={{
-                    display: "inline-block",
-                    marginTop: "10px",
-                    padding: "10px 15px",
-                    borderRadius: "5px",
-                    textDecoration: "none",
-                    color: "inherit",
-                  }}
-                >
-                  <div
-                    style={{
-                      marginBottom: "30px",
-                      border: "1px solid #000000",
-                      borderRadius: "10px",
-                      padding: "20px",
-                      backgroundColor: "#fff",
-                    }}
-                  >
-                    <img
-                      src={storeItem.store_img}
-                      alt={storeItem.store_name}
-                      style={{ width: "300px", height: "300px", borderRadius: "10px" }}
-                    />
-                    <p style={{ fontWeight: "bold" }}>{storeItem.store_name}</p>
-                    <p>{storeItem.store_description}</p>
-                    <p style={{ fontWeight: "bold", display: "inline" }}>住所:</p>
-                    <p style={{ display: "inline" }}>{storeItem.store_address}</p>
-                    <br />
-                    <p style={{ fontWeight: "bold", display: "inline" }}>電話: {storeItem.store_phone_number}</p>
-                    <br />
-                    <p style={{ fontWeight: "bold", display: "inline" }}>営業時間:</p>
-                    <p style={{ display: "inline " }}>{storeItem.store_opening_hours}</p>
+                >  
+                  ★★★★★
                     </div>
-                  </Link>
-                  ))}
-              </>
-            )}
-        </div>
-      </>
-    );
-  };
+                  </div>
+                  <span className="average-rating-value">{averageRating.toFixed(1)}</span>
+                  <h3 className="store-name">{storeItem.store_name}</h3>
+                  <p>{storeItem.store_description}</p>
+                  <p><strong>住所: </strong>{storeItem.store_address}</p>
+                  <p><strong>電話: </strong> {storeItem.store_phone_number}</p>
+                  <p><strong>営業時間: </strong>{storeItem.store_opening_hours}</p>
+                </Link>
+              );
+            })}
+          </div>
+        </>
+      )}
+    </div>
+  </>
+);
+};
 
 export default DogRunStoreList;

@@ -68,13 +68,13 @@
   background-color: green;
 }
 .favorite-button {
- padding: 10px 20px;
- font-size: 14px;
- border: none;
- border-radius: 5px;
- cursor: pointer;
- margin: 10px 0;
- transition: background-color 0.3s;
+  padding: 10px 20px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px 0;
+  transition: background-color 0.3s;
 }
 .favorite-button.active {
   background-color: #f3af5c;
@@ -109,8 +109,20 @@
     padding: 8px 15px;
     font-size: 12px;
   }
-  .star {
-    font-size: 18px; /* 小さい画面用に星を小さく */
+  .rating-container {
+    position: relative;
+    font-size: 24px; /* 星のサイズ */
+    color: #ccc; /* 背景の星の色 */
   }
+  
+  .rating-container .filled-stars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    color: gold; /* 塗りつぶしの色 */
+  }
+  
 
 }

@@ -43,7 +43,9 @@ const ReviewList: React.FC = () => {
           : 0;
 
         setReviews(storedData);
-        setAverageRating(avgRating);
+        setAverageRating(Number(avgRating.toFixed(1)));
+
+        console.log("塗りつぶし幅:", (avgRating / 5) * 100);
       } catch (error) {
         console.error(error);
         setError("口コミの取得に失敗しました");
@@ -68,86 +70,100 @@ const ReviewList: React.FC = () => {
 
 
 //口コミ投稿処理
-  const handleReviewSubmit = async (rating: number, comment: string) => {
-    try {
-      console.log("storeId:", storeId);
+const handleReviewSubmit = async (rating: number, comment: string) => {
+  try {
+    const response = await fetch("http://localhost:5003/reviews", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        store_id: storeId,
+        rating,
+        comment,
+        
+      }),
+    });
 
-      const response = await fetch("http://localhost:5003/reviews", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          store_id: storeId,
-          rating,
-          comment,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("コメント投稿に失敗しました");
-      }
-      const createdReview = (await response.json()) as Review;
-
-      setReviews((prev) => [createdReview, ...prev]);
-      setError(null);
-      setShowModal(false);
-    } catch (error) {
-      console.error(error);
-      setError("コメント投稿に失敗しました");
+    if (!response.ok) {
+      throw new Error("コメント投稿に失敗しました");
     }
-  };
 
-  const handleStarClick = (value: number) => {
-    setSelectedRating(value);
-  };
+    const newReview = await response.json();
+    //新しい口コミをを追加
+    setReviews((prevReviews) => [newReview, ...prevReviews]);
+    //モーダルを閉じる
+    setShowModal(false);
+    console.log('投稿成功:', newReview);
+  } catch (error) {
+    console.error(error);
+    setError("コメント投稿に失敗しました");
+  }
+};
 
-  return (
-    <div className="review-container">
-      {/* 平均評価を表示 */}
-      <h1 className = "store-name">{storeName || "店舗名を取得中"}</h1>
-      <div className="average-rating">
-        {[1, 2, 3, 4, 5].map((value) => (
-          <span
-            key={value}
-            className={`star ${value <= Math.round(averageRating) ? "selected" : ""}`}
-          >
-            ★
-          </span>
-        ))}
+
+return (
+  <div className="review-container">
+    {/* 平均評価を表示 */}
+    <h1 className="store-name">{storeName || "店舗名を取得中"}</h1>
+
+    <div className="star-container">
+      {/* 背景の星（灰色） */}
+      <div className="stars-background">★★★★★</div>
+      {/* 塗りつぶされた星（評価に基づく幅） */}
+      <div
+        className="stars-filled"
+        style={{ 
+          width: `${(averageRating / 5) * 100}%`, 
+        }}
+      >
+        ★★★★★
       </div>
-      <span className="average-rating-value">
-        {averageRating.toFixed(1)} 
-      </span>
-      <h2 className="review-title">口コミ一覧</h2>
-      <button onClick={() => setShowModal(true)} style={{ marginTop: "20px" }}>
-        投稿
-      </button>
-      {error && reviews.length > 0 && <p style={{ color: "red" }}>{error}</p>}
-      {reviews.map((review) => (
-        <div key={review.id} className="review-card">
-          <div className="review-rating">
-            {[1, 2, 3, 4, 5].map ((value) => (
-              <span key= {value} className= {`star ${value <= review.rating ? "selected" : ""}`}
-              >
-                ★
-              </span>
-            ))}
-        <strong>{review.rating}.0</strong> 
-          </div>
-          <p className="review-comment">
-            <strong>口コミ:</strong> {review.comment}
-          </p>
-        </div>
-      ))}
-      {showModal && (
-        <Modal
-          show={showModal}
-          onClose={() => setShowModal(false)}
-          onSubmit={(rating: number, comment: string) => handleReviewSubmit(rating, comment)}
-          storeName={storeName} 
-        />
-      )}
     </div>
-  );
+    <span className="average-rating-value">{averageRating.toFixed(1)}</span>
+
+    <h2 className="review-title">口コミ一覧</h2>
+    <button onClick={() => setShowModal(true)} style={{ marginTop: "20px" }}>
+      投稿
+    </button>
+
+    {/* エラー表示 */}
+    {error && reviews.length > 0 && <p style={{ color: "red" }}>{error}</p>}
+
+    {/* 口コミ一覧 */}
+    {reviews.map((review) => (
+      <div key={review.id} className="review-card">
+        <div className="review-rating">
+          {[1, 2, 3, 4, 5].map((value) => (
+            <span
+              key={value}
+              className={`star ${
+                value <= Math.round(review.rating) ? "selected" : ""
+              }`}
+            >
+              ★
+            </span>
+          ))}
+          <strong>{review.rating.toFixed(1)}</strong>
+        </div>
+        <p className="review-comment">
+          <strong>口コミ:</strong> {review.comment}
+        </p>
+      </div>
+    ))}
+
+    {/* モーダル */}
+    {showModal && (
+      <Modal
+        show={showModal}
+        onClose={() => setShowModal(false)}
+        onSubmit={(rating: number, comment: string) =>
+          handleReviewSubmit(rating, comment)
+        }
+        storeName={storeName}
+      />
+    )}
+  </div>
+);
+
 };
 
 export default ReviewList;

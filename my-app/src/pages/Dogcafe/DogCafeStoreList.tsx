@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
+import "./DogCafeStoreList.css";
 
 interface Store {
   store_id: number;
@@ -85,74 +86,42 @@ const DogCafeStoreList: React.FC = () => {
 
   return (
     <>
-      <header style={{ textAlign: "center", fontSize: "24px", padding: "10px" }}>
-        Wan Paradise
-      </header>
-
-      <div style={{ textAlign: "center", padding: "20px", backgroundColor: "#FAF3E0" }}>
+      <header className="header">Wan Paradise</header>
+      <div className="content">
         {selectedPrefecture === "ドッグカフェ情報がありません" ? (
           <h2>{selectedPrefecture}</h2>
         ) : (
           <>
             <h2>{selectedPrefecture}のドッグカフェ</h2>
-            <p style={{ fontSize: "14px", fontWeight: "bold", marginBottom: "20px" }}>
-              ドッグカフェの条件を絞り込む
-            </p>
-            <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "10px" }}>
+            <div className="tags-container">
               {tags.map((tag) => (
                 <button
                   key={tag.id}
                   onClick={() => handleTagClick(tag.id)}
-                  style={{
-                    backgroundColor: selectedTagIds.includes(tag.id) ? "#859F3D" : "white",
-                    color: "#282d27",
-                    padding: "10px 15px",
-                    borderRadius: "20px",
-                    cursor: "pointer",
-                    border: "1px solid #ccc",
-                  }}
+                  className={`tag-button ${selectedTagIds.includes(tag.id) ? "selected" : ""}`}
                 >
                   {tag.name}
                 </button>
               ))}
             </div>
-            {error && <p style={{ color: "red" }}>{error}</p>}
-
-            <div style={{ marginTop: "20px" }}>
+            {error && <p className="error-message">{error}</p>}
+            <div className="store-list">
               {store.length === 0 ? (
-                <p>該当する店舗が見つかりませんでした。</p>
+                <p className="no-store-message">該当する店舗が見つかりませんでした。</p>
               ) : (
                 store.map((storeItem) => (
                   <Link
                     key={storeItem.store_id}
                     to={`/dogcafe/detail/${storeItem.store_id}`}
-                    style={{ textDecoration: "none", color: "inherit" }}
+                    className="store-card"
                   >
-                    <div
-                      style={{
-                        border: "1px solid #ccc",
-                        borderRadius: "10px",
-                        padding: "20px",
-                        marginBottom: "20px",
-                        backgroundColor: "#fff",
-                      }}
-                    >
-                      <img
-                        src={storeItem.store_img}
-                        alt={storeItem.store_name}
-                        style={{ width: "300px", height: "300px", borderRadius: "10px" }}
-                      />
-                      <h3>{storeItem.store_name}</h3>
-                      <p>{storeItem.store_description}</p>
-                      <p>
-                        <strong>住所:</strong> {storeItem.store_address}
-                      </p>
-                      <p>
-                        <strong>電話:</strong> {storeItem.store_phone_number}
-                      </p>
-                      <p>
-                        <strong>営業時間:</strong> {storeItem.store_opening_hours}
-                      </p>
+                    <img src={storeItem.store_img} alt={storeItem.store_name} className="store-image" />
+                    <div className="store-info">
+                      <h3 className="store-name">{storeItem.store_name}</h3>
+                      <p className="store-description">{storeItem.store_description}</p>
+                      <p><strong>住所:</strong> {storeItem.store_address}</p>
+                      <p><strong>電話:</strong> {storeItem.store_phone_number}</p>
+                      <p><strong>営業時間:</strong> {storeItem.store_opening_hours}</p>
                     </div>
                   </Link>
                 ))
@@ -164,5 +133,6 @@ const DogCafeStoreList: React.FC = () => {
     </>
   );
 };
+
 
 export default DogCafeStoreList;

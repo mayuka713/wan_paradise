@@ -1,73 +1,164 @@
-.body {
-  background-color: #fef7d5;
-}
-
 .header {
-  font-size: 30px;
+  text-align: center;
+  font-size: 24px;
   font-weight: bold;
-  margin-bottom: 60px;
+  background-color: rgb(244, 244, 244);
+  color: black;
+  margin-bottom: 8px;
 }
-.tab-container {
-  display: inline-block;
-  align-items: center;
-  padding: 5px 30px;
+
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.titile {
+  text-align: center;
+  font-size: 28px;
+
+}
+/* Tags container */
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.tag-button {
+  padding: 10px 20px;
   border-radius: 20px;
-  font-size: 16px;
-  font-weight: bold;
-  color: #333;
+  font-size: 14px;
   cursor: pointer;
-  margin-bottom: 20px;
-}
-/* ドロップダウンメニューのスタイル */
-.dropdown-menu {
-  position: absolute;
-  background-color: #fff;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 10px;
-  z-index: 1000;
+  background-color: white;
+  color: #282d27;
 }
 
-.dropdown-menu li {
-  padding: 8px 15px;
-  cursor: pointer;
-}
-.dropdown-menu li:hover {
-  background-color: #f0f0f0;
-}
-.all {
-  padding-left: 20px;
-}
-.arrow {
-  padding-left: 10px;
-  font-weight: bold;
+.tag-button.selected {
+  background-color: #859f3d;
+  color: white;
 }
 
-.dogrun-title {
-  font-size: 1.5em;
-  margin-bottom: 20px;
-  align-items: center;
+/* Error message */
+.error-message {
+  color: red;
+  text-align: center;
   margin-bottom: 20px;
 }
-/* ページ全体のスタイル */
 
-.dogrun-page {
+/* Store list */
+.store-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+/* Store card */
+.store-card {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  text-align: center;
-}
-.dogrun-img {
-  display: flex;
-  margin-top: 20px;
-  justify-content: center;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.dogrun-illust {
-  max-width: 100%;
+.store-card:hover {
+  transform: translateY(-5px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Store image */
+.store-image {
   width: 100%;
-  padding-left: 38%;
-  margin-top: 40%;
-  height: auto;
+  height: 200px;
+  object-fit: cover;
+}
+
+/* Store info */
+.store-info {
+  padding: 15px;
+}
+
+.store-name {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.store-description {
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.no-store-message {
+  text-align: center;
+  color: #666;
+}
+
+@media (max-width: 480px) {
+  .header {
+    font-size: 18px;
+    padding: 8px 0;
+  }
+
+  .content {
+    padding: 15px;
+  }
+
+  .title {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+
+  .tags-container {
+    gap: 5px;
+  }
+
+  .tag-button {
+    padding: 8px 15px;
+    font-size: 12px;
+  }
+
+  .store-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .store-card {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    text-decoration: none;
+    background-color: white;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .store-image {
+    height: 150px;
+  }
+
+  .store-info {
+    padding: 10px;
+  }
+
+  .store-name {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+
+  .store-description {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
 }

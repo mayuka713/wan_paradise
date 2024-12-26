@@ -1,8 +1,8 @@
-import React , { useState }from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import "../App.css";
 import "./TopPage.css";
-import { useFavorites, FavoriteItem }  from "../context/FavoriteContext";
+import { useFavorites, FavoriteItem } from "../context/FavoriteContext";
 import HamburgerMenu from "../HamburgerMenu";
 import "../HamburgerMenu.css";
 import DogrunImage from "../pages/assets/images/Dogrun/dogrun.png";
@@ -14,31 +14,31 @@ import dogCafeNameTag from "../pages/assets/images/Dogcafe/dogcafe-nametag.png";
 import petshopNameTag from "../pages/assets/images/Petshop/petshop-nametag.png";
 import hospitalNameTag from "../pages/assets/images/Hospital/hospital-nametag.png";
 
-const TopPage: React.FC = () =>  {
+const TopPage: React.FC = () => {
   const { addFavorite } = useFavorites(); //useFavoriteでお気に入り機能を取得
 
 
 
-const items: FavoriteItem[] = [
-  { id: 1, name: "ドッグラン", image: DogrunImage },
-  { id: 2, name: "ドッグカフェ", image: dogcafe },
-  { id: 3, name: "ペットショップ", image: petshop },
-  { id: 4, name: "動物病院", image: hospital },
-];
+  const items: FavoriteItem[] = [
+    { id: 1, name: "ドッグラン", image: DogrunImage },
+    { id: 2, name: "ドッグカフェ", image: dogcafe },
+    { id: 3, name: "ペットショップ", image: petshop },
+    { id: 4, name: "動物病院", image: hospital },
+  ];
 
   return (
     <div className="container">
-     {/* ハンバーガーメニュー */}
-     <HamburgerMenu/>
+      {/* ハンバーガーメニュー */}
+      <HamburgerMenu />
 
       <header className="App-header">
         <h1>Wan Paradise</h1>
-     
-     {/* ヘッダー */}
+
+        {/* ヘッダー */}
       </header>
       <p className="main-title">ドッグラン、ドッグカフェ、ペットショップや動物病院など<br></br>
         様々なわんこの情報をご紹介しております。</p>
-      
+
       {/* dogrun */}
       <div className="info-section">
         <div className="text-container">
@@ -83,11 +83,11 @@ const items: FavoriteItem[] = [
           <img src={hospital} alt="病院のイラスト" className="image" />
         </div>
       </div>
-      
+
       <footer className="footer">wan paradise</footer>
     </div>
-   );
-  }
+  );
+}
 
 
 export default TopPage;

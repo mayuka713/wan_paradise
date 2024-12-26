@@ -3,7 +3,8 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.bulkInsert('reviews', [
+     await queryInterface.bulkInsert('reviews',
+     [
       {
         store_id: 1,
         rating: 4, 
@@ -494,12 +495,9 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
-
-
-
-
-
-    ]);
+      
+      ]
+    );
   },
 
   async down(queryInterface, Sequelize) {
