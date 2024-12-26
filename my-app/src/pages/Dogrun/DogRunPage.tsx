@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useNavigate, useParams, useLocation } from "react-router-dom";
 import "./DogRunPage.css";
 import DogrunRegionList from "./DogrunRegionList";
+import HamburgerMenu from "../../HamburgerMenu";
 
 
 const DogRunPage: React.FC = () => {
