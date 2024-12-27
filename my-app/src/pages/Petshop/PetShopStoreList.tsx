@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
+import "./PetShopPage.css";
 
 interface Store {
   store_id: number;
@@ -104,106 +105,70 @@ const PetShopStoreList: React.FC = () => {
 
 
   return (
-    <>
-      {/* ヘッダー */}
-      <header>
-        wan paradise
-      </header>
-
-      <div
-        style={{
-          textAlign: "center",
-          padding: "20px",
-          backgroundColor: "#FAF3E0",
-        }}
-      >
-        {selectedPrefecture === "ドッグカフェ情報がありません" ? (
-          <h2>{selectedPrefecture}</h2>
-        ) : (
-          <>
-            <h2>{selectedPrefecture}のペットショップ</h2>
-
-            <p
-              style={{
-                fontSize: "14px",
-                marginBottom: "20px",
-                fontWeight: "bold",
-              }}
-            >
-            ペットショップの条件を絞り込む
-            </p>
-            <div
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                justifyContent: "center",
-                gap: "10px",
-              }}
-            >
+      <>
+        <header className="header">Wan Paradise</header>
+        <div className="content">
+          {selectedPrefecture === "ペットショップ情報がありません" ? (
+            <h2>{selectedPrefecture}</h2>
+          ) : (
+            <>
+              <h2>{selectedPrefecture}のペットショップ</h2>
+              <p>条件を絞り込む</p>
+    
               {type4Tag.map((tag) => (
                 <button
                   key={tag.id}
                   onClick={() => handleTagClick(tag.id)}
-                  style={{
-                    backgroundColor: selectedTagIds.includes(tag.id) ? "#859F3D" : "white",
-                    color: "#282d27",
-                    padding: "10px 15px",
-                    borderRadius: "20px",
-                    cursor: "pointer",
-                    fontSize: "15px",
-                    transition: "all 0.3s ease",
-                  }}
+                  className={`tag-button ${
+                    selectedTagIds.includes(tag.id) ? "selected" : ""
+                  }`}
                 >
                   {tag.name}
                 </button>
               ))}
-              {error && <p style={{ color: "red" }}>{error}</p>}
-              {store.length > 0 &&
-                store.map((storeItem) => (
-                  <Link
-                    key={storeItem.store_id}
-                    to={`/dogcafe/detail/${storeItem.store_id}`}
-                    style={{
-                      display: "inline-block",
-                      marginTop: "10px",
-                      padding: "10px 15px",
-                      borderRadius: "5px",
-                      textDecoration: "none",
-                      color: "inherit",
-                    }}
-                  >
-                    <div
-                      style={{
-                        marginBottom: "30px",
-                        border: "1px solid #000000",
-                        borderRadius: "10px",
-                        padding: "20px",
-                        backgroundColor: "#fff",
-                      }}
-                    >
-                      <img
-                        src={storeItem.store_img}
-                        alt={storeItem.store_name}
-                        style={{ width: "300px", height: "300px", borderRadius: "10px" }}
-                      />
-                      <p style={{ fontWeight: "bold" }}>{storeItem.store_name}</p>
-                      <p>{storeItem.store_description}</p>
-                      <p style={{ fontWeight: "bold", display: "inline" }}>住所:</p>
-                      <p style={{ display: "inline" }}>{storeItem.store_address}</p>
-                      <br />
-                      <p style={{ fontWeight: "bold", display: "inline" }}>電話: {storeItem.store_phone_number}</p>
-                      <br />
-                      <p style={{ fontWeight: "bold", display: "inline" }}>営業時間:</p>
-                      <p style={{ display: "inline " }}>{storeItem.store_opening_hours}</p>
-                    </div>
-                  </Link>
-                ))}
-            </div>
-          </>
-        )}
-      </div>
-    </>
-  );
-};
+            </>
+          )}
+    
+          {error && <p className="error-message">{error}</p>}
+    
+          {store.length === 0 ? (
+            <p className="no-store-message">
+              該当する店舗が見つかりませんでした。
+            </p>
+          ) : (
+            store.map((storeItem) => (
+              <Link
+                key={storeItem.store_id}
+                to={`/petshop/detail/${storeItem.store_id}`}
+                className="store-card"
+              >
+                <img
+                  src={storeItem.store_img}
+                  alt={storeItem.store_name}
+                  className="store-image"
+                />
+                <div className="store-info">
+                  <h3 className="store-name">{storeItem.store_name}</h3>
+                  <p className="store-description">
+                    {storeItem.store_description}
+                  </p>
+                  <p>
+                    <strong>住所:</strong> {storeItem.store_address}
+                  </p>
+                  <p>
+                    <strong>電話:</strong> {storeItem.store_phone_number}
+                  </p>
+                  <p>
+                    <strong>営業時間:</strong> {storeItem.store_opening_hours}
+                  </p>
+                </div>
+              </Link>
+            ))
+          )}
+        </div>
+      </>
+    );
+  };
+    
 
 export default PetShopStoreList;

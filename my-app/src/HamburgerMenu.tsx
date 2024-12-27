@@ -9,11 +9,12 @@ const HamburgerMenu = () => {
   };
 
   const menuItems = [
-    { label: "お気に入り", link: "/favorites" },
+    { label: "トップページ", link: "/top"},
     { label: "ドッグラン", link: "/dogrun" },
     { label: "ドッグカフェ", link: "/dogcafe" },
     { label: "ペットショップ", link: "/petshop" },
     { label: "動物病院", link: "/hospital" },
+    { label: "お気に入り", link: "/favorites" },
   ];
 
 

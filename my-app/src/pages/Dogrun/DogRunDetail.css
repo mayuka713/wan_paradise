@@ -1,9 +1,4 @@
-/* 全体の背景とコンテナ */
-.container {
-  padding: 20px;
-  background-color:rgb(255, 255, 255) ;
 
-}
 
 /* 見出しのスタイル */
 .container h1 {
@@ -14,7 +9,7 @@
 
 /* 店舗画像のスタイル */
 .container img {
-  width: 60%;
+  width: 100%;
   border-radius: 8px;
   margin: 10px 0;
 }
@@ -39,38 +34,11 @@
   font-weight: bold;
   color: #333;
 }
-
-/* ボタンのスタイル */
-.container a,
-.container .link {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 10px 20px;
-  font-size: 13px;
-  text-decoration: none;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
-
-/* 口コミリンク */
-.container .link {
-  color: #000;
-  background-color: #ccc;
-}
-
-.container .link:hover {
-  background-color: #aaa;
-}
-
-/* 店舗公式サイトリンク */
-
-.container a:hover {
-  background-color: green;
-}
 .favorite-button {
   padding: 10px 20px;
   font-size: 14px;
   border: none;
+  background-color: #f3af5c;
   border-radius: 5px;
   cursor: pointer;
   margin: 10px 0;
@@ -79,6 +47,8 @@
 .favorite-button.active {
   background-color: #f3af5c;
 }
+
+
 /* 星のスタイル */
 .star {
   font-size: 24px; /* 星の大きさ */
@@ -89,7 +59,38 @@
 }
 
 .star.selected {
-  color: gold; /* 選択された星の色 */
+  color: gold;
+}
+
+/* 口コミリンク */
+.review-button{
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 13px;
+  text-decoration: none;
+  color: #000; /* テキストの色を黒に */
+  background-color: #fff; /* 背景色を白に */
+  border: 1px solid #000; /* 外枠を黒に設定 */
+  border-radius: 5px; /* 角丸 */
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+.review-button:hover {
+  background-color: #f0f0f0; /* ホバー時に少しグレーに */
+  transform: scale(1.05); /* ホバー時に拡大 */
+}
+.container .link:hover {
+  background-color: #aaa;
+}
+
+/* 店舗公式サイトリンク */
+.official-site {
+  color: black;
+}
+.container a:hover {
+  background-color: #f0f0f0;
+  transform: scale(1.05);
 }
 
 
@@ -97,6 +98,7 @@
   .container img {
     width: 100%;
     border-radius: 10px;
+    margin-top: 100px;
   }
   .container h1 {
     font-size: 1.2rem;
@@ -104,17 +106,13 @@
   .store-title {
     font-size: 13px;
   }
-  .container a,
-  .container .link {
-    padding: 8px 15px;
-    font-size: 12px;
-  }
+
   .rating-container {
     position: relative;
     font-size: 24px; /* 星のサイズ */
     color: #ccc; /* 背景の星の色 */
   }
-  
+
   .rating-container .filled-stars {
     position: absolute;
     top: 0;

@@ -5,16 +5,9 @@
   background-color: #fef7d5;
 }
 
-p {
-  font-size: 18px;
-  margin-bottom: 20px;
-  transition: color 0.3s ease; /* ホバー時のアニメーション */
-
-}
-
 .header {
   font-size: 30px;
-  font-weight: bold;
+  font-weight: normal;
   margin-bottom: 60px;
 }
 
@@ -24,18 +17,6 @@ p {
   justify-content: flex-start; /* 左揃え */
   gap: 10px; /* タグ同士の間隔 */
 }
-
-.tag {
-  background-color: #ffffff; /* タグの背景色 */
-  color: #333333; /* タグの文字色 */
-  padding: 8px 12px; /* 内側の余白 */
-  border-radius: 20px; /* 角丸 */
-  font-size: 14px; /* 文字サイズ */
-  cursor: pointer; /* マウスホバーでポインタ表示 */
-  border: 1px solid #cccccc; /* タグの境界線 */
-  text-align: left; /* テキストを左揃え */
-}
-
 
 /* ドロップダウンメニューのスタイル */
 .dropdown-menu {
@@ -78,27 +59,57 @@ p {
   text-align: center;
 }
 .dogrun-img {
-  display: flex;
-  margin-top: 50%;
-  justify-content: center;
-
-}
-
-.dogrun-illust {
-  max-width: 100%;
-  width: 100%;
-  padding-left: 38%;
-  margin-top: 50%;
+  width: 80%;
+  max-width: 500px;
   height: auto;
+  transition: transform 0.3s ease;
+
+}
+.dogrun-image:hover {
+  transform: scale(1.05);
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
-}
 
-div {
-  cursor: pointer;
-  transition: transform  0.2s;
-}
+@media (max-width:480px) {
 
+  .dogrun-page-container {
+    margin-top: 20px;
+    font-size: 10px;
+  }
+  .header h1 {
+    margin-bottom: 20px;
+  }
+  .search-dogrun {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #859F3D;
+    color: #F6FCDF;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+    margin-left: 80px;
+  }
+  .search-dogrun:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+  }
+  .dogrun-image {
+    width: 40%;
+  }
+  .hamburger-menu {
+    position: fixed;
+    top: 20px;
+    left: 0;
+    width: 100%; /* 必要に応じて調整 */
+    z-index: 1000; /* 他の要素より前面に表示 */
+  }
+  .header   {
+    top: 20px;
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 60px;
+  }
+}

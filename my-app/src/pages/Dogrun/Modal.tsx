@@ -23,7 +23,7 @@ const Modal: React.FC<ModalProps> = ({ show, onClose, onSubmit, storeName }) => 
     try {
   if (selectedRating <= 0) {
     setError("評価を入力してください。");
-     return;
+    return;
     }
     if (comment.trim() === "") {
       setError("口コミを入力してください。");
@@ -40,7 +40,7 @@ const Modal: React.FC<ModalProps> = ({ show, onClose, onSubmit, storeName }) => 
     setError("エラーが発生しました");
   }
 };
- 
+
 
 
 

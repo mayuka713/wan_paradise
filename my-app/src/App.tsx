@@ -1,13 +1,12 @@
 
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import "./App.css";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import TopPage from "./pages/TopPage";
 import FavoritePage from "./pages/FavoritePage";
 import { FavoriteProvider } from "./context/FavoriteContext";
-import HamburgerMenu from "./components/ HamburgerMenu";
+import HamburgerMenu from "./HamburgerMenu";
 
 
 // ドッグランのページ
@@ -40,6 +39,7 @@ const App: React.FC = () => {
   return (
     <FavoriteProvider>
     <Router>
+        <HamburgerMenu />
         <div className="App">
           <Routes>
             {/* ログインページ */}

@@ -13,13 +13,15 @@ const DogRunPage: React.FC = () => {
   };
   
   return (
-    <div style={{ textAlign: 'center', marginTop: '20px' }}>
-    <h1>wan paradise</h1>
-    <p onClick={handleClick} style={{ cursor: 'pointer', fontSize: '18px' }}>
+    <div className="dogrun-page-container">
+    <h1 className="header">wan paradise</h1>
+    <p onClick={handleClick} className="search-dogrun">
       全国のドッグランを探す
     </p>
     <div>
-      <img src="https://res.cloudinary.com/do4lxnof9/image/upload/v1733709421/wan_paradise/DogRun/dogrun.illust.png" alt="ドッグランのイラスト" style={{ width: '50%' }} />
+      <img src="https://res.cloudinary.com/do4lxnof9/image/upload/v1733709421/wan_paradise/DogRun/dogrun.illust.png" 
+      alt="ドッグランのイラスト"
+      className="dogrun-image"/>
     </div>
   </div>
   );

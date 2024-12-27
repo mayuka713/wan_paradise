@@ -1,9 +1,7 @@
 .region-list-container {
   margin: 20px;
   padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
 }
 
 .region-list-title {
@@ -51,3 +49,13 @@
   background-color: #f9f9f9;
 }
 
+@media (max-width:480px) {
+
+  .hamburger-menu {
+    position: fixed;
+    top: 20px;
+    left: 0;
+    width: 100%; /* 必要に応じて調整 */
+    z-index: 1000; /* 他の要素より前面に表示 */
+  }
+}

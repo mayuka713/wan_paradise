@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./DogRunRegionList.css";
+import HamburgerMenu from "../../HamburgerMenu";
 
 interface Prefecture {
   id: number;

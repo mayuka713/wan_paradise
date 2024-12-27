@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
+import "./DogRunDetail.css";
 
 interface Store {
   store_id: number;
@@ -57,7 +58,7 @@ const DogRunDetail: React.FC = () => {
   // お気に入りの追加・解除
   const handleFavoriteClick = async () => {
     try {
-      const response = await fetch("http://localhost:5003/favorites", {
+      const reponse = await fetch("http://localhost:5003/favorites", {
         method: isFavorite ? "DELETE" : "POST",
         headers: {
           "Content-Type": "application/json",// 送るデータがJSON形式だと伝える
@@ -128,47 +129,20 @@ const DogRunDetail: React.FC = () => {
     fetchStoreWithReviews();
   }, [id]);
 
-  if (error) {
-    return (
-      <div style={{ padding: "20px", backgroundColor: "#FAF3E0", textAlign: "center" }}>
-        <p>{error}</p>
-      </div>
-    );
-  }
+  if (error) return <div className="container">{error}</div>;
+  if (!store) return <div className="container">データを読み込んでいます..🐕</div>;
 
-  // storeがnullの場合の処理
-  if (!store) {
-    return (
-      <div style={{ padding: "20px", backgroundColor: "#FAF3E0", textAlign: "center" }}>
-        <p>データを読み込んでいます..🐕</p>
-      </div>
-    );
-  }
   return (
-    <div style={{ padding: "20px", backgroundColor: "#FAF3E0", textAlign: "center" }}>
-      <h1 style={{ fontSize: '1rem' }}>{store.store_name}</h1>
-      <img
-        src={store.store_img}
-        alt={store.store_name}
-        style={{ width: "100%", borderRadius: "8px" }}
-      />
+    <div className="container">
+      <h1>{store.store_name}</h1>
+      <img src={store.store_img} alt={store.store_name}/>
       {/* お気に入りボタン */}
       <button
         onClick={handleFavoriteClick}
-        style={{
-          margin: "10px",
-          padding: "10px 20px",
-          backgroundColor: isFavorite ? "#f66" : "#ccc",
-          color: "#fff",
-          border: "none",
-          borderRadius: "5px",
-          cursor: "pointer",
-        }}
+      className={`favotite-button${isFavorite ? "active" : ""}`}
       >
         {isFavorite ? "お気に入り" : "お気に入り解除"}
       </button>
-
-
       {/* 平均評価を星で表示 */}
       {store.reviews && store.reviews.length > 0 ? (
         <div style={{ margin: "20px 0" }}>
@@ -197,7 +171,7 @@ const DogRunDetail: React.FC = () => {
           </p>
         </div>
       ) : (
-        <p style={{ marginTop: "20px" }}>まだ口コミはありません</p>
+        <p>まだ口コミはありません</p>
       )}
 
 
@@ -211,13 +185,9 @@ const DogRunDetail: React.FC = () => {
       <div style={{ margin: "20px 0" }}>
         <iframe
           title="Google Map"
-          width="100%"
-          height="300"
-          style={{ border: "0", borderRadius: "8px" }}
           src={`https://www.google.com/maps/embed/v1/place?key=${MAP_API_KEY}&q=${encodeURIComponent(
             store.store_address
           )}`}
-          allowFullScreen
         ></iframe>
       </div>
       <p>電話番号: {store.store_phone_number}</p>
@@ -233,17 +203,7 @@ const DogRunDetail: React.FC = () => {
       {store.reviews && store.reviews.length > 0 && (
         <Link
           to={`/dogrun/reviews/${store.store_id}`}
-          style={{
-            display: "inline-block",
-            marginTop: "10px",
-            padding: "10px 20px",
-            fontSize: "13px",
-            color: "#000000",
-            textDecoration: "none",
-            borderRadius: "5px",
-            backgroundColor: "#ccc",
-
-          }}
+          className="review-button"
         >
           口コミを見る
         </Link>
@@ -253,15 +213,7 @@ const DogRunDetail: React.FC = () => {
         href={store.store_url}
         target="_blank"
         rel="noopener noreferrer"
-        style={{
-          display: "inline-block",
-          marginTop: "10px",
-          padding: "10px 20px",
-          fontSize: "13px",
-          color: "#00000",
-          textDecoration: "none",
-          borderRadius: "5px",
-        }}
+        className="official-site"
       >
         店舗の公式サイト
       </a>

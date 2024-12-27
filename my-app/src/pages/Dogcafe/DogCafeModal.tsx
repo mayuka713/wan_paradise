@@ -5,7 +5,7 @@ import React, { useState } from "react";
 interface ModalProps {
   show: boolean; // モーダルを表示するか（true: 表示、false: 非表示）
   onClose: () => void;
-  onSubmit: (rating: number, comment: string) => void; 
+  onSubmit: (rating: number, comment: string) => void;
   storeName: string;
 }
 
@@ -21,28 +21,25 @@ const Modal: React.FC<ModalProps> = ({ show, onClose, onSubmit, storeName }) => 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault(); // フォームのリロードを防ぐ
     try {
-  if (selectedRating <= 0) {
-    setError("評価を入力してください。");
-     return;
+      if (selectedRating <= 0) {
+        setError("評価を入力してください。");
+        return;
+      }
+      if (comment.trim() === "") {
+        setError("口コミを入力してください。");
+        return;
+      }
+      //入力が正しい時に、送信処理
+      onSubmit(selectedRating, comment.trim());
+      setSelectedRating(0);
+      setComment("");
+      setError(null);
+      onClose();
+    } catch (error) {
+      console.error(error);
+      setError("エラーが発生しました");
     }
-    if (comment.trim() === "") {
-      setError("口コミを入力してください。");
-    return;
-  }
-  //入力が正しい時に、送信処理
-  onSubmit(selectedRating,comment.trim());
-  setSelectedRating(0);
-  setComment("");
-  setError(null);
-  onClose();
-  } catch (error){
-    console.error(error);
-    setError("エラーが発生しました");
-  }
-};
- 
-
-
+  };
 
   const handleStarClick = (value: number) => {
     if (selectedRating === value) {
@@ -60,8 +57,8 @@ const Modal: React.FC<ModalProps> = ({ show, onClose, onSubmit, storeName }) => 
         </span>
         <h1>{storeName}</h1>
         <h2>口コミを投稿</h2>
-        <form onSubmit={handleSubmit} style={{ marginTop: "20px" }}>
-          <div style={{ marginBottom: "10px" }}>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
             <label>
               評価:
               <div className="star-rating">
@@ -83,17 +80,12 @@ const Modal: React.FC<ModalProps> = ({ show, onClose, onSubmit, storeName }) => 
               <textarea
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
-                style={{ width: "100%", height: "80px", marginLeft: "10px" }}
+                className="modal-textarea"
               />
             </label>
           </div>
-          {error && (
-            <p style={{ color: "red", marginBottom: "10px" }}>{error}</p>
-          )}
-          <button
-            type="submit"
-            style={{ padding: "8px 16px", borderRadius: "4px" }}
-          >
+          {error && <p className="error-text">{error}</p>}
+          <button type="submit" className="modal-submit-button">
             投稿
           </button>
         </form>
