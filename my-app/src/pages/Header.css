@@ -112,21 +112,20 @@ ul {
   }
   .App-header {
     position: fixed;
-    top: 0;            /* 画面の上端に固定 */
-    left: 0;           /* 左端に固定（任意） */
     width: 100%;       /* ヘッダーを幅いっぱいにする */
     z-index: 100;     /* ほかの要素より前面に配置 */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
+    padding: 13px 20px;
     background-color: #ffffff;
     border-bottom: 2px solid #ccc;
-    
+    margin-top: -20px;
   }
   .App-header h1 {
     font-size: 1.5rem;
-    padding-left: 110px;
+    padding-left: 95px;
+    margin-bottom: auto;
   }
   .header-nav {
     display: none;

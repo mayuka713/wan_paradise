@@ -5,12 +5,6 @@
   background-color: #fef7d5;
 }
 
-.header {
-  font-size: 30px;
-  font-weight: normal;
-  margin-bottom: 60px;
-}
-
 .tag-container {
   display: flex;
   flex-wrap: wrap; /* タグを折り返し */
@@ -76,28 +70,30 @@
     margin-top: 20px;
     font-size: 10px;
   }
-  .header h1 {
-    margin-bottom: 20px;
-  }
   .search-dogrun {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #859F3D;
-    color: #F6FCDF;
-    border-radius: 5px;
+    background-color: #1DB954;
+    color: #fff;
+    border-radius: 20px;
     text-decoration: none;
-    font-size: 1.2rem;
     font-weight: bold;
+    font-size: 17px;
     transition: background-color 0.3s ease, transform 0.2s ease;
     cursor: pointer;
-    margin-left: 80px;
+    margin-left: 78px;
+    margin-top: 180px;
+    margin-bottom: 50px;
+    padding: 17px;
+    padding-left: 44px;
+    padding-right: 35px;
   }
+
   .search-dogrun:hover {
-    background-color: #0056b3;
     transform: scale(1.05);
   }
   .dogrun-image {
-    width: 40%;
+    width: 100%;
   }
   .hamburger-menu {
     position: fixed;
@@ -106,10 +102,5 @@
     width: 100%; /* 必要に応じて調整 */
     z-index: 1000; /* 他の要素より前面に表示 */
   }
-  .header   {
-    top: 20px;
-    font-size: 30px;
-    font-weight: bold;
-    margin-bottom: 60px;
-  }
+
 }

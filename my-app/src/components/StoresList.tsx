@@ -41,9 +41,8 @@ const StoresList: React.FC = () => {
     ):(
       <p>データがありません</p>
     )}
-     </>
+    </>
   );
 };
 
 export default StoresList;
-

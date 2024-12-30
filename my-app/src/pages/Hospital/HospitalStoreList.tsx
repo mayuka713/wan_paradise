@@ -100,11 +100,6 @@ const HospitalStoreList: React.FC = () => {
 
   return (
     <>
-      {/* ヘッダー */}
-      <header>
-        wan paradise
-      </header>
-
       <div
         style={{
           textAlign: "center",

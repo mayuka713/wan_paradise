@@ -10,24 +10,14 @@ import dogrunNameTag from "../pages/assets/images/Dogrun/dogrun-nametag.png";
 import dogCafeNameTag from "../pages/assets/images/Dogcafe/dogcafe-nametag.png";
 import petshopNameTag from "../pages/assets/images/Petshop/petshop-nametag.png";
 import hospitalNameTag from "../pages/assets/images/Hospital/hospital-nametag.png";
+import Header from "./Header";
 
 const TopPage: React.FC = () => {
   return (
     <div className="container">
    {/* ハンバーガーメニュー */}
     <HamburgerMenu />
-
-      {/* ヘッダー */}
-      <header className="App-header">
-        <h1>Wan Paradise</h1>
-        <nav className="header-nav">
-          <Link to="/dogrun">ドッグラン</Link>
-          <Link to="/dogcafe">ドッグカフェ</Link>
-          <Link to="/petshop">ペットショップ</Link>
-          <Link to="/hospital">動物病院</Link>
-          <Link to="/favorite">お気に入り</Link>
-        </nav>
-      </header>
+    <Header />
 
       {/* メインタイトル */}
       <p className="main-title">

@@ -7,14 +7,12 @@ import DogCafeRegionList from "./DogCafeRegionList";
 
 const DogCafePage: React.FC = () => {
   const navigate = useNavigate();
-
   const handleClick = () => {
     navigate("/DogCafeRegionList");
   };
 
   return (
     <div className="dogcafe-page-container">
-      <h1 className="header">wan paradise</h1>
       <p onClick={handleClick} className="search-dogcafe">
         全国のドッグカフェを探す
       </p>

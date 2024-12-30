@@ -11,8 +11,16 @@ interface Store {
   store_phone_number: string;
   store_dogcafe_detail: string;
   store_img: string;
+  reviews: Review[];
 }
 
+
+interface Review {
+  id: number;
+  store_id: number;
+  rating: number;
+  comment: string;
+}
 interface Tag {
   id: number;
   name: string;
@@ -86,13 +94,13 @@ const DogCafeStoreList: React.FC = () => {
 
   return (
     <>
-      <header className="header">Wan Paradise</header>
       <div className="content">
         {selectedPrefecture === "ドッグカフェ情報がありません" ? (
           <h2>{selectedPrefecture}</h2>
         ) : (
           <>
             <h2>{selectedPrefecture}のドッグカフェ</h2>
+            <h3 className="">ドッグカフェの条件を選ぶ</h3>
             <div className="tags-container">
               {tags.map((tag) => (
                 <button

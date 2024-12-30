@@ -7,6 +7,7 @@ import TopPage from "./pages/TopPage";
 import FavoritePage from "./pages/FavoritePage";
 import { FavoriteProvider } from "./context/FavoriteContext";
 import HamburgerMenu from "./HamburgerMenu";
+import Header from "./pages/Header";
 
 
 // ドッグランのページ

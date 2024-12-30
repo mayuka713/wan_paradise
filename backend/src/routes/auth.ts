@@ -23,7 +23,7 @@ router.post('/register', async (req: Request, res: Response) => {
     // 登録が成功した場合、フロントエンドにリダイレクト情報を送信
     res.status(201).json({
       message: 'ユーザーが登録されました。',
-    redirectUrl: process.env.REDIRECT_URL,// フロントエンドにリダイレクト先を指定
+      redirectUrl: process.env.REDIRECT_URL,// フロントエンドにリダイレクト先を指定
       user: {
         id: result.rows[0].id,
         email: result.rows[0].email,
@@ -54,7 +54,7 @@ router.post('/login', async (req: Request, res: Response) => {
     }
 
 
-    
+
     // セッションにユーザー情報を保存
     req.session.userId = user.id;
 
@@ -73,5 +73,5 @@ router.post('/login', async (req: Request, res: Response) => {
   }
 });
 
-export default router; 
+export default router;
 

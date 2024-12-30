@@ -65,9 +65,9 @@ router.get("/:user_id", async (req: Request, res: Response) => {
   try {
     const result = await pool.query(
       `SELECT f.store_id, s.name AS store_name, s.address AS store_address, s.store_img
-       FROM favorites f
-       JOIN stores s ON f.store_id = s.id
-       WHERE f.user_id = $1`,
+        FROM favorites f
+        JOIN stores s ON f.store_id = s.id
+        WHERE f.user_id = $1`,
       [user_id]
     );
     console.log("クエリ結果:", result.rows); // ログ追加

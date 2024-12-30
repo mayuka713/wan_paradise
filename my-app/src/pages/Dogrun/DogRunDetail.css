@@ -1,4 +1,6 @@
-
+.container {
+  text-align: center;
+}
 
 /* 見出しのスタイル */
 .container h1 {
@@ -95,16 +97,18 @@
 
 
 @media (max-width: 480px) {
-  .container img {
+  .container img,
+  .container iframe {
     width: 100%;
     border-radius: 10px;
-    margin-top: 100px;
   }
   .container h1 {
-    font-size: 1.2rem;
+    font-size: 20px;
+    margin-top: 160px;
   }
   .store-title {
     font-size: 13px;
+    margin-bottom: 20px;
   }
 
   .rating-container {
@@ -112,7 +116,9 @@
     font-size: 24px; /* 星のサイズ */
     color: #ccc; /* 背景の星の色 */
   }
-
+  .button {
+    margin-left: 20px;
+  }
   .rating-container .filled-stars {
     position: absolute;
     top: 0;

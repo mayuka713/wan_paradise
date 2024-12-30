@@ -45,7 +45,7 @@ const DogCafeDetail: React.FC = () => {
   } 
   return (
     <div style={{ padding: "20px", backgroundColor: "#FAF3E0", textAlign: "center" }}>
-     <h1 style={{ fontSize: '1rem' }}>{store.store_name}</h1>
+    <h1 style={{ fontSize: '1rem' }}>{store.store_name}</h1>
       <img
         src={store.store_img}
         alt={store.store_name}
@@ -58,16 +58,15 @@ const DogCafeDetail: React.FC = () => {
       </p>
     {/*/Google map 埋め込み*/}
       <div style={{ margin: "20px 0"}}>
-       <iframe 
-       title="Google Map"
-       width="100%"
-       height="300"
-       style={{ border: "0", borderRadius: "8px" }}
-       src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBamO2vaf6PMNHy3bhMJd_2FO2I6IUgEpE&q=${encodeURIComponent(
-         store.store_address
-       )}`}
-       allowFullScreen
-       ></iframe>
+      <iframe 
+        title="Google Map"
+        width="100%"
+        height="300" style={{ border: "0", borderRadius: "8px" }}
+      src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBamO2vaf6PMNHy3bhMJd_2FO2I6IUgEpE&q=${encodeURIComponent(
+        store.store_address
+      )}`}
+      allowFullScreen
+      ></iframe>
       </div>
       <p>電話番号: {store.store_phone_number}</p>
       <p>営業時間: {store.store_opening_hours}</p>

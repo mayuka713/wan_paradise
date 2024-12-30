@@ -14,9 +14,14 @@ module.exports = {
         address: '北海道札幌市西区小別沢13',
         phone_number: '011-667-0418',
         store_url: 'http://wanpark.la.coocan.jp/',
-        store_img: 'https://res.cloudinary.com/do4lxnof9/image/upload/v1732334804/wan_paradise/DogRun/morimori.jpg',
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        store_img: JSON.stringify ([
+          'https://bit.ly/40dyWTn',
+          'https://bit.ly/3DxK3xn',
+          'https://bit.ly/40dresf',
+        ]),
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        
       },
       { //2
         name: 'バーナードスクエア',

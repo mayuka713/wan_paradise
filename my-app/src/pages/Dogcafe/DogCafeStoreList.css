@@ -1,16 +1,7 @@
-.header {
-  text-align: center;
-  font-size: 20px;
-  font-weight: bold;
-  background-color: rgb(250, 243, 224);
-  color: black;
-  padding: 15px 0;
-}
 /* コンテンツ全体 */
 .content {
   text-align: center;
   padding: 20px;
-  background-color: #faf3e0;
 }
 /* タイトル */
 .tags {

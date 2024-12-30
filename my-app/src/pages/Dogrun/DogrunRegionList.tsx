@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./DogRunRegionList.css";
 import HamburgerMenu from "../../HamburgerMenu";
+import Header from "../Header";
 
 interface Prefecture {
   id: number;
@@ -43,6 +44,8 @@ const DogrunRegionList: React.FC = () => {
   }, {});
 
   return (
+    <>
+    <Header/>
     <div className="region-list-container">
       <h2 className="region-list-title">DogRunを探す</h2>
       <div className="region-list-content">
@@ -64,6 +67,7 @@ const DogrunRegionList: React.FC = () => {
         ))}
       </div>
     </div>
+    </>
   );
 };
 

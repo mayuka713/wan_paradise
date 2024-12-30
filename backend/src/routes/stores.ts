@@ -15,11 +15,9 @@ router.get("/store-name/:store_id", async (req, res) => {
       WHERE id = $1
     `;
     const result = await pool.query(query, [parseInt(store_id, 10)]);
-
     if (result.rows.length === 0) {
       return res.status(404).json({ message: "該当する店舗が見つかりませんでした。" });
     }
-
     res.status(200).json({ store_name: result.rows[0].store_name });
   } catch (error) {
     console.error("店舗名の取得中にエラーが発生しました:", error);
@@ -165,8 +163,19 @@ router.get("/detail/:id", async (req, res) => {
     if (result.rows.length === 0) {
       return res.status(404).json({ message: "該当する店舗情報が見つかりませんでした。" });
     }
+    const storeData = result.rows[0];
 
-    res.status(200).json(result.rows[0]);
+    // store_img を JSON パース（配列として返す）
+      if (storeData.store_img) {
+        try {
+          storeData.store_img = JSON.parse(storeData.store_img);
+        } catch (error) {
+          console.error("store_imgのパース中にエラーが発生しました:", error);
+          storeData.store_img = []; // パースに失敗した場合は空配列を設定
+        }
+      }
+
+    res.status(200).json(storeData);
   } catch (error) {
     console.error("店舗詳細情報の取得中にエラーが発生しました:", error);
     res.status(500).json({ message: "サーバーエラーが発生しました。" });

@@ -2,11 +2,6 @@
   background-color: #fef7d5;
 }
 
-.header {
-  font-size: 30px;
-  font-weight: bold;
-  margin-bottom: 60px;
-}
 .tab-container {
   display: inline-block;
   align-items: center;
@@ -73,3 +68,6 @@
   height: auto;
 }
 
+@media screen  {
+  
+}

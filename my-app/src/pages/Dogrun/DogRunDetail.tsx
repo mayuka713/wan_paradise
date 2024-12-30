@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import "./DogRunDetail.css";
+import Header from "../Header";
+import "../Header.css";
+
+
 
 interface Store {
   store_id: number;
@@ -133,9 +137,12 @@ const DogRunDetail: React.FC = () => {
   if (!store) return <div className="container">データを読み込んでいます..🐕</div>;
 
   return (
+    <>
+    <Header/>
     <div className="container">
       <h1>{store.store_name}</h1>
       <img src={store.store_img} alt={store.store_name}/>
+      
       {/* お気に入りボタン */}
       <button
         onClick={handleFavoriteClick}
@@ -173,8 +180,6 @@ const DogRunDetail: React.FC = () => {
       ) : (
         <p>まだ口コミはありません</p>
       )}
-
-
 
       {/* 店舗情報 */}
       <p>
@@ -218,6 +223,7 @@ const DogRunDetail: React.FC = () => {
         店舗の公式サイト
       </a>
     </div>
+    </>
   );
 };
 
