@@ -12,7 +12,7 @@ interface Store {
   store_address: string;
   store_opening_hours: string;
   store_phone_number: string;
-  store_img: string;
+  store_img: string[];
   reviews: Review[];
 }
 
@@ -102,7 +102,7 @@ const DogRunStoreList: React.FC = () => {
 
   return (
     <>
-      <Header/>
+      <Header />
       <div className="content">
         {selectedPrefecture === "ドッグラン情報がありません" ? (
           <h2>{selectedPrefecture}</h2>
@@ -115,9 +115,8 @@ const DogRunStoreList: React.FC = () => {
                 <button
                   key={tag.id}
                   onClick={() => handleTagClick(tag.id)}
-                  className={`tag-button ${
-                    selectedTagIds.includes(tag.id) ? "selected" : ""
-                  }`}
+                  className={`tag-button ${selectedTagIds.includes(tag.id) ? "selected" : ""
+                    }`}
                 >
                   {tag.name}
                 </button>
@@ -141,26 +140,32 @@ const DogRunStoreList: React.FC = () => {
                       key={storeItem.store_id}
                     >
                       {/* 画像の表示 */}
-                      <img
-                        src={storeItem.store_img}
-                        alt={storeItem.store_name}
-                        className="store-image"
-                      />
-                    <div className="star-rating-container">
-                      <div className="star-container">
-                        <div className="stars-background">★★★★★</div>
-                        <div
-                          className="stars-filled"
-                          style={{
-                            width: `${(averageRating / 5) * 100}%`,
-                          }}
-                        >
-                          ★★★★★
-                        </div>
+                      <div className="store-images">
+                        {Array.isArray(storeItem.store_img) &&
+                          storeItem.store_img.map((img, index) => (
+                            <img 
+                              key={index}
+                              src={img}
+                              alt={`${storeItem.store_name} Image ${index + 1}`}
+                              className="store-image"
+                            />
+                          ))}
                       </div>
-                      <span className="average-rating-value">
-                        {averageRating.toFixed(1)}
-                      </span>
+                      <div className="star-rating-container">
+                        <div className="star-container">
+                          <div className="stars-background">★★★★★</div>
+                          <div
+                            className="stars-filled"
+                            style={{
+                              width: `${(averageRating / 5) * 100}%`,
+                            }}
+                          >
+                            ★★★★★
+                          </div>
+                        </div>
+                        <span className="average-rating-value">
+                          {averageRating.toFixed(1)}
+                        </span>
                       </div>
                       <h3 className="store-name">{storeItem.store_name}</h3>
                       <p>{storeItem.store_description}</p>
