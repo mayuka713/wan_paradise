@@ -42,7 +42,6 @@ const DogRunDetail: React.FC = () => {
         //店舗データ取得
         const storeResponse = await fetch(`http://localhost:5003/stores/detail/${id}`);
         if (!storeResponse.ok) throw new Error("店舗情報の取得に失敗しました");
-        console.log(`MAP_API_KEY is: ${MAP_API_KEY}`);
         
         const storeData: Store = await storeResponse.json();
         setStore(storeData);

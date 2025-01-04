@@ -2,6 +2,8 @@ import React from "react";
 import { Link, useNavigate, useParams, useLocation } from "react-router-dom";
 import "./DogCafePage.css";
 import DogCafeRegionList from "./DogCafeRegionList";
+import HamburgerMenu from "../../HamburgerMenu";
+import Header from "../Header";
 
 
 
@@ -12,6 +14,8 @@ const DogCafePage: React.FC = () => {
   };
 
   return (
+    <>
+    <Header/>
     <div className="dogcafe-page-container">
       <p onClick={handleClick} className="search-dogcafe">
         全国のドッグカフェを探す
@@ -22,6 +26,7 @@ const DogCafePage: React.FC = () => {
           className="dogcafe-image" />
       </div>
     </div>
+    </>
   );
 };
 

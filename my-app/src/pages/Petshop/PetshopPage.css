@@ -1,10 +1,10 @@
 .body {
-  margin: 0;
-  padding: 0;
-  font-family: "Gothic Medium BBB", "Noto Sans JP", Hiragino Sans, "ヒラギノ角ゴシック", "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "メイリオ", Meiryo, "游ゴシック", YuGothic, "MS Ｐゴシック", sans-serif;
+  font-family: "Gothic Medium BBB", "Noto Sans JP", Hiragino Sans,
+    "ヒラギノ角ゴシック", "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN",
+    "Noto Sans JP", "メイリオ", Meiryo, "游ゴシック", YuGothic, "MS Ｐゴシック",
+    sans-serif;
   background-color: #fef7d5;
 }
-
 
 .tag-container {
   display: flex;
@@ -92,60 +92,26 @@
 }
 
 @media (max-width: 480px) {
-
-  .content {
-    text-align: center;
-    padding: 20px;
-    background-color: #fff;
-    margin-top: 51px;
+  .petshop-page-container {
+    margin-top: 20px;
+    font-size: 10px;
   }
-
-  .title {
-    font-size: 20px;
-    margin-bottom: 15px;
-  }
-
-  .tags-container {
-    gap: 5px;
-  }
-
-  .tag-button {
-    padding: 8px 15px;
-    font-size: 12px;
-  }
-
-  .store-list {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-
-  .store-card {
-    width: 100%;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    overflow: hidden;
+  .search-petshop {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ffc145;
+    color: #fff;
+    border-radius: 20px;
     text-decoration: none;
-    background-color: white;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
-  }
-
-  .store-image {
-    height: 150px;
-  }
-
-  .store-info {
-    padding: 10px;
-  }
-
-  .store-name {
-    font-size: 18px;
-    margin-bottom: 12px;
-    margin-top: 40px;
-  }
-
-  .store-description {
-    font-size: 14px;
-    margin-bottom: 8px;
+    font-weight: bold;
+    font-size: 17px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+    margin-left: 60px;
+    margin-top: 100px;
+    margin-bottom: 50px;
+    padding: 17px;
+    padding-left: 44px;
+    padding-right: 35px;
   }
 }

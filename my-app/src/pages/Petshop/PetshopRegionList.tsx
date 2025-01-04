@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./PetshopRegionList.css";
+import HamburgerMenu from "../../HamburgerMenu";
+import Header from "../Header";
+
 
 interface Prefecture {
   id: number;
@@ -44,6 +47,8 @@ const DogCafeRegionList: React.FC = () => {
   }, {});
 
   return (
+    <>
+    <Header/>
     <div className="region-list-container">
       <h2 className="region-list-title">ペットショップを探す</h2>
       <div className="region-list-content">
@@ -65,6 +70,7 @@ const DogCafeRegionList: React.FC = () => {
         ))}
       </div>
     </div>
+    </>
   );
 };
 

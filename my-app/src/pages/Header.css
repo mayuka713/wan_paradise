@@ -7,7 +7,6 @@ body {
 
 /* ヘッダー */
 .App-header {
-  display: flex;
   justify-content: space-between; /* 左右に要素を配置 */
   align-items: center;
   padding: 10px 20px;
@@ -35,13 +34,6 @@ ul {
   color: #333;
 }
 
-/* メインタイトル */
-.main-title {
-  font-size: 1.2rem;
-  color: #000000;
-  margin: 20px 0 40px;
-}
-
 /* 各セクション */
 .info-section {
   display: flex;
@@ -56,7 +48,7 @@ ul {
 }
 
 /* 画像とネームタグ */
-.image-container {
+.image-container-dogrun {
   position: relative;
   text-align: center;
 }
@@ -97,6 +89,7 @@ ul {
 }
 /* レスポンシブ対応 */
 @media (max-width: 480px) {
+
   .info-section {
     flex-direction: column;
   }
@@ -111,30 +104,21 @@ ul {
     width: 120px;
   }
   .App-header {
-    position: fixed;
-    width: 100%;       /* ヘッダーを幅いっぱいにする */
+    width: 90%;       /* ヘッダーを幅いっぱいにする */
     z-index: 100;     /* ほかの要素より前面に配置 */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 13px 20px;
     background-color: #ffffff;
     border-bottom: 2px solid #ccc;
-    margin-top: -20px;
+    text-align: center;
   }
   .App-header h1 {
-    font-size: 1.5rem;
-    padding-left: 95px;
+    font-size: 15px;
+    letter-spacing: 2px;
     margin-bottom: auto;
+    text-align: center;
   }
   .header-nav {
     display: none;
   }
-
-  .main-title {
-    font-size: 13px;
-    text-align: center;
-    margin-top: 130px;
 
   }
 
@@ -142,4 +126,3 @@ ul {
     font-size: 0.8rem;
     text-align: center;
   }
-}

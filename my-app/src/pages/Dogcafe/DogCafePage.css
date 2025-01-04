@@ -1,4 +1,8 @@
 .body {
+  font-family: "Gothic Medium BBB", "Noto Sans JP", Hiragino Sans,
+  "ヒラギノ角ゴシック", "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN",
+  "Noto Sans JP", "メイリオ", Meiryo, "游ゴシック", YuGothic, "MS Ｐゴシック",
+  sans-serif;
   background-color: #fef7d5;
 }
 
@@ -68,6 +72,27 @@
   height: auto;
 }
 
-@media screen  {
-  
+@media (max-width:480px) {
+  .dogcafe-page-container {
+    margin-top: 20px;
+    font-size: 10px;  
+  }
+  .search-dogcafe {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #CBA35C;
+    color: #fff;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 17px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+    margin-left: 78px;
+    margin-top: 180px;
+    margin-bottom: 50px;
+    padding: 17px;
+    padding-left: 44px;
+    padding-right: 35px;
+  }
 }

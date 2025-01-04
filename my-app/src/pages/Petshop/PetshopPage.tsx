@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link, useParams, useNavigate, useLocation } from "react-router-dom";
 import "./PetShopPage.css";
 import PetshopImage from "../assets/images/Petshop/petshop.png";
+import HamburgerMenu from "../../HamburgerMenu";
+import Header from "../Header";
 
 const PetshopPage: React.FC = () => {
   const navigate = useNavigate();
@@ -11,15 +13,17 @@ const PetshopPage: React.FC = () => {
     navigate('/PetshopRegionsList');
   };
   return (
-    <div style={{ textAlign: 'center', marginTop: '20px' }}>
-    <h1>wan paradise</h1>
-    <p onClick={handleClick} style={{ cursor: 'pointer', fontSize: '18px' }}>
+    <>
+    <Header/>
+    <div className="petshop-page-container">
+    <p onClick={handleClick} className="search-petshop">
       全国のペットショップを探す
     </p>
     <div>
-      <img src={PetshopImage} alt="ペットショップのイラスト" style={{ width: '100%' }} />
+      <img src={PetshopImage} alt="ペットショップのイラスト" className="petshop-image" />
     </div>
   </div>
+  </>
   );
 };
 

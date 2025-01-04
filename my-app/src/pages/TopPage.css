@@ -1,19 +1,10 @@
-body {
-  font-family: "Noto Sans JP", sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f9f9f9;
-}
-
 /* ヘッダー */
 .App-header {
-  display: flex;
   justify-content: space-between; /* 左右に要素を配置 */
   align-items: center;
   padding: 10px 20px;
   background-color: #ffffff;
   border-bottom: 2px solid #ccc;
-  
 }
 ul {
   list-style: none;
@@ -97,6 +88,11 @@ ul {
 }
 /* レスポンシブ対応 */
 @media (max-width: 480px) {
+  .TopPage-contaier {
+    padding-bottom: 20px;
+    text-align: center;
+  }
+
   .info-section {
     flex-direction: column;
   }
@@ -110,33 +106,12 @@ ul {
     top: -15px;
     width: 120px;
   }
-  .App-header {
-    position: fixed;
-    top: 0;            /* 画面の上端に固定 */
-    left: 0;           /* 左端に固定（任意） */
-    width: 100%;       /* ヘッダーを幅いっぱいにする */
-    z-index: 100;     /* ほかの要素より前面に配置 */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #ffffff;
-    border-bottom: 2px solid #ccc;
-    
-  }
-  .App-header h1 {
-    font-size: 1.5rem;
-    padding-left: 110px;
-  }
-  .header-nav {
-    display: none;
-  }
 
   .main-title {
+    margin-bottom: 170px;
     font-size: 13px;
     text-align: center;
-    margin-top: 130px;
-
+    margin-top: 140px;
   }
 
   .footer {

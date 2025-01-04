@@ -14,7 +14,7 @@ import Header from "./Header";
 
 const TopPage: React.FC = () => {
   return (
-    <div className="container">
+    <div className="TopPage-container">
    {/* ハンバーガーメニュー */}
     <HamburgerMenu />
     <Header />

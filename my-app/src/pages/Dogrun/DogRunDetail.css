@@ -2,13 +2,6 @@
   text-align: center;
 }
 
-/* 見出しのスタイル */
-.container h1 {
-  font-size: 1rem;
-  margin-bottom: 10px;
-  color: #333;
-}
-
 /* 店舗画像のスタイル */
 .container img {
   width: 100%;
@@ -102,10 +95,7 @@
     width: 100%;
     border-radius: 10px;
   }
-  .container h1 {
-    font-size: 20px;
-    margin-top: 160px;
-  }
+
   .store-title {
     font-size: 13px;
     margin-bottom: 20px;
