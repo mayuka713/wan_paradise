@@ -67,7 +67,6 @@
 @media (max-width:480px) {
 
   .dogrun-page-container {
-    margin-top: 20px;
     font-size: 10px;
   }
   .search-dogrun {
@@ -93,7 +92,8 @@
     transform: scale(1.05);
   }
   .dogrun-image {
-    width: 100%;
+    width: 80%;
+    margin-left: 40px;
   }
   .hamburger-menu {
     position: fixed;

@@ -9,7 +9,7 @@ const Header: React.FC = () => {
     <HamburgerMenu />
    {/* ヘッダー */}
       <header className="App-header">
-        <h1>Wan Paradise</h1>
+        <Link to="/top" className="header-link">Wan Paradise</Link>
         <nav className="header-nav">
           <Link to="/dogrun">ドッグラン</Link>
           <Link to="/dogcafe">ドッグカフェ</Link>

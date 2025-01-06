@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./DogCafeRegionList.css";
 import HamburgerMenu from "../../HamburgerMenu";
 import Header from "../Header";
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./TopPage.css";
 import HamburgerMenu from "../HamburgerMenu";
@@ -13,21 +13,48 @@ import hospitalNameTag from "../pages/assets/images/Hospital/hospital-nametag.pn
 import Header from "./Header";
 
 const TopPage: React.FC = () => {
+  // フェードイン用の useEffect
+  useEffect(() => {
+    const handleScroll = () => {
+      const fadeElements = document.querySelectorAll<HTMLElement>(".fade-in");
+      fadeElements.forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight * 1) {
+          el.classList.add("show");
+        }
+      });
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // スケールアップアニメーション用の状態管理
+  const [showText, setShowText] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setShowText(true);
+    }, 500); // 0.5秒後にアニメーション開始
+  }, []);
+
   return (
     <div className="TopPage-container">
-   {/* ハンバーガーメニュー */}
-    <HamburgerMenu />
-    <Header />
+      {/* ハンバーガーメニュー */}
+      <HamburgerMenu />
+      <Header />
 
-      {/* メインタイトル */}
-      <p className="main-title">
+      {/* メインタイトル（スケールアップ適用） */}
+      <p className={`main-title scale-up ${showText ? "show" : ""}`}>
         ドッグラン、ドッグカフェ、ペットショップや動物病院など
         <br />
-        様々なわんこの情報をご紹介しております。
+        様々なわんこの情報をご紹介しております!
       </p>
 
       {/* 各セクション */}
-      <div className="info-section">
+      <div className="info-section fade-in">
         <div className="image-container">
           <Link to="/dogrun">
             <img src={dogrunNameTag} alt="ドッグランネームタグ" />
@@ -36,7 +63,7 @@ const TopPage: React.FC = () => {
         </div>
       </div>
 
-      <div className="info-section reverse">
+      <div className="info-section reverse fade-in">
         <div className="image-container">
           <Link to="/dogcafe">
             <img src={dogCafeNameTag} alt="ドッグカフェネームタグ" />
@@ -45,7 +72,7 @@ const TopPage: React.FC = () => {
         </div>
       </div>
 
-      <div className="info-section">
+      <div className="info-section fade-in">
         <div className="image-container">
           <Link to="/petshop">
             <img src={petshopNameTag} alt="ペットショップネームタグ" />
@@ -54,7 +81,7 @@ const TopPage: React.FC = () => {
         </div>
       </div>
 
-      <div className="info-section reverse">
+      <div className="info-section reverse fade-in">
         <div className="image-container">
           <Link to="/hospital">
             <img src={hospitalNameTag} alt="病院ネームタグ" />

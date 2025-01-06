@@ -1,72 +1,84 @@
-/* ImageSlider.css */
+/* スライダーのコンテナ */
 .image-slider-container-dogrun {
+  position: relative; /* これを追加 */
+  width: 100%;
+  max-width: 1000px; /* 画像を大きくするため調整 */
+  margin: auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-}
-
-.image-dogrun {
-  width: 100%;  /* 親要素の幅を100%に設定 */
-  height: auto; /* 高さを自動で調整 */
-  display: flex;
   overflow: hidden;
-  justify-content: center;
 }
 
-.slider-image {
+/* 画像のコンテナ */
+.image-dogrun {
   width: 100%;
-  height: auto;  /* 縦横比を保つ */
-  opacity: 0;
-  transition: opacity 0.5s ease;
-  margin: 0 10px; /* 画像間に余白を追加 */
-  max-width: 100%; /* 親要素を超えないようにする */
-  position: absolute;
-  z-index: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 
-.slider-image.active {
-  opacity: 1;  /* 表示する画像に対してopacityを1に設定 */
-  z-index: 1;
+/* スライドする画像 */
+.slider-image {
+  width: 100%; /* スライダーいっぱいに広げる */
+  height: auto;
+  max-height: 500px; /* 画像を大きくする */
+  object-fit: cover;
+  transition: opacity 0.5s ease-in-out;
 }
 
-
+/* 矢印ボタン */
 .arrow-button {
-  background: #ffffff;
-  border: none;
-  font-size: 20px;
-  color: black;
-  cursor: pointer;
-  padding: 10px;
-  position: absolute;
-  top: 60%;
+  position: absolute; /* 画像の左右に配置 */
+  top: 50%;
   transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  font-size: 24px;
+  height: 50px;
+  width: 50px;
+  align-items: center;
+  justify-content: center;
   z-index: 10;
-  border-radius: 100%;
-  margin-right: -240px;
 }
 
-
-
-.arrow-button:nth-child(1) {
+/* 左矢印の位置 */
+.left-arrow {
   left: 10px;
 }
 
-.arrow-button:nth-child(3) {
+/* 右矢印の位置 */
+.right-arrow {
   right: 10px;
 }
+.slider-image {
+  width: 100%; /* 親要素の幅いっぱいにする */
+  height: 250px; /* すべての画像を同じ高さに固定 */
+  object-fit: cover; /* 縦横比を維持しつつトリミング */
+  transition: opacity 0.5s ease-in-out;
+}
 
-@media (max-width: 470px) {
-  .image-dogrun {
-    width: 100%; 
-    height: 210px; 
-    border-radius: 10px;
-    gap: 15px;
-  }
-
-
+/* スマホ用レスポンシブ */
+@media (max-width: 480px) {
   .image-slider-container-dogrun {
-    display: flex;
-    width: 100%;
+    max-width: 100%;
   }
+
+  .slider-image {
+    max-height: 300px; /* スマホでは高さを制限 */
+  }
+
+  .left-arrow {
+    left: 5px;
+  }
+
+  .right-arrow {
+    right: 5px;
+  }
+
 }

@@ -1,3 +1,7 @@
+
+@media (max-width: 480px) {
+  
+}
 .review-container {
   padding: 20px;
   background-color: white;
@@ -33,6 +37,7 @@
   font-size: 24px; /* 星のサイズ */
   display: inline-block;
   line-height: 1;
+  text-align: center;
 }
 
 /* 背景の星（灰色） */
@@ -43,6 +48,7 @@
   left: 0;
   white-space: nowrap; /* 星が1行に並ぶ */
   overflow: hidden; /* はみ出した部分を隠す */
+  
 }
 
 /* 塗りつぶされた星（ゴールド） */

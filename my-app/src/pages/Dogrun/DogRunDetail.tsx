@@ -71,10 +71,10 @@ const DogRunDetail: React.FC = () => {
           user_id: userId, // userIdを使用
           store_id: store?.store_id, // 動的に現在のstore_idを使用
         }),
-      })
-        .then((response) => response.json())
-        .then((data) => console.log("お気に入りデータ:", data))
-        .catch((error) => console.error("エラー:", error));
+      });
+    if (!response.ok) {
+      throw new Error("お気に入りの更新に失敗しました");
+    }
 
       setIsFavorite(!isFavorite); // お気に入り状態をトグル
     } catch (error) {
@@ -140,18 +140,8 @@ const DogRunDetail: React.FC = () => {
     <>
       <Header />
       <div className="container">
-        <h1>{store.store_name}</h1>
-        <div className="store-images">
-          {Array.isArray(store.store_img) &&
-            store.store_img.map((img, index) => (
-              <img
-                key={index}
-                src={img}
-                alt={`${store.store_name} Image ${index + 1}`}
-                className="store-image"
-              />
-            ))}
-        </div>
+        <h1 className="dogrun-title">{store.store_name}</h1>
+        <ImageSlider images={store.store_img} />
         {/* お気に入りボタン */}
         <button
           onClick={handleFavoriteClick}

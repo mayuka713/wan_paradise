@@ -5,7 +5,6 @@
 /* 店舗画像のスタイル */
 .container img {
   width: 100%;
-  border-radius: 8px;
   margin: 10px 0;
 }
 
@@ -69,6 +68,7 @@
   border-radius: 5px; /* 角丸 */
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+  margin-bottom: 20px;
 }
 
 .review-button:hover {
@@ -90,10 +90,12 @@
 
 
 @media (max-width: 480px) {
+  .dogrun-title {
+    font-size: 18px;
+  }
   .container img,
   .container iframe {
     width: 100%;
-    border-radius: 10px;
   }
 
   .store-title {
@@ -106,8 +108,9 @@
     font-size: 24px; /* 星のサイズ */
     color: #ccc; /* 背景の星の色 */
   }
-  .button {
-    margin-left: 20px;
+  
+  .favorite-button {
+    margin-bottom: 20px;
   }
   .rating-container .filled-stars {
     position: absolute;
@@ -117,6 +120,8 @@
     white-space: nowrap;
     color: gold; /* 塗りつぶしの色 */
   }
-  
+  .official-site {
+    margin-bottom: 20px;
+  }
 
 }

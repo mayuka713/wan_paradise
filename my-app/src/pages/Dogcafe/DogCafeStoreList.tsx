@@ -107,7 +107,7 @@ const DogCafeStoreList: React.FC = () => {
         <h2>{selectedPrefecture}</h2>
       ) : (
         <>
-        <h2 className="title">{selectedPrefecture}のドッグカフェ</h2>
+        <h2 className="dogcafe-title">{selectedPrefecture}のドッグカフェ</h2>
         <h3 className="search-tags">ドッグカフェの条件を選ぶ</h3>
         <div className="tags-container">
           {tags.map((tag) => (

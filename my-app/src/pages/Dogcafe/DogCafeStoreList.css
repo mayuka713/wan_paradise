@@ -3,6 +3,10 @@
   text-align: center;
   padding: 20px;
 }
+
+.dogcafe-title {
+  color:#CBA35C ;
+}
 /* タイトル */
 .tags {
   display: flex;
