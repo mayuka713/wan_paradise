@@ -1,7 +1,7 @@
-//都道府県ごとに分類したドッグラン情報を地域ごとに表示し、各都道府県名をクリックすることで該当のドッグランページに遷移できるようにする
-
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import HamburgerMenu from "../../HamburgerMenu";
+import Header from "../Header";
 
 interface Prefecture {
   id: number;
@@ -44,8 +44,10 @@ const DogrunRegionList: React.FC = () => {
   }, {});
 
   return (
+    <>
+    <Header/>
     <div className="region-list-container">
-      <h2 className="region-list-title">DogCafeを探す</h2>
+      <h2 className="region-list-title-dogcafe">DogCafeを探す</h2>
       <div className="region-list-content">
         {Object.keys(regions).map((region) => (
           <div key={region} className="region-section">
@@ -65,6 +67,7 @@ const DogrunRegionList: React.FC = () => {
         ))}
       </div>
     </div>
+    </>
   );
 };
 

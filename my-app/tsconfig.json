@@ -21,7 +21,5 @@
     "outDir": "./dist",
     "noEmit": false,
   },
-  "include": [
-    "src"
-, "src/context"  ]
+  "include": [ "src", "src/context"]
 }

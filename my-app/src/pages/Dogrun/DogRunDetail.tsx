@@ -3,8 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import "./DogRunDetail.css";
 import Header from "../Header";
 import "../Header.css";
-
-
+import ImageSlider from "../../ImageSlider";
 
 interface Store {
   store_id: number;
