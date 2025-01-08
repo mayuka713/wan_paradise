@@ -107,7 +107,6 @@ const DogRunDetail: React.FC = () => {
   }, [id]);
 
   // 店舗データとレビューを取得して設定する関数
-
   useEffect(() => {
     const fetchStoreWithReviews = async () => {
       try {
@@ -134,13 +133,13 @@ const DogRunDetail: React.FC = () => {
   }, [id]);
 
   if (error) return <div className="container">{error}</div>;
-  if (!store) return <div className="container">データを読み込んでいます..🐕</div>;
+  if (!store) return <div className="container">データを読み込んでいます..</div>;
 
   return (
     <>
       <Header />
       <div className="container">
-        <h1 className="dogrun-title">{store.store_name}</h1>
+        <h1 className="detail-title">{store.store_name}</h1>
         <ImageSlider images={store.store_img} />
         {/* お気に入りボタン */}
         <button
@@ -216,7 +215,7 @@ const DogRunDetail: React.FC = () => {
             口コミを見る
           </Link>
         )}
-        <br /><br />
+        <br />
         <a
           href={store.store_url}
           target="_blank"

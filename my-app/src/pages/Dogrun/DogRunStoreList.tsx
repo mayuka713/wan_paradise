@@ -4,6 +4,7 @@ import "./DogRunStoreList.css";
 import Header from "../Header";
 import "../Header.css";
 import ImageSlider from "../../ImageSlider";
+import Footer from "../Footer";
 
 interface Store {
   store_id: number;
@@ -106,7 +107,11 @@ const DogRunStoreList: React.FC = () => {
     };
     fetchStores();
   }, [prefectureId, selectedTagIds]);
-
+  store.forEach((storeItem) => {
+    console.log("取得した店舗情報:", storeItem);
+    console.log("口コミデータ:", storeItem.reviews);
+  });
+  
   return (
     <>
       <Header />
@@ -123,7 +128,7 @@ const DogRunStoreList: React.FC = () => {
                 <button
                   key={tag.id}
                   onClick={() => handleTagClick(tag.id)}
-                  className={`tag-button ${
+                  className={`dogrun-tag-button ${
                     selectedTagIds.includes(tag.id) ? "selected" : ""
                   }`}
                 >
@@ -138,7 +143,7 @@ const DogRunStoreList: React.FC = () => {
                 <button
                   key={tag.id}
                   onClick={() => handleTagClick(tag.id)}
-                  className={`tag-button ${
+                  className={`dogrun-tag-button ${
                     selectedTagIds.includes(tag.id) ? "selected" : ""
                   }`}
                 >
@@ -157,14 +162,12 @@ const DogRunStoreList: React.FC = () => {
                 ) : (
                   // 店舗がある場合
                   store.map((storeItem) => {
-                    const reviews = storeItem.reviews || [];
-                    const averageRating =
-                      reviews.length > 0
-                        ? reviews.reduce(
-                            (sum, review) => sum + review.rating,
-                            0
-                          ) / reviews.length
-                        : 0;
+                    const reviews = storeItem.reviews ?? [];
+                      // 初期値 0 を指定して NaN を防ぐ
+                    const totalRating = reviews.reduce((sum, review) => sum + ( review.rating || 0),0);
+                     // レビューがない場合、平均評価を 0 にする
+                    const averageRating = reviews.length > 0 ? totalRating / reviews.length : 0;
+
                     return (
                       <Link
                         to={`/dogrun/detail/${storeItem.store_id}`}
@@ -173,13 +176,16 @@ const DogRunStoreList: React.FC = () => {
                       >
                         {/* 画像の表示 */}
                         <ImageSlider images={storeItem.store_img} />
+
+                        {/* 星評価の表示 */}
                         <div className="star-rating-container">
                           <div className="star-container">
                             <div className="stars-background">★★★★★</div>
                             <div
                               className="stars-filled"
                               style={{
-                                width: `${(averageRating / 5) * 100}%`,
+                                width: isNaN((averageRating / 5) * 100) ? "0%" : `${(averageRating / 5) * 100}%`,//小数点を考慮した計算
+                                transition: "width 0.3s ease-in-out",
                               }}
                             >
                               ★★★★★
@@ -189,7 +195,7 @@ const DogRunStoreList: React.FC = () => {
                             {averageRating.toFixed(1)}
                           </span>
                         </div>
-                        <h3 className="store-name-dogrun">
+                        <h3 className="store-name">
                           {storeItem.store_name}
                         </h3>
                         <p>{storeItem.store_description}</p>
@@ -212,6 +218,7 @@ const DogRunStoreList: React.FC = () => {
             )}
           </>
         )}
+        <Footer />
       </div>
     </>
   );

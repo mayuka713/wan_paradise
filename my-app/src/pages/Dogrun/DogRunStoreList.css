@@ -16,18 +16,8 @@ h2 {
   gap: 10px;
   margin-bottom: 20px;
 }
-.tag-button {
-  padding: 10px 15px;
-  border-radius: 20px;
-  font-size: 15px;
-  cursor: pointer;
-  background-color: white;
-  border: 1px solid #ccc;
-  transition: all 0.3s ease;
-  color: #555;
-}
 
-.tag-button.selected {
+.dogrun-tag-button.selected {
   background-color: #859f3d;
   color: white;
 }
@@ -68,6 +58,7 @@ h2 {
   line-height: 1;
   width: 120px;
   margin: 60px 0;
+  color: #ccc;
 }
 
 /* 背景の星（灰色） */
@@ -76,7 +67,6 @@ h2 {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 1;
   white-space: nowrap; /* 星が1行に並ぶ */
   overflow: hidden; /* 塗りつぶし部分がはみ出さない */
 }
@@ -84,9 +74,8 @@ h2 {
 /* 塗りつぶされた星（ゴールド） */
 .stars-filled {
   position: absolute;
-  top: 10px;
+  top: 0;
   left: 0;
-  z-index: 2;
   overflow: hidden;
   white-space: nowrap;
   overflow: hidden;
@@ -102,16 +91,23 @@ h2 {
 }
 
 @media (max-width: 480px) {
+  .dogrun-tag-button {
+    padding: 9px 20px;
+    border-radius: 20px;
+    font-size: 15px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    background-color: white;
+    color: #282d27;
+    margin: 5px;
+
+  }
   .store-item {
     width: 90%;
     margin: 10px auto;
   }
 
-  .star-container {
-    font-size: 20px;
-    margin-top: 80px;
-  }
-  .store-name-dogrun {
+  .store-name {
     font-size: 16px;
     margin-top: 80px;
     text-align: center;
@@ -124,13 +120,6 @@ h2 {
     gap: 10px;
     margin-bottom: -95px;
     margin-top: -50px;
-  }
-.average-rating-value {
-  margin: 20px ;
-}
-
-  .tags-container {
-    gap: 5px;
   }
 
   .search-for-tags h3 {
@@ -153,4 +142,5 @@ h2 {
   .search-tags2 {
     font-size: 15px;
   }
+
 }

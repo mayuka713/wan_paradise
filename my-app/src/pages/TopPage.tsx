@@ -11,6 +11,7 @@ import dogCafeNameTag from "../pages/assets/images/Dogcafe/dogcafe-nametag.png";
 import petshopNameTag from "../pages/assets/images/Petshop/petshop-nametag.png";
 import hospitalNameTag from "../pages/assets/images/Hospital/hospital-nametag.png";
 import Header from "./Header";
+import Footer from "./Footer";
 
 const TopPage: React.FC = () => {
   // フェードイン用の useEffect
@@ -37,7 +38,7 @@ const TopPage: React.FC = () => {
   useEffect(() => {
     setTimeout(() => {
       setShowText(true);
-    }, 500); // 0.5秒後にアニメーション開始
+    }, 800); // 0.5秒後にアニメーション開始
   }, []);
 
   return (
@@ -58,7 +59,11 @@ const TopPage: React.FC = () => {
         <div className="image-container">
           <Link to="/dogrun">
             <img src={dogrunNameTag} alt="ドッグランネームタグ" />
-            <img src={DogrunImage} alt="ドッグランのイラスト" className="top-image" />
+            <img
+              src={DogrunImage}
+              alt="ドッグランのイラスト"
+              className="top-image"
+            />
           </Link>
         </div>
       </div>
@@ -67,7 +72,11 @@ const TopPage: React.FC = () => {
         <div className="image-container">
           <Link to="/dogcafe">
             <img src={dogCafeNameTag} alt="ドッグカフェネームタグ" />
-            <img src={dogcafe} alt="ドッグカフェのイラスト" className="top-image" />
+            <img
+              src={dogcafe}
+              alt="ドッグカフェのイラスト"
+              className="top-image"
+            />
           </Link>
         </div>
       </div>
@@ -76,7 +85,11 @@ const TopPage: React.FC = () => {
         <div className="image-container">
           <Link to="/petshop">
             <img src={petshopNameTag} alt="ペットショップネームタグ" />
-            <img src={petshop} alt="ペットショップのイラスト" className="top-image" />
+            <img
+              src={petshop}
+              alt="ペットショップのイラスト"
+              className="top-image"
+            />
           </Link>
         </div>
       </div>
@@ -90,8 +103,7 @@ const TopPage: React.FC = () => {
         </div>
       </div>
 
-      {/* フッター */}
-      <footer className="footer">wan paradise</footer>
+      <Footer />
     </div>
   );
 };

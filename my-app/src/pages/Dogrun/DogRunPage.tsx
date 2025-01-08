@@ -4,6 +4,8 @@ import "./DogRunPage.css";
 import DogrunRegionList from "./DogrunRegionList";
 import HamburgerMenu from "../../HamburgerMenu";
 import Header from "../Header";
+import Footer from "../Footer";
+
 
 
 const DogRunPage: React.FC = () => {
@@ -26,7 +28,9 @@ const DogRunPage: React.FC = () => {
       className="dogrun-image"/>
     </div>
   </div>
+  <Footer/>
   </>
+
   );
 };
 

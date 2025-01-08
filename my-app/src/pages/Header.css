@@ -12,7 +12,7 @@ body {
   padding: 10px 20px;
   background-color: #ffffff;
   border-bottom: 2px solid #ccc;
-  
+  position: fixed;
 }
 .header-link {
   font-weight: bold;
@@ -113,6 +113,7 @@ ul {
     background-color: #ffffff;
     border-bottom: 2px solid #ccc;
     text-align: center;
+    margin-top: -120px;
   }
   .App-header h1 {
     font-size: 15px;

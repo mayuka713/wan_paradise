@@ -21,7 +21,7 @@ interface Review {
   id: number;
   store_id: number;
   rating: number;
-  commnet: string;
+  commet: string;
 }
 
 interface Tag {
@@ -32,7 +32,7 @@ interface Tag {
 const DogCafeStoreList: React.FC = () => {
   const { prefectureId } = useParams<{ prefectureId: string }>();
   const [store, setStore] = useState<Store[]>([]);
-  const [tags, setTags] = useState<Tag[]>([]);
+  const [type3Tag, setType3Tag] = useState<Tag[]>([]);
   const [selectedTagIds, setSelectedTagIds] = useState<number[]>([]);
   const [selectedPrefecture, setSelectedPrefecture] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
@@ -46,7 +46,8 @@ const DogCafeStoreList: React.FC = () => {
           throw new Error("タグの情報の取得に失敗しました");
         }
         const data: Tag[] = await response.json();
-        setTags(data.filter((tag) => tag.tag_type === 3));
+        const type3 = data.filter((tag) => tag.tag_type === 3);
+        setType3Tag(type3);
       } catch (error) {
         console.error(error);
         setError("タグ情報の取得に失敗しました");
@@ -54,6 +55,7 @@ const DogCafeStoreList: React.FC = () => {
     };
     fetchTags();
   }, []);
+
   // 都道府県名設定
   useEffect(() => {
     const prefectureNames: { [key: string]: string } = {
@@ -67,20 +69,21 @@ const DogCafeStoreList: React.FC = () => {
   }, [prefectureId]);
 
 // タグ選択のハンドリング
-  const handleTagClick = (tagId: number) => {
-    setSelectedTagIds((prev) => 
+const handleTagClick = (tagId: number) => {
+  setSelectedTagIds((prev) =>
     prev.includes(tagId)
-    ? prev.filter((id) => id ! == tagId )
-    : [...prev,tagId]
+      ? prev.filter((id) => id !== tagId)
+      : [...prev, tagId]
   );
-  };
+};
+
   // 店舗データ取得
   useEffect(() => {
     const fetchStores = async () => {
       try {
         let url = `http://localhost:5003/stores/list/${prefectureId}/2`;
         if (selectedTagIds.length > 0) {
-          url = `http://localhost:5003/store/list/tag/${prefectureId}/2?tagIds/${selectedTagIds.join(
+          url = `http://localhost:5003/stores/list/tag/${prefectureId}/2?tagIds=${selectedTagIds.join(
             ","
           )}`;
         }
@@ -109,8 +112,8 @@ const DogCafeStoreList: React.FC = () => {
         <>
         <h2 className="dogcafe-title">{selectedPrefecture}のドッグカフェ</h2>
         <h3 className="search-tags">ドッグカフェの条件を選ぶ</h3>
-        <div className="tags-container">
-          {tags.map((tag) => (
+        <div className="type1-tags">
+          {type3Tag.map((tag) => (
             <button 
                 key={tag.id}
                 onClick={() => handleTagClick(tag.id)}
@@ -162,7 +165,7 @@ const DogCafeStoreList: React.FC = () => {
                             {averageRating.toFixed(1)}
                           </span>
                         </div>
-                        <h3 className="store-name-dogcafe">{storeItem.store_name}</h3>
+                        <h3 className="store-name">{storeItem.store_name}</h3>
                         <p className="store-description">
                           {storeItem.store_description}
                         </p>

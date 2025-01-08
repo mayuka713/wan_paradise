@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../pages/FavoritePage.css";
 import { Link } from "react-router-dom";
-
+import Header from "./Header";
 
 interface Favorite {
   id: number;
@@ -73,6 +73,8 @@ const FavoritePage: React.FC = () => {
 
 
   return (
+    <>
+    <Header/>
     <div className="favorite-container">
       <header className="app-header">
         <h1 className="title">お気に入りリスト</h1>
@@ -121,6 +123,7 @@ const FavoritePage: React.FC = () => {
         )}
       </ul>
     </div>
+  </>
   );
 };
 

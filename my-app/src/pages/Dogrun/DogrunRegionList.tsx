@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./DogRunRegionList.css";
 import HamburgerMenu from "../../HamburgerMenu";
 import Header from "../Header";
+import Footer from "../Footer";
 
 interface Prefecture {
   id: number;
@@ -47,11 +48,11 @@ const DogrunRegionList: React.FC = () => {
     <>
     <Header/>
     <div className="region-list-container">
-      <h2 className="region-list-title">DogRunを探す</h2>
+      <h2 className="region-list-title-dogrun">DogRunを探す</h2>
       <div className="region-list-content">
         {Object.keys(regions).map((region) => (
           <div key={region} className="region-section">
-            <h3 className="region-title-dogcafe">{region}</h3>
+            <h3 className="region-title-dogrun">{region}</h3>
             <div className="prefecture-list">
               {regions[region].map((pref) => (
                 <button
@@ -67,6 +68,7 @@ const DogrunRegionList: React.FC = () => {
         ))}
       </div>
     </div>
+    <Footer />
     </>
   );
 };

@@ -1,43 +1,77 @@
 /* ヘッダー */
 .App-header {
-  justify-content: space-between; /* 左右に要素を配置 */
+  justify-content: space-between;
+  /* 左右に要素を配置 */
   align-items: center;
   padding: 10px 20px;
   background-color: #ffffff;
   border-bottom: 2px solid #ccc;
 }
+
 ul {
   list-style: none;
 }
+
 .header-nav a {
-  color: #333; /* テキスト色を変更 */
-  text-decoration: none; /* 下線を削除 */
-  margin: 0 15px; /* 間隔を設定 */
-  font-size: 1rem; /* フォントサイズ */
-  font-weight: bold; /* 太字 */
-  transition: color 0.3s ease; /* ホバー時のアニメーション */
+  color: #333;
+  /* テキスト色を変更 */
+  text-decoration: none;
+  /* 下線を削除 */
+  margin: 0 15px;
+  /* 間隔を設定 */
+  font-size: 1rem;
+  /* フォントサイズ */
+  font-weight: bold;
+  /* 太字 */
+  transition: color 0.3s ease;
+  /* ホバー時のアニメーション */
 }
+
 .header-nav a:hover {
   color: darked;
   text-decoration: underline;
 }
+
 .App-header h1 {
   font-size: 2rem;
   color: #333;
 }
 
-/* メインタイトル */
-.typing-text {
-  font-size: 18px;
-  font-weight: bold;
-  color: #000;
-  white-space: nowrap;
-  overflow: hidden;
-  display: inline-block;
-  border-right: 2px solid #000; /* カーソル風の効果 */
-  animation: blink 0.8s step-end infinite;
+/* バウンスエフェクトを追加 */
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+
+  30% {
+    transform: translateY(-20px);
+  }
+
+  50% {
+    transform: translateY(0);
+  }
+
+  70% {
+    transform: translateY(-5px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
 }
 
+.main-title {
+  opacity: 0;
+  font-size: 1.5rem;
+  /* 適宜調整 */
+  text-align: center;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.main-title.show {
+  opacity: 1;
+  animation: bounce 1s ease-in-out;
+}
 
 /* 各セクション */
 .info-section {
@@ -72,18 +106,6 @@ ul {
   height: auto;
   z-index: 2;
 }
-/* スケールアップアニメーション */
-.scale-up {
-  opacity: 0;
-  transform: scale(0.8); /* 初期状態は80%の大きさ */
-  transition: opacity 2s ease-out, transform 1.5s ease-out;
-}
-
-.scale-up.show {
-  opacity: 1;
-  transform: scale(1); /* 通常のサイズに戻る */
-}
-
 
 /* フッター */
 .footer {
@@ -104,6 +126,7 @@ ul {
     display: none;
   }
 }
+
 /* レスポンシブ対応 */
 @media (max-width: 480px) {
   .TopPage-contaier {
@@ -126,17 +149,17 @@ ul {
   }
 
   .main-title {
-    margin-bottom: 170px;
-    font-size: 15px;
+    margin-top: 120px;
+    font-size: 18px;
     text-align: center;
-    margin-top: 140px;
-    font-weight: 500;
+    font-weight: 400;
   }
-/* フェードインアニメーション */
+
+  /* フェードインアニメーション */
   .fade-in {
     opacity: 0;
     transform: translateY(30px);
-    transition: opacity 1s ease-out, transform 1.5s ease-out;
+    transition: opacity 1s ease-out, transform 1s ease-out;
   }
 
   .fade-in.show {

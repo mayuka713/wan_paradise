@@ -6,8 +6,10 @@ import Register from "./components/Register/Register";
 import TopPage from "./pages/TopPage";
 import FavoritePage from "./pages/FavoritePage";
 import { FavoriteProvider } from "./context/FavoriteContext";
+import { ModalProvider } from "./context/ModalContext";
 import HamburgerMenu from "./HamburgerMenu";
 import Header from "./pages/Header";
+import Footer from "./pages/Footer";
 
 
 // ドッグランのページ
@@ -16,13 +18,14 @@ import DogrunRegionList from "./pages/Dogrun/DogrunRegionList";
 import StoresList from "./components/StoresList";
 import DogRunStoreList from "./pages/Dogrun/DogRunStoreList";
 import DogRunDetail from "./pages/Dogrun/DogRunDetail";
-import DogRunReview from "./pages/Dogrun/DogRunReview";
+import DogRunReview from "./pages/Dogrun/DogRunReviewList";
 
 // ドッグカフェのページ
 import DogcafePage from "./pages/Dogcafe/DogCafePage";
 import DogCafeRegionList from "./pages/Dogcafe/DogCafeRegionList";
 import DogCafeStoreList from "./pages/Dogcafe/DogCafeStoreList";
 import DogCafeDetail from "./pages/Dogcafe/DogCafeDetail";
+
 
 // ペットショップのページ
 import PetshopPage from "./pages/Petshop/PetShopPage";
@@ -38,12 +41,13 @@ import HospitalDetail from "./pages/Hospital/HospitalDetail";
 
 const App: React.FC = () => {
   return (
+  <ModalProvider>
     <FavoriteProvider>
-    <Router>
+      <Router>
         <HamburgerMenu />
         <div className="App">
           <Routes>
-            {/* ログインページ */}
+            {/* ログイン・登録 */}
             <Route path="/" element={<Login />} />
             <Route path="/register" element={<Register />} />
 
@@ -79,11 +83,11 @@ const App: React.FC = () => {
             {/* その他 */}
             <Route path="/components/StoreList" element={<StoresList />} />
             <Route path="/store/:storeId" element={<DogRunReview />} />
-            
           </Routes>
         </div>
       </Router>
     </FavoriteProvider>
+    </ModalProvider>
   );
 };
 
