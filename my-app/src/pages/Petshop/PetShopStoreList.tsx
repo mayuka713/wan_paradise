@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import "./PetShopPage.css";
 import Header from "../Header";
 import "../Header.css";
+import Footer from "../Footer";
 
 interface Store {
   store_id: number;
@@ -69,6 +70,7 @@ const PetShopStoreList: React.FC = () => {
     setSelectedPrefecture(selectedName);
   }, [prefectureId]);
 
+//タグの選択解除の処理
   const handleTagClick = (tagId: number) => {
     if (selectedTagIds.includes(tagId)) {
       setSelectedTagIds(selectedTagIds.filter((id) => id !== tagId));
@@ -162,12 +164,7 @@ const PetShopStoreList: React.FC = () => {
                         <div className="store-images">
                           {Array.isArray(storeItem.store_img) &&
                             storeItem.store_img.map((img, index) => (
-                              <img
-                                key={index}
-                                src={img}
-                                alt={`${storeItem.store_name} Image ${
-                                  index + 1
-                                }`}
+                              <img key={index} src={img} alt={`${storeItem.store_name}の画像 ${index + 1}`}
                                 className="store-image"
                               />
                             ))}
@@ -213,6 +210,7 @@ const PetShopStoreList: React.FC = () => {
             )}
           </>
         )}
+        <Footer/>
       </div>
     </>
   );

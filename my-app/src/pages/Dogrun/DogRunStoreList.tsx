@@ -70,8 +70,7 @@ const DogRunStoreList: React.FC = () => {
       "27": "大阪",
     };
     setSelectedPrefecture(
-      prefectureNames[prefectureId ?? ""] || "ドッグラン情報がありません"
-    );
+      prefectureNames[prefectureId ?? ""] || "ドッグラン情報がありません");
   }, [prefectureId]);
 
   // タグ選択の処理
@@ -89,9 +88,7 @@ const DogRunStoreList: React.FC = () => {
       try {
         let url = `http://localhost:5003/stores/list/${prefectureId}/1`;
         if (selectedTagIds.length > 0) {
-          url = `http://localhost:5003/stores/list/tag/${prefectureId}/1?tagIds=${selectedTagIds.join(
-            ","
-          )}`;
+          url = `http://localhost:5003/stores/list/tag/${prefectureId}/1?tagIds=${selectedTagIds.join(",")}`;
         }
         const response = await fetch(url);
         if (!response.ok) {

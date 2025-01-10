@@ -1,7 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "./HospitalPage.css";
+import styles from "./HospitalPage.module.css"; 
 import HospitalImage from "../assets/images/Hospital/hospital.png";
+import Header from "../Header";
+import Footer from "../Footer";
 
 const HospitalPage: React.FC = () => {
     const navigate = useNavigate();
@@ -11,15 +13,18 @@ const HospitalPage: React.FC = () => {
     };
 
     return (
-        <div style={{ textAlign: "center", marginTop: "20px" }}>
-            <h1>wan paradise</h1>
-            <p onClick={handleClick} style={{ cursor: "pointer", fontSize: "18px" }}>
-                全国の病院を探す
-            </p>
-            <div>
-                <img src={HospitalImage} alt="Hospital"/>
+        <>
+            <Header />
+            <div className="dogrun-page-container">
+                <button onClick={handleClick} className={styles.searchHospital}> 
+                    全国の病院を探す
+                </button>
+                <div>
+                    <img src={HospitalImage} alt="Hospital-img" className={styles.hospitalImg} />
+                </div>
             </div>
-        </div>
+            <Footer />
+        </>
     );
 };
 

@@ -1,81 +1,102 @@
-
-/* 全体のスタイル */
+/* 共通スタイル */
 .favorite-container {
+  max-width: 800px;
+  margin: 0 auto;
   padding: 20px;
-  text-align: center;
-  background-color: #f9f9f9;
-  min-height: 100vh;
 }
 
-
-
 .app-header {
+  text-align: center;
   margin-bottom: 20px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
 }
 
 .favorite-list {
   list-style: none;
   padding: 0;
-  margin: 0;
 }
 
 .favorite-item {
-  position:relative;
-  border: 1px solid #ccc;
+  background: #fff;
+  padding: 15px;
+  margin-bottom: 15px;
   border-radius: 8px;
-  margin: 25px auto;
-  padding: 45px;
-  padding-bottom: 0;
-  max-width: 400px;
-  background-color: #fff;
-  text-align: left;
-  display: flex;
-  align-items: center;
-
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
-.favorite-title {
-  position: absolute;
-  display: flex;
-  font-size: 15px;
-  top: 0;
-  color: #333;
+.favorite-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
 }
 
 .favorite-image {
-  width: 100%; 
+  width: 150px;
   height: auto;
-  display: block;
-  margin: 0 auto; 
+  border-radius: 8px;
 }
 
+.favorite-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.review-average {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  font-size: 18px;
+}
 
 .star {
-  color: #ccc;
-  font-size: 1.2rem;
+  font-size: 20px;
+  color: gray;
+  display: inline-block;
 }
 
+.star.selected {
+  color: gold;
+}
 
-
-
-@media (max-width: 480px)  {
- .app-header {
-    font-size: 12px;
+/* ===== スマホ向けのレスポンシブデザイン (480px以下) ===== */
+@media (max-width: 480px) {
+  .favorite-container {
+    padding: 10px;
   }
 
- .favorite-item {
-  flex-direction: column;
-  text-align: center;
- }
+  .title {
+    font-size: 20px;
+  }
 
- .favorite-title {
-   text-align: center;
-   right: 130px;
- }
- .favorite-image { 
-  width: 100%; 
-  height: 180px; /* 縦横比を維持 */
-  display: block; /* 余計なスペースを除去 */
-  margin: 0 auto; 
- }
+  .favorite-item {
+    padding: 10px;
+    text-align: center;
+  }
+
+  .favorite-image {
+    width: 100%; /* 画面幅いっぱいに調整 */
+    max-width: 300px; /* 最大幅を設定 */
+    display: block;
+    margin: 0 auto;
+  }
+
+  .favorite-title {
+    font-size: 18px;
+  }
+
+  .review-average {
+    font-size: 16px;
+    gap: 3px;
+  }
+
+  .star {
+    font-size: 16px;
+  }
 }

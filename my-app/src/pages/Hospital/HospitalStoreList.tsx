@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
+import Header from "../Header";
+import "../Header.css";
+import Footer from "../Footer";
 
 interface Store {
   store_id: number;
@@ -9,7 +12,7 @@ interface Store {
   store_opening_hours: string;
   store_phone_number: string;
   store_url: string;
-  store_img: string;
+  store_img: string[];
   reviews: Review[];
 }
 
@@ -34,16 +37,17 @@ const HospitalStoreList: React.FC = () => {
   const [selectedPrefecture, setSelectedPrefecture] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
 
-  // タグの一覧
+  // タグの一覧を取得
   useEffect(() => {
     const fetchTags = async () => {
       try {
-        const response = await fetch(`http://localhost:5003/tags`);//http://localhost:5003/tagsがバックエンドリクエスト
+        const response = await fetch(`http://localhost:5003/tags`);
         if (!response.ok) {
           throw new Error("タグ情報の取得に失敗しました");
         }
         const data: Tag[] = await response.json();
         const type5 = data.filter((tag) => tag.tag_type === 5);
+
         setType5Tag(type5);
         setError(null);
       } catch (error) {
@@ -61,27 +65,22 @@ const HospitalStoreList: React.FC = () => {
       "13": "東京",
       "27": "大阪",
     };
-    const selectedName = prefectureNames[prefectureId ?? ""] || "動物病院の情報がありません";
-    setSelectedPrefecture(selectedName);
+    setSelectedPrefecture(prefectureNames[prefectureId ?? ""] || "動物病院の情報がありません");
   }, [prefectureId]);
 
-
+  // タグの選択処理
   const handleTagClick = (tagId: number) => {
-    if (selectedTagIds.includes(tagId)) {
-      setSelectedTagIds(selectedTagIds.filter((id) => id !== tagId));
-    } else {
-      setSelectedTagIds([...selectedTagIds, tagId]);
-    }
-    console.log("選択されたタグID:", selectedTagIds);
+    setSelectedTagIds((prev) =>
+      prev.includes(tagId) ? prev.filter((id) => id !== tagId) : [...prev, tagId]
+    );
   };
-  
 
   // 店舗データを取得
   useEffect(() => {
     const fetchStores = async () => {
       try {
-        let url =`http://localhost:5003/stores/list/store-type/${prefectureId}/4`;
-          if (selectedTagIds.length > 0) {
+        let url = `http://localhost:5003/stores/list/store-type/${prefectureId}/4`;
+        if (selectedTagIds.length > 0) {
           url = `http://localhost:5003/stores/list/tag/${prefectureId}/4?tagIds=${selectedTagIds.join(",")}`;
         }
         const response = await fetch(url);
@@ -90,109 +89,92 @@ const HospitalStoreList: React.FC = () => {
         }
         const data = await response.json();
         setStore(data);
+        setError(null);
       } catch (error) {
         console.error("店舗データの取得に失敗しました:", error);
+        setError("タグに該当するドッグランがありません");
       }
     };
     fetchStores();
   }, [prefectureId, selectedTagIds]);
-
+  store.forEach((storeItem) => {
+    console.log("取得した店舗情報:", storeItem);
+    console.log("口コミデータ:", storeItem.reviews);  
+  });
 
   return (
     <>
-      <div
-        style={{
-          textAlign: "center",
-          padding: "20px",
-          backgroundColor: "#FAF3E0",
-        }}>
+      <Header />
+      <div className="content">
         {selectedPrefecture === "動物病院の情報がありません" ? (
           <h2>{selectedPrefecture}</h2>
         ) : (
           <>
-            <h2>{selectedPrefecture}の動物病院</h2>
-            <p
-              style={{
-                fontSize: "14px",
-                marginBottom: "20px",
-                fontWeight: "bold",
-              }}
-            >
-              動物病院の条件を絞り込む
-            </p>
-            <div
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                justifyContent: "center",
-                gap: "10px",
-              }}
-            >
+            <h2 className="title">{selectedPrefecture}の動物病院</h2>
+            <p className="search-tags">動物病院の条件を絞り込む</p>
+            <div className="type5-tags">
               {type5Tag.map((tag) => (
                 <button
                   key={tag.id}
                   onClick={() => handleTagClick(tag.id)}
-                  style={{
-                    backgroundColor: selectedTagIds.includes(tag.id) ? "grey" : "white",
-                    color: "#282d27",
-                    padding: "10px 15px",
-                    border: "1px solid #333",
-                    borderRadius: "20px",
-                    cursor: "pointer",
-                    fontSize: "15px",
-                  }}
+                  className={`tag-button ${selectedTagIds.includes(tag.id) ? "selected" : ""}`}
                 >
                   {tag.name}
                 </button>
               ))}
             </div>
-            {error && <p style={{ color: "red" }}>{error}</p>}
-            {store.length > 0 &&
-              store.map((storeItem) => (
-              <Link
-                key={storeItem.store_id}
-                to={`/hospital/detail/${storeItem.store_id}`}
-                style ={{
-                  display: "inline-block",
-                  marginTop: "10px",
-                  padding: "10px 15px",
-                  borderRadius: "5px",
-                  textDecoration: "none",
-                  color: "inherit",
-                }}
-                >
-                <div
-                  style={{
-                    marginBottom: "30px",
-                    border: "1px solid #000000",
-                    borderRadius: "10px",
-                    padding: "20px",
-                    backgroundColor: "#fff",
-                  }}
-                >
-                  <img
-                    src={storeItem.store_img}
-                    alt={storeItem.store_name}
-                    style={{ width: "300px", height: "300px", borderRadius: "10px" }}
-                  />
-                  <p style={{ fontWeight: "bold" }}>{storeItem.store_name}</p>
-                  <p>{storeItem.store_description}</p>
-                  <p style={{ fontWeight: "bold", display: "inline" }}>住所:</p>
-                  <p style={{ display: "inline" }}>{storeItem.store_address}</p>
-                  <br />
-                  <p style={{ fontWeight: "bold", display: "inline" }}>電話: {storeItem.store_phone_number}</p>
-                  <br />
-                  <p style={{ fontWeight: "bold", display: "inline" }}>営業時間:</p>
-                  <p style={{ display: "inline " }}>{storeItem.store_opening_hours}</p>
-                  </div>
-                </Link>
-              ))}
+
+            {/* エラーメッセージ */}
+            {error ? (
+              <p className="error-message">{error}</p>
+            ) : (
+            <div className="store-list">
+             {/* 店舗がない場合 */}
+              {store.length === 0 ? (
+                <p>該当する病院はありません。</p>
+              ) : (
+                store.map((storeItem) => {
+                  const reviews = storeItem.reviews ?? [];
+                  
+                  const totalRating = reviews.reduce((sum, review) => sum + ( review.rating || 0),0);
+                  const averageRating = reviews.length > 0 ? totalRating / reviews.length : 0;
+                  return (
+                    <Link to={`/hospital/detail/${storeItem.store_id}`} className="store-item" key={storeItem.store_id}>
+                      {/* 店舗画像 */}
+                      <div className="store-images">
+                        {Array.isArray(storeItem.store_img) &&
+                          storeItem.store_img.map((img, index) => (
+                            <img key={index} src={img} alt={`${storeItem.store_name} の画像 ${index + 1}`} className="store-image" />
+                          ))}
+                      </div>
+
+                      {/* レビューの評価 */}
+                      <div className="star-rating-container">
+                        <div className="star-container">
+                          <div className="stars-background">★★★★★</div>
+                          <div className="stars-filled" style={{ width: `${(averageRating / 5) * 100}%` }}>★★★★★</div>
+                        </div>
+                        <span className="average-rating-value">{averageRating.toFixed(1)}</span>
+                      </div>
+
+                      {/* 店舗情報 */}
+                      <h3 className="store-name">{storeItem.store_name}</h3>
+                      <p>{storeItem.store_description}</p>
+                      <p><strong>住所:</strong> {storeItem.store_address}</p>
+                      <p><strong>電話:</strong> {storeItem.store_phone_number}</p>
+                      <p><strong>営業時間:</strong> {storeItem.store_opening_hours}</p>
+                    </Link>
+                  );
+                })
+              )}
+            </div>
+            )}
           </>
         )}
+        <Footer />
       </div>
     </>
   );
 };
 
 export default HospitalStoreList;
-

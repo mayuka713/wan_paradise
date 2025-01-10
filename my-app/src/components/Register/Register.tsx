@@ -32,6 +32,8 @@ function Register(): JSX.Element {
         credentials: "include",
         body: JSON.stringify({ name, email, password }),
       });
+      const responseData = await response.json();
+      console.log(" サーバーのレスポンス:", responseData); // レスポンスを確認
 
       if (response.ok) {
         console.log("登録が完了しました");

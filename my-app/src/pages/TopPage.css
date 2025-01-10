@@ -14,17 +14,12 @@ ul {
 
 .header-nav a {
   color: #333;
-  /* テキスト色を変更 */
   text-decoration: none;
-  /* 下線を削除 */
   margin: 0 15px;
-  /* 間隔を設定 */
   font-size: 1rem;
-  /* フォントサイズ */
   font-weight: bold;
-  /* 太字 */
   transition: color 0.3s ease;
-  /* ホバー時のアニメーション */
+
 }
 
 .header-nav a:hover {
@@ -97,6 +92,7 @@ ul {
   height: auto;
 }
 
+
 .image-container img:first-child {
   position: absolute;
   top: -20px;
@@ -106,6 +102,14 @@ ul {
   height: auto;
   z-index: 2;
 }
+
+.top-image:hover,
+.top-image:focus,
+.top-image:active {
+  transform: translateY(-10px);
+  transition: transform 0.8s ease-out;;
+}
+
 
 /* フッター */
 .footer {
@@ -129,11 +133,6 @@ ul {
 
 /* レスポンシブ対応 */
 @media (max-width: 480px) {
-  .TopPage-contaier {
-    padding-bottom: 20px;
-    text-align: center;
-  }
-
   .info-section {
     flex-direction: column;
   }
@@ -149,10 +148,11 @@ ul {
   }
 
   .main-title {
-    margin-top: 120px;
-    font-size: 18px;
+    font-size: 13px;
     text-align: center;
-    font-weight: 400;
+    font-weight: 700;
+    margin-top: 140px;
+    margin-bottom: 70px;
   }
 
   /* フェードインアニメーション */

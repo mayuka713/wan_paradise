@@ -4,6 +4,7 @@ import "./PetShopPage.css";
 import PetshopImage from "../assets/images/Petshop/petshop.png";
 import HamburgerMenu from "../../HamburgerMenu";
 import Header from "../Header";
+import Footer from "../Footer";
 
 const PetshopPage: React.FC = () => {
   const navigate = useNavigate();
@@ -23,6 +24,7 @@ const PetshopPage: React.FC = () => {
       <img src={PetshopImage} alt="ペットショップのイラスト" className="petshop-image" />
     </div>
   </div>
+  <Footer/>
   </>
   );
 };

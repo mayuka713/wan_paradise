@@ -6,10 +6,10 @@
   
   
   .burger {
-    top: -5px;
     position: absolute;
     right: 20px;
     width: 25px;
+    top: -5px;
     height: 20px;
     cursor: pointer;
     display: flex;

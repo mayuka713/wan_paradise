@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../pages/FavoritePage.css";
 import { Link } from "react-router-dom";
 import Header from "./Header";
+import Footer from "./Footer";
 
 interface Favorite {
   id: number;
@@ -47,83 +48,82 @@ const FavoritePage: React.FC = () => {
     fetchFavorites();
   }, []);
 
-   //口コミデータの取得
-
   useEffect(() => {
     const fetchReviews = async () => {
       try {
         const response = await fetch("http://localhost:5003/reviews", {
           method: "GET",
-          headers: { "Content-Type" : "application/json"},
+          headers: { "Content-Type": "application/json" },
         });
-      
+
         if (!response.ok) {
           throw new Error("口コミデータの取得に失敗しました");
         }
-        
-      const data: Review[] = await response.json();
-      setReviews(data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
-  fetchReviews();
+        const data: Review[] = await response.json();
+        setReviews(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchReviews();
   }, []);
-
 
   return (
     <>
-    <Header/>
-    <div className="favorite-container">
-      <header className="app-header">
-        <h1 className="title">お気に入りリスト</h1>
-      </header>
+      <Header />
+      <div className="favorite-container">
+        <header className="app-header">
+          <h1 className="title">お気に入りリスト</h1>
+        </header>
 
-      <ul className="favorite-list">
-        {favorites.length > 0 ? (
-          favorites.map((favorite) => (
-            <Link to={`/dogrun/detail/${favorite.store_id}`} className="favorite-link">
-            <li key={favorite.id} className="favorite-item">
-                <img
-                  src={
-                    favorite.store_img
-                      ? favorite.store_img
-                      : "http://via.placeholder.com/150"
-                  }
-                  alt={favorite.store_name}
-                  className="favorite-image"
-                />
-                {/* 店舗画像 */}
-                <h2 className="favorite-title">{favorite.store_name}</h2>
-              {/* 口コミデータ表示 */}
-              {reviews
-                .filter((review) => review.store_id === favorite.store_id)
-                .map((review) => (
-                  <div key={review.id}>
-                    <p className="review-rating">
+        <ul className="favorite-list">
+          {favorites.length > 0 ? (
+            favorites.map((favorite) => {
+              // 対象店舗の口コミデータを取得
+              const storeReviews = reviews.filter((review) => review.store_id === favorite.store_id);
+
+              // 平均評価を計算（口コミがある場合のみ）
+              const averageRating =
+                storeReviews.length > 0
+                  ? storeReviews.reduce((sum, review) => sum + review.rating, 0) / storeReviews.length
+                  : 0;
+
+              return (
+                <Link to={`/dogrun/detail/${favorite.store_id}`} className="favorite-link" key={favorite.id}>
+                  <li className="favorite-item">
+                    {/* 店舗画像 */}
+                    <img
+                      src={favorite.store_img ? favorite.store_img : "http://via.placeholder.com/150"}
+                      alt={favorite.store_name}
+                      className="favorite-image"
+                    />
+                    <h2 className="favorite-title">{favorite.store_name}</h2>
+
+                    {/* 口コミの平均評価を表示 */}
+                    <div className="review-average">
                       {[1, 2, 3, 4, 5].map((value) => (
                         <span
-                          key={`star-${review.id}-${value}`}
-                          className={`star ${
-                            value <= review.rating ? "selected" : ""}`}
+                          key={`star-${favorite.store_id}-${value}`}
+                          className={`star ${value <= Math.round(averageRating) ? "selected" : ""}`}
                         >
-                        ★
+                          ★
                         </span>
                       ))}
-                      <strong>{review.rating}.0</strong>
-                    </p>
-                  </div>
-                ))}
-            </li>
-        </Link>  
-        ))
-        ) : (
-          <p className="no-favorites">お気に入りがまだ登録されていません。</p>
-        )}
-      </ul>
-    </div>
-  </>
+                      <strong>{averageRating.toFixed(1)}</strong>
+                    </div>
+                  </li>
+                </Link>
+              );
+            })
+          ) : (
+            <p className="no-favorites">お気に入りがまだ登録されていません。</p>
+          )}
+        </ul>
+      </div>
+      <Footer/>
+    </>
   );
 };
 

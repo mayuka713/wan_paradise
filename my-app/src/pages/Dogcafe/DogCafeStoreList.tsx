@@ -3,7 +3,10 @@ import { useParams, Link } from "react-router-dom";
 import "./DogCafeStoreList.css";
 import HamburgerMenu from "../../HamburgerMenu";
 import Header from "../Header";
+import "../Header.css";
 import ImageSlider from "../../ImageSlider";
+import Footer from "../Footer";
+
 
 interface Store {
   store_id: number;
@@ -112,12 +115,12 @@ const handleTagClick = (tagId: number) => {
         <>
         <h2 className="dogcafe-title">{selectedPrefecture}のドッグカフェ</h2>
         <h3 className="search-tags">ドッグカフェの条件を選ぶ</h3>
-        <div className="type1-tags">
+        <div className="type3-tags">
           {type3Tag.map((tag) => (
             <button 
                 key={tag.id}
                 onClick={() => handleTagClick(tag.id)}
-                className={`tag-button ${
+                className={`dogcafe-tag-button ${
                   selectedTagIds.includes(tag.id) ? "selected" : ""
                 }`}
                 >

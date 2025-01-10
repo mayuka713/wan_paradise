@@ -12,6 +12,7 @@ import Header from "./pages/Header";
 import Footer from "./pages/Footer";
 
 
+
 // ドッグランのページ
 import DogRunPage from "./pages/Dogrun/DogRunPage";
 import DogrunRegionList from "./pages/Dogrun/DogrunRegionList";
@@ -25,6 +26,7 @@ import DogcafePage from "./pages/Dogcafe/DogCafePage";
 import DogCafeRegionList from "./pages/Dogcafe/DogCafeRegionList";
 import DogCafeStoreList from "./pages/Dogcafe/DogCafeStoreList";
 import DogCafeDetail from "./pages/Dogcafe/DogCafeDetail";
+import DogCafeReview from "./pages/Dogcafe/DogCafeReviewList";
 
 
 // ペットショップのページ
@@ -67,6 +69,7 @@ const App: React.FC = () => {
             <Route path="/DogCafeRegionList" element={<DogCafeRegionList />} />
             <Route path="/dogcafe/:prefectureId" element={<DogCafeStoreList />} />
             <Route path="/dogcafe/detail/:id" element={<DogCafeDetail />} />
+            <Route path="/dogcafe/reviews/:storeId" element={<DogCafeReview />}/>
 
             {/* ペットショップページ */}
             <Route path="/petshop" element={<PetshopPage />} />
@@ -83,6 +86,7 @@ const App: React.FC = () => {
             {/* その他 */}
             <Route path="/components/StoreList" element={<StoresList />} />
             <Route path="/store/:storeId" element={<DogRunReview />} />
+            <Route path="/store/:storeId" element={<DogCafeReview />} />
           </Routes>
         </div>
       </Router>

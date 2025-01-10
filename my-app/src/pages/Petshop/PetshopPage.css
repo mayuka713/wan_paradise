@@ -92,10 +92,7 @@
 }
 
 @media (max-width: 480px) {
-  .petshop-page-container {
-    margin-top: 20px;
-    font-size: 10px;
-  }
+
   .search-petshop {
     display: inline-block;
     padding: 10px 20px;
@@ -113,5 +110,9 @@
     padding: 17px;
     padding-left: 44px;
     padding-right: 35px;
+  }
+  .petshop-image {
+    width: 75%;
+    margin-left: 60px;
   }
 }

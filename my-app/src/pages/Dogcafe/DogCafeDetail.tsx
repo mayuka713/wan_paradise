@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
+import "./DogCafeDetail.css";
 import Header from "../Header";
 import Footer from "../Footer";
 import ImageSlider from "../../ImageSlider";
@@ -29,12 +30,31 @@ const DogCafeDetail: React.FC = () => {
   const [store, setStore] = useState<Store | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
-  const userId = 1;
+  const [userId, setUserId] = useState<number | null>(null);
 
   // 環境変数から Google Map APIキーを取得
   const MAP_API_KEY = process.env.REACT_APP_MAP_API_KEY;
 
-
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await fetch("http://localhost:5003/auth/me", {
+          method: "GET",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+        });
+        if (!response.ok) {
+          throw new Error("ユーザー情報の取得に失敗しました");
+        }
+        const userData = await response.json();
+        setUserId(userData.id);
+      } catch (error) {
+        console.error("ユーザー情報の取得エラー:", error);
+      }
+    };
+    fetchUser();
+  }, []);
+  
 
   useEffect(() => {
     const fetchStoreWithReviews = async () => {
@@ -110,7 +130,7 @@ const DogCafeDetail: React.FC = () => {
   // 店舗データとレビューを取得して設定する関数
 
   useEffect(() => {
-    const fetchStoreWithReviews = async () => {
+    const fetchStoreData = async () => {
       try {
         const storeResponse = await fetch(`http://localhost:5003/stores/detail/${id}`);
         const reviewResponse = await fetch(`http://localhost:5003/reviews`);
@@ -130,11 +150,12 @@ const DogCafeDetail: React.FC = () => {
         setError("店舗情報の取得に失敗しました");
       }
     };
-
-    fetchStoreWithReviews();
+      fetchStoreData();
   }, [id]);
 
   useEffect(() => {
+    if (!userId) return;
+
     const fetchStoreAndFavorite = async () => {
       try {
         const StoreResponse = await fetch(`http://localhost:5003/stores/detail/${id}`);
@@ -145,20 +166,16 @@ const DogCafeDetail: React.FC = () => {
 
         //お気に入り状態を取得
         const favoriteResponse = await fetch(`http://localhost:5003/favorites/${userId}`);
-
         const favoriteData: { store_id: number }[] = await favoriteResponse.json();
         setIsFavorite(favoriteData.some((fav) => fav.store_id === storeData.store_id));
       } catch (err: any) {
 
         console.error(err.message);
         setError("データの取得に失敗しました");
-
-
-
       }
     };
     fetchStoreAndFavorite();
-  }, [id]);
+  }, [id, userId]);
 
 
   if (error) return <div className="container">{error}</div>;

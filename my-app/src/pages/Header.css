@@ -7,12 +7,18 @@ body {
 
 /* ヘッダー */
 .App-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
   justify-content: space-between; /* 左右に要素を配置 */
   align-items: center;
   padding: 10px 20px;
   background-color: #ffffff;
   border-bottom: 2px solid #ccc;
   position: fixed;
+  align-items: center;
 }
 .header-link {
   font-weight: bold;
@@ -108,12 +114,10 @@ ul {
     width: 120px;
   }
   .App-header {
-    width: 90%;       /* ヘッダーを幅いっぱいにする */
+    width: 100%;       /* ヘッダーを幅いっぱいにする */
     z-index: 100;     /* ほかの要素より前面に配置 */
     background-color: #ffffff;
-    border-bottom: 2px solid #ccc;
     text-align: center;
-    margin-top: -120px;
   }
   .App-header h1 {
     font-size: 15px;

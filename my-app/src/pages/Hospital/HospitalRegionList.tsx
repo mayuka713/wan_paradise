@@ -1,7 +1,9 @@
-//都道府県ごとに分類したドッグラン情報を地域ごとに表示し、各都道府県名をクリックすることで該当のドッグランページに遷移できるようにする
-
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./HospitalRegionList.css";
+import Header from "../Header";
+import Footer from "../Footer";
+
 
 interface Prefecture {
   id: number;
@@ -46,27 +48,31 @@ const DogrunRegionList: React.FC = () => {
   }, {});
 
   return (
+    <>
+    <Header/>
     <div className="region-list-container">
-      <h2 className="region-list-title">動物病院を探す</h2>
-        <div className="region-list-content">
-          {Object.keys(regions).map((region) => (
-            <div key={region} className="region-section">
-            <h3 className="region-title-dogcafe">{region}</h3>
+      <h2 className="region-list-title-hospital">全国の病院を探す</h2>
+      <div className="region-list-content">
+        {Object.keys(regions).map((region) => (
+          <div key={region} className="region-section">
+            <h3 className="region-title-hospital">{region}</h3>
             <div className="prefecture-list">
-            {regions[region].map((pref) => (
-              <button
-                key={pref.id}
-                onClick={() => handleClick(pref.id)}
-                className= "prefecture-button "
+              {regions[region].map((pref) => (
+                <button
+                  key={pref.id}
+                  onClick={() => handleClick(pref.id)}
+                  className= "prefecture-button "
                 >
                   {pref.name}
-                  </button>
+                </button>
               ))}
-          </div>
+            </div>
           </div>
         ))}
       </div>
     </div>
+    <Footer/>
+    </>
   );
 };
 

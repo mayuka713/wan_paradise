@@ -1,53 +1,108 @@
+
+
+/* メインコンテンツの余白を確保（ヘッダーの高さ分） */
 .region-list-container {
-  margin: 20px;
   padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  max-width: 1000px; /* PC では中央に配置 */
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.region-list-title {
-  font-size: 24px;
+/* タイトルのデザイン */
+.region-list-title-hospital {
+  font-size: 28px;
   font-weight: bold;
   text-align: center;
   margin-bottom: 20px;
   color: #333;
 }
 
-.region-list-content {
+/* 地方ごとのセクション */
+.region-section {
+  margin-bottom: 30px;
+}
+
+/* 地方のタイトル */
+.region-title-hospital {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #444;
+}
+
+/* 都道府県リスト */
+.prefecture-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* PC では均等配置 */
+  gap: 15px;
+  justify-content: center;
+}
+
+/* 都道府県ボタン */
+.prefecture-button {
+  cursor: pointer;
+  padding: 10px 15px;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  color: rgb(0, 0, 0);
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.prefecture-button:hover {
+  background-color: #f2f2f2;
+}
+@media (max-width:480px) {
+  
+}
+.regionListContainer {
+  margin: 20px;
+  padding: 20px;
+  background-color: #120303;
+  border-radius: 10px;
+}
+
+.region-list-title-hospital {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.regionListContent {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.region-section {
+.regionSection {
   margin-bottom: 20px;
 }
 
-.region-title {
+.regionTitle {
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 10px;
 }
 
-.prefecture-list {
+.prefectureList {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
 }
 
-.prefecture-button {
-  cursor: pointer; /* カーソルを手形にする */
+.prefectureButton {
+  cursor: pointer;
   padding: 10px 15px;
-  background-color: white;
   border: none;
   font-size: 16px;
   font-weight: bold;
   transition: all 0.3s ease;
 }
 
-.prefecture-button:hover {
-  color: #4caf50;
+.prefectureButton:hover {
   background-color: #f9f9f9;
 }
 
