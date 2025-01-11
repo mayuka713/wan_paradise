@@ -49,15 +49,13 @@ const HospitalStoreList: React.FC = () => {
         const type5 = data.filter((tag) => tag.tag_type === 5);
 
         setType5Tag(type5);
-        setError(null);
       } catch (error) {
         console.error("タグ情報の取得に失敗しました:", error);
-        setError("タグの情報の取得に失敗しました");
       }
     };
     fetchTags();
   }, []);
-
+//------------------------------
   // 都道府県名を設定
   useEffect(() => {
     const prefectureNames: { [key: string]: string } = {
@@ -68,15 +66,7 @@ const HospitalStoreList: React.FC = () => {
     setSelectedPrefecture(prefectureNames[prefectureId ?? ""] || "動物病院の情報がありません");
   }, [prefectureId]);
 
-  // タグの選択処理
-  const handleTagClick = (tagId: number) => {
-    setSelectedTagIds((prev) =>
-      prev.includes(tagId) ? prev.filter((id) => id !== tagId) : [...prev, tagId]
-    );
-  };
-
-  // 店舗データを取得
-  useEffect(() => {
+// 店舗データを取得する関数
     const fetchStores = async () => {
       try {
         let url = `http://localhost:5003/stores/list/store-type/${prefectureId}/4`;
@@ -92,16 +82,21 @@ const HospitalStoreList: React.FC = () => {
         setError(null);
       } catch (error) {
         console.error("店舗データの取得に失敗しました:", error);
-        setError("タグに該当するドッグランがありません");
+        setError("該当する動物病院がありません");
       }
     };
-    fetchStores();
-  }, [prefectureId, selectedTagIds]);
-  store.forEach((storeItem) => {
-    console.log("取得した店舗情報:", storeItem);
-    console.log("口コミデータ:", storeItem.reviews);  
-  });
-
+    // ✅ **ページ読み込み時に店舗データを取得**
+    useEffect(() => {
+      fetchStores();
+    },[prefectureId,selectedTagIds]);
+    
+    const handleTagClick = (tagId: number) => {
+      setSelectedTagIds((prev) =>
+      prev.includes(tagId) ? prev.filter((id) => id !==
+      tagId) : [...prev, tagId]
+  );
+};
+//----------------------------
   return (
     <>
       <Header />
@@ -135,9 +130,9 @@ const HospitalStoreList: React.FC = () => {
               ) : (
                 store.map((storeItem) => {
                   const reviews = storeItem.reviews ?? [];
-                  
-                  const totalRating = reviews.reduce((sum, review) => sum + ( review.rating || 0),0);
+                  const totalRating = reviews.reduce((sum, review) => sum + ( review.rating || 0), 0);
                   const averageRating = reviews.length > 0 ? totalRating / reviews.length : 0;
+                  
                   return (
                     <Link to={`/hospital/detail/${storeItem.store_id}`} className="store-item" key={storeItem.store_id}>
                       {/* 店舗画像 */}

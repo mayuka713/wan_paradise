@@ -14,6 +14,7 @@ function Login(): JSX.Element {
     try {
       const response = await fetch("http://localhost:5003/auth/login", {
         method: "POST",
+        credentials: 'include',
         headers: {
           "Content-Type": "application/json",
         },

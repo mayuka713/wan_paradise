@@ -25,36 +25,33 @@ interface Review {
   comment: string;
 }
 
+const getUserIdFromCookie = (): number | null => {
+  const cookies = document.cookie.split("; ");
+  for (let cookie of cookies) {
+    const [name, value] = cookie.split("=");
+    if (name === "userId") {
+      const parsedValue = parseInt(value, 10);
+      return isNaN(parsedValue) ? null : parsedValue; // NaNを防ぐ
+    }
+  }
+  return null; // クッキーが存在しない場合
+};
+
 const DogCafeDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [store, setStore] = useState<Store | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
-  const [userId, setUserId] = useState<number | null>(null);
+  const [userId, setUserId] = useState<number | null>(0);
 
   // 環境変数から Google Map APIキーを取得
   const MAP_API_KEY = process.env.REACT_APP_MAP_API_KEY;
 
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await fetch("http://localhost:5003/auth/me", {
-          method: "GET",
-          credentials: "include",
-          headers: { "Content-Type": "application/json" },
-        });
-        if (!response.ok) {
-          throw new Error("ユーザー情報の取得に失敗しました");
-        }
-        const userData = await response.json();
-        setUserId(userData.id);
-      } catch (error) {
-        console.error("ユーザー情報の取得エラー:", error);
-      }
-    };
-    fetchUser();
+    const userIdFromCookie = getUserIdFromCookie();
+    console.log("✅ クッキーから取得した userId:", userIdFromCookie);
+    setUserId(userIdFromCookie); // `number | null` の型で渡す
   }, []);
-  
 
   useEffect(() => {
     const fetchStoreWithReviews = async () => {

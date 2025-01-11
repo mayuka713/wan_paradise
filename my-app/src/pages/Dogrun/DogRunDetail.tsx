@@ -3,6 +3,8 @@ import { useParams, Link } from "react-router-dom";
 import Header from "../Header";
 import Footer from "../Footer";
 import ImageSlider from "../../ImageSlider";
+import "./DogRunDetail.css";
+import { log } from "console";
 
 interface Store {
   store_id: number;
@@ -59,31 +61,78 @@ const DogRunDetail: React.FC = () => {
     fetchStoreWithReviews();
   }, [id]);
 
+  useEffect(() => {
+    const fetchUserId = async () => {
+      try {
+        const response = await fetch("http://localhost:5003/auth/user", {
+          method: "GET",
+          credentials: "include", // Cookie を送信する場合
+        });
+  
+        if (!response.ok) {
+          throw new Error("ユーザーIDの取得に失敗しました");
+        }
+  
+        const data = await response.json();
+        console.log("取得したユーザー情報:", data);
+  
+        if (!data.user_id) {
+          console.warn("⚠ user_id が `null` または `undefined` です");
+        }
+  
+        setUserId(data.user_id);
+      } catch (error) {
+        console.error("ユーザーID取得エラー:", error);
+      }
+    };
+  
+    fetchUserId();
+  }, []);
+  
+  
+
+  
   // お気に入り情報の取得（ログイン時のみ）
   useEffect(() => {
-    if (!userId || !store) return;
-
+    if (userId === null) {
+      console.log("userId がまだ取得できていません");
+      return;
+    }
+    if (!store) {
+      console.log("store がまだ取得できていません");
+      return;
+    }
+  
     const fetchFavoriteStatus = async () => {
       try {
         const favoriteResponse = await fetch(`http://localhost:5003/favorites/${userId}`);
         const favoriteData: { store_id: number }[] = await favoriteResponse.json();
+        console.log("取得したお気に入り情報:", favoriteData);
+  
         setIsFavorite(favoriteData.some((fav) => fav.store_id === store.store_id));
       } catch (err) {
         console.error("お気に入り情報の取得に失敗しました:", err);
         setError("お気に入り情報の取得に失敗しました");
       }
     };
-
+  
     fetchFavoriteStatus();
   }, [userId, store]);
+  
 
   // お気に入りの追加・解除
   const handleFavoriteClick = async () => {
-    if (!userId || !store) return;
+    console.log("現在の userId:", userId);
+    console.log("現在の store:", store);
+    if (!userId || !store) {
+      console.error("userId または store が null です");
+      return;
+    }
+    console.log(`お気に入りリクエスト送信: user_id=${userId}, store_id=${store.store_id}`);
 
     try {
       const response = await fetch("http://localhost:5003/favorites", {
-        method: isFavorite ? "DELETE" : "POST",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
@@ -93,12 +142,16 @@ const DogRunDetail: React.FC = () => {
         }),
       });
 
+      const responseData = await response.json();
+      console.log("サーバーのレスポンス:", responseData);
+      
+
       if (!response.ok) {
-        const errorMessage = await response.text();
-        throw new Error(`お気に入りの更新に失敗しました: ${errorMessage}`);
+        throw new Error(`お気に入りの更新に失敗しました: ${responseData.error}`);
       }
 
-      setIsFavorite(!isFavorite);
+      setIsFavorite(true);
+      console.log("お気に入り登録成功");
     } catch (error) {
       console.error("お気に入り更新エラー:", error);
       setError("お気に入りの更新に失敗しました");
@@ -117,7 +170,7 @@ const DogRunDetail: React.FC = () => {
   return (
     <>
       <Header />
-      <div className="container">
+      <div className="detail-container">
         <h1 className="detail-title">{store.store_name}</h1>
         {store.store_img.length > 0 ? (
           <ImageSlider images={store.store_img} />
@@ -125,9 +178,12 @@ const DogRunDetail: React.FC = () => {
           <p>画像がありません</p>
         )}
         {/* お気に入りボタン */}
+     
         <button onClick={handleFavoriteClick} className={`favorite-button ${isFavorite ? "active" : ""}`}>
-          {isFavorite ? "お気に入り解除" : "お気に入り"}
+          {isFavorite ? "お気に入り解除" : "お気に入り登録"}
         </button>
+
+        {/* ----------------------------- */}
         {/* 平均評価を星で表示 */}
         <div style={{ margin: "20px 0" }}>
           {store.reviews && store.reviews.length > 0 ? (

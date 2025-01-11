@@ -1,6 +1,17 @@
-.container {
-  text-align: center;
+.detail-container {
+  max-width: 800px;  /* 最大幅を指定 */
+  margin: 0 auto;    /* 中央配置 */
+  padding: 20px;
+  border-radius: 8px;
 }
+.detail-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+}
+
 
 /* 店舗画像のスタイル */
 .container img {
@@ -29,17 +40,17 @@
   color: #333;
 }
 .favorite-button {
-  padding: 10px 20px;
+  padding: 30px 20px;
   font-size: 14px;
   border: none;
-  background-color: #f3af5c;
+  background-color: #f4932b;
   border-radius: 5px;
   cursor: pointer;
   margin: 10px 0;
   transition: background-color 0.3s;
 }
 .favorite-button.active {
-  background-color: #f3af5c;
+  background-color: #fffc49;
 }
 
 
@@ -91,38 +102,26 @@
 
 
 @media (max-width: 480px) {
-  .detail-title {
-    font-size: 18px;
+  .detail-container {
+    max-width: 100%;
+    padding: 15px;
+    text-align: center;
   }
-  .container img,
-  .container iframe {
-    width: 100%;
-  }
-
-  .store-title {
-    font-size: 13px;
-    margin-bottom: 20px;
+  .detail-title{
+    font-size: 20px;
+    margin-top: 80px;
   }
 
-  .rating-container {
-    position: relative;
-    font-size: 24px; /* 星のサイズ */
-    color: #ccc; /* 背景の星の色 */
-  }
-  
   .favorite-button {
-    margin-bottom: 20px;
-  }
-  .rating-container .filled-stars {
-    position: absolute;
-    top: 0;
-    left: 0;
-    overflow: hidden;
-    white-space: nowrap;
-    color: gold; /* 塗りつぶしの色 */
-  }
-  .official-site {
-    margin-bottom: 20px;
+    font-size: 14px;
+    padding: 8px;
   }
 
+  .official-site.review-button {
+    font-size: 14px;
+    padding: 8px;
+  }
+ iframe {
+  height: 250px;
+ }
 }
