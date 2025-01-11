@@ -80,17 +80,37 @@ const DogCafeDetail: React.FC = () => {
 
   // お気に入りの追加・解除
   const handleFavoriteClick = async () => {
+    if (!store) return;
+
+      const postUrl = "http://localhost:5003/favorites";
+      const deleteUrl = "http://localhost:5003/favorites";
+
     try {
-      const response = await fetch("http://localhost:5003/favorites", {
-        method: isFavorite ? "DELETE" : "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          user_id: userId,
-          store_id: store?.store_id,
-        }),
-      });
+      let response;
+
+      if (isFavorite) {
+          response = await fetch(deleteUrl, {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                user_id: userId,
+                store_id: store.store_id,
+            }),
+          });
+      } else {
+        response = await fetch(postUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            user_id: userId,
+            store_id: store.store_id,
+          }),
+        });
+      }
 
       if (!response.ok) {
         throw new Error("お気に入りの更新に失敗しました");
@@ -104,6 +124,8 @@ const DogCafeDetail: React.FC = () => {
       setError("お気に入りの更新に失敗しました");
     }
   };
+
+
   useEffect(() => {
     const fetchStores = async () => {
       try {
