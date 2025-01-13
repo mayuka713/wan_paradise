@@ -69,6 +69,7 @@
 @media (max-width: 480px) {
   .favorite-container {
     padding: 10px;
+    margin: 30px;
   }
 
   .title {

@@ -76,10 +76,7 @@ const DogRunStoreList: React.FC = () => {
   // タグ選択の処理
   const handleTagClick = (tagId: number) => {
     setSelectedTagIds((prev) =>
-      prev.includes(tagId)
-        ? prev.filter((id) => id !== tagId)
-        : [...prev, tagId]
-    );
+      prev.includes(tagId) ? prev.filter((id) => id !== tagId) : [...prev, tagId]);
   };
 
   // 店舗データの取得

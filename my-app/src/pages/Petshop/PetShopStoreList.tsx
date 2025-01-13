@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import "./PetShopPage.css";
 import Header from "../Header";
-import "../Header.css";
 import Footer from "../Footer";
 
 interface Store {

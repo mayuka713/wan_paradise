@@ -49,7 +49,7 @@ const DogCafeDetail: React.FC = () => {
 
   useEffect(() => {
     const userIdFromCookie = getUserIdFromCookie();
-    console.log("✅ クッキーから取得した userId:", userIdFromCookie);
+    console.log("クッキーから取得した userId:", userIdFromCookie);
     setUserId(userIdFromCookie); // `number | null` の型で渡す
   }, []);
 

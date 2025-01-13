@@ -1,21 +1,21 @@
-/* 全体の背景とコンテナ */
-.container {
+.detail-container {
+  max-width: 800px;  /* 最大幅を指定 */
+  margin: 0 auto;    /* 中央配置 */
   padding: 20px;
-  background-color:rgb(255, 255, 255) ;
-
+  border-radius: 8px;
 }
-
-/* 見出しのスタイル */
-.container h1 {
-  font-size: 1rem;
-  margin-bottom: 10px;
+.detail-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
   color: #333;
+  margin-bottom: 15px;
 }
+
 
 /* 店舗画像のスタイル */
 .container img {
-  width: 60%;
-  border-radius: 8px;
+  width: 100%;
   margin: 10px 0;
 }
 
@@ -39,46 +39,21 @@
   font-weight: bold;
   color: #333;
 }
-
-/* ボタンのスタイル */
-.container a,
-.container .link {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 10px 20px;
-  font-size: 13px;
-  text-decoration: none;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
-
-/* 口コミリンク */
-.container .link {
-  color: #000;
-  background-color: #ccc;
-}
-
-.container .link:hover {
-  background-color: #aaa;
-}
-
-/* 店舗公式サイトリンク */
-
-.container a:hover {
-  background-color: green;
-}
 .favorite-button {
-  padding: 10px 20px;
+  padding: 30px 20px;
   font-size: 14px;
   border: none;
+  background-color: #f4932b;
   border-radius: 5px;
   cursor: pointer;
   margin: 10px 0;
   transition: background-color 0.3s;
 }
 .favorite-button.active {
-  background-color: #f3af5c;
+  background-color: #fffc49;
 }
+
+
 /* 星のスタイル */
 .star {
   font-size: 24px; /* 星の大きさ */
@@ -89,28 +64,64 @@
 }
 
 .star.selected {
-  color: gold; /* 選択された星の色 */
+  color: gold;
+}
+
+/* 口コミリンク */
+.review-button{
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 13px;
+  text-decoration: none;
+  color: #000; /* テキストの色を黒に */
+  background-color: #fff; /* 背景色を白に */
+  border: 1px solid #000; /* 外枠を黒に設定 */
+  border-radius: 5px; /* 角丸 */
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.review-button:hover {
+  background-color: #f0f0f0; /* ホバー時に少しグレーに */
+  transform: scale(1.05); /* ホバー時に拡大 */
+}
+.container .link:hover {
+  background-color: #aaa;
+}
+
+/* 店舗公式サイトリンク */
+.official-site {
+  color: black;
+}
+.container a:hover {
+  background-color: #f0f0f0;
+  transform: scale(1.05);
 }
 
 
 @media (max-width: 480px) {
-  .container img {
-    width: 100%;
-    border-radius: 10px;
+  .detail-container {
+    max-width: 100%;
+    padding: 15px;
+    text-align: center;
   }
-  .container h1 {
-    font-size: 1.2rem;
-  }
-  .store-title {
-    font-size: 13px;
-  }
-  .container a,
-  .container .link {
-    padding: 8px 15px;
-    font-size: 12px;
-  }
-  .star {
-    font-size: 18px; /* 小さい画面用に星を小さく */
+  .detail-title{
+    font-size: 20px;
+    margin-top: 80px;
   }
 
+  .favorite-button {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .official-site.review-button {
+    font-size: 14px;
+    padding: 8px;
+  }
+ iframe {
+  height: 250px;
+ }
 }

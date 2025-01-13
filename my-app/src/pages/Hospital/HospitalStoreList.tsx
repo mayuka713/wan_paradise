@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import Header from "../Header";
-import "../Header.css";
 import Footer from "../Footer";
+import ImageSlider from "../../ImageSlider";
 
 interface Store {
   store_id: number;
@@ -66,10 +66,16 @@ const HospitalStoreList: React.FC = () => {
     setSelectedPrefecture(prefectureNames[prefectureId ?? ""] || "動物病院の情報がありません");
   }, [prefectureId]);
 
-// 店舗データを取得する関数
+//タグ選択の処理
+  const handleTagClick = (tagId: number) => {
+    setSelectedTagIds((prev) =>
+      prev.includes(tagId) ? prev.filter((id) => id !== tagId) : [...prev,tagId]);
+  };
+
+// 店舗データの関数
     const fetchStores = async () => {
       try {
-        let url = `http://localhost:5003/stores/list/store-type/${prefectureId}/4`;
+        let url = `http://localhost:5003/stores/list/${prefectureId}/4`;
         if (selectedTagIds.length > 0) {
           url = `http://localhost:5003/stores/list/tag/${prefectureId}/4?tagIds=${selectedTagIds.join(",")}`;
         }
@@ -85,17 +91,11 @@ const HospitalStoreList: React.FC = () => {
         setError("該当する動物病院がありません");
       }
     };
-    // ✅ **ページ読み込み時に店舗データを取得**
+    // ページ読み込み時に店舗データを取得
     useEffect(() => {
       fetchStores();
-    },[prefectureId,selectedTagIds]);
-    
-    const handleTagClick = (tagId: number) => {
-      setSelectedTagIds((prev) =>
-      prev.includes(tagId) ? prev.filter((id) => id !==
-      tagId) : [...prev, tagId]
-  );
-};
+    },[prefectureId, selectedTagIds]);
+
 //----------------------------
   return (
     <>
@@ -108,6 +108,7 @@ const HospitalStoreList: React.FC = () => {
             <h2 className="title">{selectedPrefecture}の動物病院</h2>
             <p className="search-tags">動物病院の条件を絞り込む</p>
             <div className="type5-tags">
+               {/* type1Tagを表示 */}
               {type5Tag.map((tag) => (
                 <button
                   key={tag.id}
@@ -134,16 +135,13 @@ const HospitalStoreList: React.FC = () => {
                   const averageRating = reviews.length > 0 ? totalRating / reviews.length : 0;
                   
                   return (
-                    <Link to={`/hospital/detail/${storeItem.store_id}`} className="store-item" key={storeItem.store_id}>
+                    <Link to={`/hospital/detail/${storeItem.store_id}`} 
+                        className="store-item" 
+                          key={storeItem.store_id}>
                       {/* 店舗画像 */}
-                      <div className="store-images">
-                        {Array.isArray(storeItem.store_img) &&
-                          storeItem.store_img.map((img, index) => (
-                            <img key={index} src={img} alt={`${storeItem.store_name} の画像 ${index + 1}`} className="store-image" />
-                          ))}
-                      </div>
+                        <ImageSlider images={storeItem.store_img} />
 
-                      {/* レビューの評価 */}
+                      {/* 星評価の表示 */}
                       <div className="star-rating-container">
                         <div className="star-container">
                           <div className="stars-background">★★★★★</div>

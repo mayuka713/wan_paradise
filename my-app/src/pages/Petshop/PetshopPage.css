@@ -94,20 +94,17 @@
 @media (max-width: 480px) {
 
   .search-petshop {
-    display: inline-block;
-    padding: 10px 20px;
     background-color: #ffc145;
     color: #fff;
     border-radius: 20px;
     text-decoration: none;
     font-weight: bold;
-    font-size: 17px;
     transition: background-color 0.3s ease, transform 0.2s ease;
     cursor: pointer;
     margin-left: 60px;
     margin-top: 100px;
     margin-bottom: 50px;
-    padding: 17px;
+    padding: 15px;
     padding-left: 44px;
     padding-right: 35px;
   }
