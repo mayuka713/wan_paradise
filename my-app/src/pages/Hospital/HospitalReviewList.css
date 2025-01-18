@@ -1,12 +1,10 @@
 
-
-.region-list-title-dogrun {
+.region-list-title {
   font-size: 24px;
   font-weight: bold;
   text-align: center;
   margin-bottom: 20px;
-  color: #1DB954;
-  margin-top: 90px;
+  color: #333;
 }
 
 .region-list-content {
@@ -42,7 +40,18 @@
 }
 
 .prefecture-button:hover {
-  color: #ffffff;
-  background-color: #cdcdcd;
+  color: #000000;
+  background-color: #dbdbdb;
 }
 
+/* 星のスタイル */
+.star {
+  font-size: 24px;
+  color: gray; /* デフォルトの星の色 */
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.star.selected {
+  color: gold; /* 選択された星の色 */
+  transition: color 0.3s ease; /* スムーズな色変更 */
+}

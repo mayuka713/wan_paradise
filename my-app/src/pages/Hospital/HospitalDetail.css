@@ -69,7 +69,6 @@
 
 /* 口コミリンク */
 .review-button{
-  display: inline-block;
   padding: 10px 20px;
   font-size: 13px;
   text-decoration: none;
@@ -104,7 +103,7 @@
 @media (max-width: 480px) {
   .detail-container {
     max-width: 100%;
-    padding: 15px;
+    padding: 35px;
     text-align: center;
   }
   .detail-title{

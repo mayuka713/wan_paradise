@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import "./HopitalReviewList.css";
-import "./Modal.css";
-import Modal from "./HospitalModal";
+import "./HospitalReviewList.css";
+import Modal from "../../components/Modal";
+import { useModal } from "../../context/ModalContext";
+import Header from "../Header";
+import Footer from "../Footer";
 
 type Review = {
   id: number;
@@ -15,66 +17,64 @@ type Review = {
   updated_at: string;
 };
 
-const ReviewList: React.FC = () => {
+const HospitalReviewList: React.FC = () => {
   const { storeId } = useParams<{ storeId: string }>();
+  const { openModal } = useModal();
   const [reviews, setReviews] = useState<Review[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const [showModal, setShowModal] = useState(false);
-  const [selectedRating, setSelectedRating] = useState<number>(0);
   const [averageRating, setAverageRating] = useState<number>(0);
   const [storeName, setStoreName] = useState<string>("");
 
-  //口コミを取得
   useEffect(() => {
+    if (!storeId) return;
+
     const fetchReviews = async () => {
       try {
-        const response = await fetch('http://localhost:5003/reviews');
-        const data = await response.json();
-
-        // 明示的に created_at で降順ソート
-        const storedData = data.sort(
-          (a: Review, b: Review) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+        const response = await fetch(
+          `http://localhost:5003/reviews/${storeId}`
         );
+        if (!response.ok) throw new Error("口コミの取得に失敗しました");
 
-        // 平均評価を計算
-        const avgRating = storedData.length
-          ? storedData.reduce((sum: number, review: Review) => sum + review.rating, 0) /
-            storedData.length
-          : 0;
+        const data = await response.json();
+        setReviews(data);
 
-        setReviews(storedData);
-        setAverageRating(avgRating);
-      } catch (error) {
-        console.error(error);
+        if (data.length > 0) {
+          const avgRating =
+            data.reduce((sum: number, review: Review) => sum + review.rating, 0) /
+            data.length;
+          setAverageRating(Math.min(avgRating, 5)); // 5を超えないように制限
+        }
+      } catch (err) {
+        console.error("エラー詳細:", err);
         setError("口コミの取得に失敗しました");
       }
     };
 
+    const fetchStoreName = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5003/stores/store-name/${storeId}`
+        );
+        if (!response.ok) throw new Error("店舗情報の取得に失敗しました");
 
- //店舗名を取得する
-  const fetchStoreName = async () => {
-    try {
-      const response = await fetch(`http://localhost:5003/stores/store-name/${storeId}`);
-      const data = await response.json();
-      console.log("取得した店舗データ");
-      setStoreName(data.store_name);
-    } catch (error){
-      setError("店舗情報の取得に失敗しました");
-    }
-  };
-  fetchReviews();
-  fetchStoreName();
-}, [storeId]);
+        const data = await response.json();
+        setStoreName(data.store_name);
+      } catch (err) {
+        console.error("エラー詳細:", err);
+        setError("店舗情報の取得に失敗しました");
+      }
+    };
 
+    fetchReviews();
+    fetchStoreName();
+  }, [storeId]);
 
-//口コミ投稿処理
+  // 口コミを投稿する関数
   const handleReviewSubmit = async (rating: number, comment: string) => {
     try {
-      console.log("storeId:", storeId);
-
       const response = await fetch("http://localhost:5003/reviews", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-type": "application/json" },
         body: JSON.stringify({
           store_id: storeId,
           rating,
@@ -85,69 +85,75 @@ const ReviewList: React.FC = () => {
       if (!response.ok) {
         throw new Error("コメント投稿に失敗しました");
       }
-      const createdReview = (await response.json()) as Review;
 
-      setReviews((prev) => [createdReview, ...prev]);
-      setError(null);
-      setShowModal(false);
-    } catch (error) {
-      console.error(error);
+      const newReview = await response.json();
+      
+      setReviews((prevReviews) => {
+        const updatedReviews = [newReview, ...prevReviews]; // 新しい口コミを追加
+        const newAverageRating =
+          updatedReviews.reduce((sum: number, rev: Review) => sum + rev.rating, 0) /
+          updatedReviews.length;
+
+        setAverageRating(newAverageRating); // 平均評価を更新
+
+        return updatedReviews; // 更新されたレビューリストを `setReviews` にセット
+      });
+      
+    } catch (err) {
+      console.error("エラー詳細:", err);
       setError("コメント投稿に失敗しました");
     }
   };
 
-  const handleStarClick = (value: number) => {
-    setSelectedRating(value);
-  };
-
   return (
-    <div className="review-container">
-      {/* 平均評価を表示 */}
-      <h1 className = "store-name">{storeName || "店舗名を取得中"}</h1>
-      <div className="average-rating">
-        {[1, 2, 3, 4, 5].map((value) => (
-          <span
-            key={value}
-            className={`star ${value <= Math.round(averageRating) ? "selected" : ""}`}
+    <>
+      <Header />
+      <div className="review-container">
+        <h1 className="store-name">{storeName || "店舗名を取得中..."}</h1>
+
+        <div className="star-container">
+          <div className="stars-background">★★★★★</div>
+          <div
+            className="stars-filled"
+            style={{ width: `${(Math.min(averageRating, 5) / 5) * 100}%` }}
           >
-            ★
-          </span>
+            ★★★★★
+          </div>
+        </div>
+        <span className="average-rating-value">{averageRating.toFixed(1)}</span>
+
+        <h2 className="review-title">口コミ一覧</h2>
+        <button onClick={() => openModal(storeName)} className="review-button">
+          投稿
+        </button>
+
+        {error && <p className="error-message">{error}</p>}
+
+        {reviews.map((review) => (
+          <div key={review.id} className="review-card">
+            <div className="review-rating">
+              {[1, 2, 3, 4, 5].map((value) => (
+                <span
+                  key={value}
+                  className={`star ${value <= review.rating ? "selected" : ""}`}
+                >
+                  ★
+                </span>
+              ))}
+              <strong style={{ marginLeft: "8px" }}>
+                {review.rating % 1 === 0 ? `${review.rating}.0` : review.rating.toFixed(1)}
+                </strong>
+            </div>
+            <p className="review-comment">{review.comment}</p>
+          </div>
         ))}
       </div>
-      <span className="average-rating-value">
-        {averageRating.toFixed(1)} 
-      </span>
-      <h2 className="review-title">口コミ一覧</h2>
-      <button onClick={() => setShowModal(true)} style={{ marginTop: "20px" }}>
-        投稿
-      </button>
-      {error && reviews.length > 0 && <p style={{ color: "red" }}>{error}</p>}
-      {reviews.map((review) => (
-        <div key={review.id} className="review-card">
-          <div className="review-rating">
-            {[1, 2, 3, 4, 5].map ((value) => (
-              <span key= {value} className= {`star ${value <= review.rating ? "selected" : ""}`}
-              >
-                ★
-              </span>
-            ))}
-        <strong>{review.rating}.0</strong> 
-          </div>
-          <p className="review-comment">
-            <strong>口コミ:</strong> {review.comment}
-          </p>
-        </div>
-      ))}
-      {showModal && (
-        <Modal
-          show={showModal}
-          onClose={() => setShowModal(false)}
-          onSubmit={(rating: number, comment: string) => handleReviewSubmit(rating, comment)}
-          storeName={storeName} 
-        />
-      )}
-    </div>
+      <footer/>
+      
+      {/* モーダルを表示、onSubmitを渡す */}
+      <Modal onSubmit={handleReviewSubmit} />
+    </>
   );
 };
 
-export default ReviewList;
+export default HospitalReviewList;

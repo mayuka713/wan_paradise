@@ -1,5 +1,5 @@
 .region-list-container {
-  padding: 20px;
+  padding: 38px;
 }
 
 .region-list-title-dogrun {
@@ -7,7 +7,7 @@
   font-weight: bold;
   text-align: center;
   margin-bottom: 20px;
-  color: #1DB954;;
+  color: #1DB954;
   margin-top: 90px;
 }
 
@@ -44,8 +44,8 @@
 }
 
 .prefecture-button:hover {
-  color: #4caf50;
-  background-color: #f9f9f9;
+  color: #ffffff;
+  background-color: #cdcdcd;
 }
 
 @media (max-width:480px) {

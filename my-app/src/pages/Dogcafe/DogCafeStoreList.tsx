@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import "./DogCafeStoreList.css";
-import HamburgerMenu from "../../HamburgerMenu";
 import Header from "../Header";
 import "../Header.css";
 import ImageSlider from "../../ImageSlider";
@@ -32,6 +31,7 @@ interface Tag {
   name: string;
   tag_type: number;
 }
+
 const DogCafeStoreList: React.FC = () => {
   const { prefectureId } = useParams<{ prefectureId: string }>();
   const [store, setStore] = useState<Store[]>([]);
@@ -80,7 +80,7 @@ const handleTagClick = (tagId: number) => {
   );
 };
 
-  // 店舗データ取得
+  // 店舗データ取得し、画面に反映する
   useEffect(() => {
     const fetchStores = async () => {
       try {
@@ -104,6 +104,10 @@ const handleTagClick = (tagId: number) => {
     };
     fetchStores();
   },[prefectureId, selectedTagIds]);
+  store.forEach((storeItem) => {
+    console.log("取得した店舗情報:", storeItem);
+    console.log("口コミデータ:", storeItem.reviews);    
+  });
 
   return (
     <>
@@ -113,7 +117,7 @@ const handleTagClick = (tagId: number) => {
         <h2>{selectedPrefecture}</h2>
       ) : (
         <>
-        <h2 className="dogcafe-title">{selectedPrefecture}のドッグカフェ</h2>
+        <h2 className="store-list">{selectedPrefecture}のドッグカフェ</h2>
         <h3 className="search-tags">ドッグカフェの条件を選ぶ</h3>
         <div className="type3-tags">
           {type3Tag.map((tag) => (
@@ -138,14 +142,11 @@ const handleTagClick = (tagId: number) => {
             ) : (
               //店舗がある時
               store.map((storeItem) => {
-                const reviews = storeItem.reviews || [];
-                const averageRating = 
-                reviews.length > 0 
-                ? reviews.reduce(
-                  (sum, review ) => sum + review.rating,
-                  0
-                ) / reviews.length
-                : 0;
+                const reviews = storeItem.reviews ?? [];
+                const totalRating = reviews.reduce((sum, review) => sum + ( review.rating || 0),0);
+
+                const averageRating = reviews.length > 0 ? totalRating/reviews.length : 0; 
+                
                 return (
                   <Link 
                   to={`/dogcafe/detail/${storeItem.store_id}`}
@@ -153,6 +154,8 @@ const handleTagClick = (tagId: number) => {
                   key={storeItem.store_id}
                 >
                 <ImageSlider images={storeItem.store_img} />
+                
+                {/* 星評価の表示 */}
                 <div className="star-rating-container">
                   <div className="star-container">
                     <div className="stars-background">★★★★★</div>
@@ -189,6 +192,7 @@ const handleTagClick = (tagId: number) => {
             )}
           </>
         )}
+        <Footer />
       </div>
     </>
   );

@@ -1,88 +1,72 @@
 .body {
-  font-family: "Gothic Medium BBB", "Noto Sans JP", Hiragino Sans,
-  "ヒラギノ角ゴシック", "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN",
-  "Noto Sans JP", "メイリオ", Meiryo, "游ゴシック", YuGothic, "MS Ｐゴシック",
-  sans-serif;
-  background-color: #fef7d5;
-}
-
-.tab-container {
-  display: inline-block;
-  align-items: center;
-  padding: 5px 30px;
-  border-radius: 20px;
-  font-family: "Noto sans-serif";
-  font-size: 16px;
-  font-weight: bold;
+  margin: 0;
+  padding: 0;
+  font-size: 'Arial', sans-serif;
+  background-color: #f9f9f9;
   color: #333;
-  cursor: pointer;
-  margin-bottom: 20px;
-}
-/* ドロップダウンメニューのスタイル */
-.dropdown-menu {
-  position: absolute;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 10px;
-  z-index: 1000;
+  
 }
 
-.dropdown-menu li {
-  padding: 8px 15px;
-  cursor: pointer;
-}
-.dropdown-menu li:hover {
-  background-color: #f0f0f0;
-}
-.all {
-  padding-left: 20px;
-}
-.arrow {
-  padding-left: 10px;
-  font-weight: bold;
-}
 
-.dogrun-title {
-  font-size: 1.5em;
-  margin-bottom: 20px;
+/* コンテナのスタイル */
+.dogcafe-page-container {
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  margin-bottom: 20px;
+  justify-content: center;
+  text-align: center;
 }
-/* ページ全体のスタイル */
+
+.search-dogcafe {
+  background-color: #CBA35C;
+    color: #fff;
+    border-radius: 40px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+    padding: 22px;
+    margin: 70px 106px 102px 100px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    font-size: 16px;
+}
+
 
 
 .dogcafe-image {
-  display: flex;
-  margin-top: 20px;
-  justify-content: center;
+  max-width: 100%;
+  height: auto;
+  margin-top: -60px;
 }
 
+.search-dogcafe:hover {
+  transform: scale(1.05);
+}
 
+.dogcafe-image:hover {
+  transform: scale(1.05);
+}
 
 @media (max-width:480px) {
 
   .search-dogcafe {
-    display: inline-block;
-    padding: 10px 20px;
     background-color: #CBA35C;
     color: #fff;
-    border-radius: 20px;
-    text-decoration: none;
+    border-radius: 40px;
     font-weight: bold;
-    font-size: 17px;
     transition: background-color 0.3s ease, transform 0.2s ease;
     cursor: pointer;
-    margin-left: 78px;
-    margin-top: 180px;
-    margin-bottom: 50px;
-    padding: 17px;
-    padding-left: 44px;
-    padding-right: 35px;
+    padding: 22px;
+    margin: 190px 106px 102px 100px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    font-size: 16px;
   }
+  
   .dogcafe-image {
     width: 70%;
-    margin-left: 70px;
+    margin-left: 60px;
+    margin-top: -60px;
   }
   
 }

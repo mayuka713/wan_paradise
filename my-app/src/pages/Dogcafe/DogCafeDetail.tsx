@@ -43,7 +43,6 @@ const DogCafeDetail: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const [userId, setUserId] = useState<number | null>(0);
-
   // 環境変数から Google Map APIキーを取得
   const MAP_API_KEY = process.env.REACT_APP_MAP_API_KEY;
 
@@ -52,6 +51,27 @@ const DogCafeDetail: React.FC = () => {
     console.log("クッキーから取得した userId:", userIdFromCookie);
     setUserId(userIdFromCookie); // `number | null` の型で渡す
   }, []);
+
+  useEffect(() => {
+    const fetchStores = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5003/stores/detail/${id}`
+        );
+        if (!response.ok) {
+          throw new Error(`サーバーエラー: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log("取得したデータ:", data);
+
+        setStore(data);
+      } catch (error) {
+        console.error("店舗情報の取得に失敗しました:", error);
+      }
+    };
+    fetchStores();
+  }, [id]);
+  
 
   useEffect(() => {
     const fetchStoreWithReviews = async () => {
@@ -126,25 +146,7 @@ const DogCafeDetail: React.FC = () => {
   };
 
 
-  useEffect(() => {
-    const fetchStores = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:5003/stores/detail/${id}`
-        );
-        if (!response.ok) {
-          throw new Error(`サーバーエラー: ${response.status}`);
-        }
-        const data = await response.json();
-        console.log("取得したデータ:", data);
 
-        setStore(data);
-      } catch (error) {
-        console.error("店舗情報の取得に失敗しました:", error);
-      }
-    };
-    fetchStores();
-  }, [id]);
 
   // 店舗データとレビューを取得して設定する関数
 
@@ -159,6 +161,7 @@ const DogCafeDetail: React.FC = () => {
         }
 
         const storeData: Store = await storeResponse.json();
+        console.log("取得したデータ:", storeData);
         const reviewData: Review[] = await reviewResponse.json();
 
         // 店舗に関連付けられた口コミを結び付ける

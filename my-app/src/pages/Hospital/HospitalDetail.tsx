@@ -198,7 +198,7 @@ return (
       )}
       <button onClick={handleFavoriteClick} 
         className={`favorite-button${isFavorite ? " active" : ""}`}>
-        {isFavorite ? "お気に入り解除" : "お気に入り"}
+        {isFavorite ? "お気に入り解除" : "お気に入り登録"}
       </button>
       {/* 平均評価を星で表示 */}
       <div style={{ margin: "20px 0" }}>

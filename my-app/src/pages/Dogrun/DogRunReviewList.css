@@ -1,24 +1,40 @@
-
-@media (max-width: 480px) {
-  
-}
 .review-container {
   padding: 20px;
   background-color: white;
 }
-.review-title {
-  margin-bottom:  20px;
+/* 平均評価 */
+.average-rating-value {
+  font-size: 50px;
+  font-weight: bold;
+  display: block;
+  text-align: center;
+  margin-top: -20px;
+}
+/* 投稿ボタン */
+.review-button {
+  display: block;
+  width: 100px;
+  margin: 10px auto;
+  padding: 10px;
+  background-color: #ffcc80;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
 }
 
+.review-button:hover {
+  background-color: #ffa726;
+}
 .review-card {
   background: #fff;
   border-radius: 10px;
   border: 1px solid #ddd;
   padding: 20px;
   margin-bottom: 20px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba((0,0,0,0.1), green, blue, alpha);
 }
-
+/* 口コミの星評価 */
 .review-rating {
   margin-bottom: 10px;
   font-weight: bold;
@@ -30,41 +46,63 @@
   white-space: pre-wrap;
 }
 
-
-/* 星全体のコンテナ */
+/*  星評価のコンテナ */
 .star-container {
   position: relative;
-  font-size: 24px; /* 星のサイズ */
+  font-size: 24px;
   display: inline-block;
   line-height: 1;
   text-align: center;
+  width: 120px;
 }
 
-/* 背景の星（灰色） */
+/*  背景の星（灰色） */
 .stars-background {
-  color: #ccc; /* 灰色の星 */
+  color: #ccc;
   position: absolute;
   top: 0;
   left: 0;
-  white-space: nowrap; /* 星が1行に並ぶ */
-  overflow: hidden; /* はみ出した部分を隠す */
-  
+  white-space: nowrap;
+  overflow: hidden;
+  margin-top: -60px;
 }
 
 /* 塗りつぶされた星（ゴールド） */
 .stars-filled {
-  color: #FFD700; /* ゴールドの星 */
+  color: #FFD700;
   position: absolute;
   top: 0;
   left: 0;
-  white-space: nowrap; /* 星が1行に並ぶ */
-  overflow: hidden; /* はみ出した部分を隠す */
+  overflow: hidden;
+  width: 0%; /* 初期状態を0%に */
+  transition: width 0.3s ease-in-out;
+  margin-top: -60px;
 }
 
-/* 平均評価 */
-.average-rating-value {
-  font-size: 16px;
-  font-weight: bold;
-  margin-left: -10px;
-  margin-bottom: -42px;
-}
+  @media (max-width: 480px) {
+    .review-container {
+      padding: 10px;
+      background-color: #f8f8f8;
+    }
+  
+    .average-rating-value {
+      font-size: 20px;
+      margin-left: 170px;
+      margin-top: -7px;
+
+    }
+    .review-button {
+      width: 30%;
+      padding: 12px;
+      font-size: 14px;
+      margin: 15px auto;
+    }
+    .stars-background {
+        top: 70px;
+    }
+
+    .stars-filled {
+      top: 70px;
+      
+    }
+  }

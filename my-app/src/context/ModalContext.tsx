@@ -4,7 +4,7 @@ import React, { createContext, useContext, useState, ReactNode } from "react";
 interface ModalContextType {
   isModalOpen: boolean;
   openModal: (storeName: string) => void;
-  closeModal: () => void;
+  closeModal: () => void
   storeName: string;
 }
 

@@ -1,8 +1,6 @@
 import React from "react";
-import { Link, useNavigate, useParams, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./DogCafePage.css";
-import DogCafeRegionList from "./DogCafeRegionList";
-import HamburgerMenu from "../../HamburgerMenu";
 import Header from "../Header";
 
 

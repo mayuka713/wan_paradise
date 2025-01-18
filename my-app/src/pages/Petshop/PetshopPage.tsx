@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { Link, useParams, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./PetShopPage.css";
 import PetshopImage from "../assets/images/Petshop/petshop.png";
-import HamburgerMenu from "../../HamburgerMenu";
 import Header from "../Header";
 import Footer from "../Footer";
 

@@ -51,32 +51,37 @@ const DogRunDetail: React.FC = () => {
     setUserId(userIdFromCookie); // `number | null` の型で渡す
   }, []);
 
+
 //店舗の口コミ
-  useEffect(() => {
-    const fetchStoreWithReviews = async () => {
-      try {
-        const storeResponse = await fetch(`http://localhost:5003/stores/detail/${id}`);
-        const reviewResponse = await fetch(`http://localhost:5003/reviews`);
+useEffect(() => {
+  const fetchStoreWithReviews = async () => {
+    try {                                                       
+      const storeResponse = await fetch(`http://localhost:5003/stores/detail/${id}`);
+      const reviewResponse = await fetch(`http://localhost:5003/reviews`);
 
-        if (!storeResponse.ok || !reviewResponse.ok) {
-          throw new Error("データ取得に失敗しました");
-        }
-
-        const storeData: Store = await storeResponse.json();
-        const reviewData: Review[] = await reviewResponse.json();
-
-        // 店舗に関連付けられた口コミを結び付ける
-        const reviews = reviewData.filter(
-          (review) => review.store_id === storeData.store_id);
-        setStore({ ...storeData, reviews });
-      } catch (err: any) {
-        console.error("データ取得中にエラーが発生しました:", err);
-        setError("店舗情報の取得に失敗しました");
+      if (!storeResponse.ok || !reviewResponse.ok) {
+        throw new Error("データ取得に失敗しました");
       }
-    };
+      //サーバーから受け取ったデータをプログラムで扱いやすい形に変換します。
+      const storeData: Store = await storeResponse.json();
+      const reviewData: Review[] = await reviewResponse.json();
 
-    fetchStoreWithReviews();
-  }, [id]);
+      // 店舗に関連付けられた口コミを結び付ける 取得した口コミデータの中から、店舗IDが一致するものだけを抽出している
+      const reviews = reviewData.filter(
+        (review) => review.store_id === storeData.store_id);
+      //状態の更新 店舗情報に口コミをむすびつけて状態を更新している。これで画面に表示する準備が完了
+        setStore({ ...storeData, reviews });
+    } catch (err: any) {
+      //エラーハンドリング データ処理がうまくいかなかったとき
+      console.error("データ取得中にエラーが発生しました:", err);
+      setError("店舗情報の取得に失敗しました");
+    }
+  };
+
+  fetchStoreWithReviews();
+}, [id]);
+
+
 
   // お気に入りの追加・解除
   const handleFavoriteClick = async () => {
@@ -221,14 +226,16 @@ const DogRunDetail: React.FC = () => {
         ) : (
           <p>画像がありません</p>
         )}
-        {/* お気に入りボタン */}
-        <button
-          onClick={handleFavoriteClick}
-          className={`favorite-button ${isFavorite ? "active" : ""}`}
-        >
-          {isFavorite ? "お気に入り解除" : "お気に入り登録"}
-        </button>
+    
 
+        {store.reviews && store.reviews.length > 0 && (
+          <Link
+            to={`/dogrun/reviews/${store.store_id}`}
+            className="review-button"
+          >
+            口コミを見る
+          </Link>
+        )}
         {/* ----------------------------- */}
         {/* 平均評価を星で表示 */}
         <div style={{ margin: "20px 0" }}>
@@ -276,14 +283,15 @@ const DogRunDetail: React.FC = () => {
         )}
         <p>電話番号: {store.store_phone_number}</p>
         <p>営業時間: {store.store_opening_hours}</p>
-        {store.reviews && store.reviews.length > 0 && (
-          <Link
-            to={`/dogrun/reviews/${store.store_id}`}
-            className="review-button"
-          >
-            口コミを見る
-          </Link>
-        )}
+        
+        <br />
+        {/* お気に入りボタン */}
+          <button
+          onClick={handleFavoriteClick}
+          className={`favorite-button ${isFavorite ? "active" : ""}`}
+        >
+          {isFavorite ? "お気に入り解除" : "お気に入り登録"}
+        </button>
         <br />
         <a
           href={store.store_url}

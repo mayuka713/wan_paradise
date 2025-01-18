@@ -1,43 +1,56 @@
-.body {
+/* DogRunPage.css */
+
+/* ページ全体の設定 */
+body {
   margin: 0;
   padding: 0;
-  font-family: "Gothic Medium BBB", "Noto Sans JP", Hiragino Sans, "ヒラギノ角ゴシック", "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "メイリオ", Meiryo, "游ゴシック", YuGothic, "MS Ｐゴシック", sans-serif;
-  background-color: #fef7d5;
+  font-family: 'Arial', sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
 }
 
-.tag-container {
-  display: flex;
-  flex-wrap: wrap; /* タグを折り返し */
-  justify-content: flex-start; /* 左揃え */
-  gap: 10px; /* タグ同士の間隔 */
-}
-
-.all {
-  padding-left: 20px;
-}
-
-.dogrun-title {
-  font-size: 1.5em;
-  margin-bottom: 20px;
-  align-items: center;
-  margin-bottom: 20px;
-}
-/* ページ全体のスタイル */
-
-.dogrun-page {
+/* コンテナのスタイル */
+.dogrun-page-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
+  justify-content: center;
+  padding: 70px;
   text-align: center;
 }
-.dogrun-img {
-  width: 80%;
-  max-width: 500px;
-  height: auto;
-  transition: transform 0.3s ease;
 
+/* 見出し・リンクのスタイル */
+.search-dogrun {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #81ee69;
+  margin-bottom: 20px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.3s ease;
 }
+
+.search-dogrun:hover {
+  color: #1DB954;
+}
+
+/* 画像のスタイル */
+.dogrun-image {
+  max-width: 100%;
+  height: auto;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+  .dogrun-page-container {
+    padding: 10px;
+  }
+
+  .search-dogrun {
+    font-size: 1.2rem;
+  }
+}
+
 .dogrun-image:hover {
   transform: scale(1.05);
 }
@@ -45,34 +58,28 @@
 
 @media (max-width:480px) {
 
-  .dogrun-page-container {
-    font-size: 10px;
-  }
+ 
   .search-dogrun {
-    display: inline-block;
-    padding: 10px 20px;
     background-color: #1DB954;
     color: #fff;
-    border-radius: 20px;
-    text-decoration: none;
+    border-radius: 40px;
     font-weight: bold;
-    font-size: 17px;
     transition: background-color 0.3s ease, transform 0.2s ease;
     cursor: pointer;
-    margin-left: 78px;
-    margin-top: 180px;
-    margin-bottom: 50px;
-    padding: 17px;
-    padding-left: 44px;
-    padding-right: 35px;
+    padding: 22px;
+    margin: 190px 106px 102px 100px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    font-size: 18px;
   }
 
   .search-dogrun:hover {
     transform: scale(1.05);
   }
   .dogrun-image {
-    width: 80%;
-    margin-left: 40px;
+    width: 70%;
+    margin-left: 60px;
+    margin-top: -60px;
   }
 
 }

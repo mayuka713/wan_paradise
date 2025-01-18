@@ -22,10 +22,45 @@
 .searchHospital:hover {
   background-color: rgb(84, 168, 205);
 }
+.type5-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin: 20px 0;
+  padding: 10px;
+}
+.tag-button {
+  background-color: #A6CDC6;
+  color: #333;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.tagButton:hover {
+  background-color: #ffa726;
+  transform: scale(1.1);
+}
+
+
 
 @media (max-width: 480px) {
+  .type5-tags {
+    gap: 8px;
+  }
+  .tag-button {
+    font-size: 12px;
+    padding: 8px 12px;
+    margin: 4px;
+  }
+
   .searchHospital {
-    background-color: rgb(126, 178, 182);
+    background-color: rgb(215, 217, 217);
     display: inline-block;
     padding: 10px 20px;
     border-radius: 20px;
@@ -38,14 +73,12 @@
     margin-top: 180px;
     margin-bottom: 50px;
     padding: 17px;
-    padding-left: 44px;
-    padding-right: 35px;
+    padding-left: 24px;
+    padding-right: 24px;
   }
 
-  .hospitalImg {
+  .hospital-image {
     width: 80%;
     margin-left: 40px;
-    margin-bottom: 50px;
-    margin-top: 10px;
   }
 }

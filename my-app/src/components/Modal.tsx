@@ -39,13 +39,11 @@ const Modal: React.FC<ModalProps> = ({ onSubmit }) => {
   };
 
   return (
-    <div className="modal">
-      <div className="modal-content">
-        <span className="close" onClick={closeModal}>
-          &times;
-        </span>
-        <h1>{storeName}</h1>
-        <h2>口コミを投稿</h2>
+    <div className="modal-background" onClick={closeModal}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+        <span className="close" onClick={closeModal}>&times;</span>
+        <h1 className="titleName">{storeName}</h1>
+        <h2 className="review-post">口コミを投稿</h2>
         <form onSubmit={handleSubmit}>
           <div className="rating-container">
             <div className="star-rating">
@@ -62,6 +60,7 @@ const Modal: React.FC<ModalProps> = ({ onSubmit }) => {
           </div>
           <div className="comment-container">
             <textarea
+              className="comment-textarea"
               value={comment}
               onChange={(e) => setComment(e.target.value)}
               placeholder="口コミを入力してください"

@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useModal } from "../../context/ModalContext";
 import "./DogCafeReviewList.css";
 import Header from "../Header";
+import Footer from "../Footer";
 import Modal from "../../components/Modal";
 
 type Review = {
@@ -27,7 +28,7 @@ const DogCafeReviewList: React.FC = () => {
     const fetchReviews = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5003/reviews?store_id=${storeId}`
+          `http://localhost:5003/reviews/${storeId}`
         );
         if (!response.ok) throw new Error("口コミの取得に失敗しました");
 
@@ -68,7 +69,7 @@ const DogCafeReviewList: React.FC = () => {
   // 口コミを投稿する関数
   const handleReviewSubmit = async (rating: number, comment: string) => {
     try {
-      const response = await fetch("http://localhost:5003/reviews", {
+      const response = await fetch(`http://localhost:5003/reviews/${storeId}`, {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({
@@ -142,7 +143,7 @@ const DogCafeReviewList: React.FC = () => {
           </div>
         ))}
       </div>
-
+    <Footer/>
       {/* モーダルを表示、onSubmitを渡す */}
       <Modal onSubmit={handleReviewSubmit} />
     </>

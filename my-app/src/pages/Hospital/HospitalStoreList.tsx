@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import Header from "../Header";
 import Footer from "../Footer";
 import ImageSlider from "../../ImageSlider";
+import "./HospitalStoreList.css";
 
 interface Store {
   store_id: number;

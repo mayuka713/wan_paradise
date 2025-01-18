@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./DogRunRegionList.css";
-import HamburgerMenu from "../../HamburgerMenu";
 import Header from "../Header";
 import Footer from "../Footer";
 

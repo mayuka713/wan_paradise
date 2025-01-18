@@ -14,7 +14,7 @@ interface Store {
   store_opening_hours: string;
   store_phone_number: string;
   store_img: string[];
-  reviews: Review[];
+  reviews?: Review[];
 }
 
 interface Review {
@@ -105,7 +105,7 @@ const DogRunStoreList: React.FC = () => {
     console.log("取得した店舗情報:", storeItem);
     console.log("口コミデータ:", storeItem.reviews);
   });
-  
+
   return (
     <>
       <Header />
@@ -114,7 +114,7 @@ const DogRunStoreList: React.FC = () => {
           <h2>{selectedPrefecture}</h2>
         ) : (
           <>
-            <h2 className="title">{selectedPrefecture}のドッグラン</h2>
+            <h2 className="store-list">{selectedPrefecture}のドッグラン</h2>
             <h3 className="search-tags">行きたい条件のドッグランを探す</h3>
             <div className="type1-tags">
               {/* type1Tagを表示 */}
@@ -122,9 +122,8 @@ const DogRunStoreList: React.FC = () => {
                 <button
                   key={tag.id}
                   onClick={() => handleTagClick(tag.id)}
-                  className={`dogrun-tag-button ${
-                    selectedTagIds.includes(tag.id) ? "selected" : ""
-                  }`}
+                  className={`dogrun-tag-button ${selectedTagIds.includes(tag.id) ? "selected" : ""
+                    }`}
                 >
                   {tag.name}
                 </button>
@@ -137,9 +136,8 @@ const DogRunStoreList: React.FC = () => {
                 <button
                   key={tag.id}
                   onClick={() => handleTagClick(tag.id)}
-                  className={`dogrun-tag-button ${
-                    selectedTagIds.includes(tag.id) ? "selected" : ""
-                  }`}
+                  className={`dogrun-tag-button ${selectedTagIds.includes(tag.id) ? "selected" : ""
+                    }`}
                 >
                   {tag.name}
                 </button>
@@ -157,10 +155,12 @@ const DogRunStoreList: React.FC = () => {
                   // 店舗がある場合
                   store.map((storeItem) => {
                     const reviews = storeItem.reviews ?? [];
-                      // 初期値 0 を指定して NaN を防ぐ
-                    const totalRating = reviews.reduce((sum, review) => sum + ( review.rating || 0),0);
-                     // レビューがない場合、平均評価を 0 にする
+                    // 初期値 0 を指定して NaN を防ぐ
+                    const totalRating = reviews.reduce((sum, review) => sum + (review.rating || 0), 0);
+                    // レビューがない場合、平均評価を 0 にする
                     const averageRating = reviews.length > 0 ? totalRating / reviews.length : 0;
+                    console.log("averageRating:", averageRating);
+                    console.log("stars width:", !isNaN(averageRating) ? (averageRating / 5) * 100 : 0);
 
                     return (
                       <Link
@@ -173,26 +173,21 @@ const DogRunStoreList: React.FC = () => {
 
                         {/* 星評価の表示 */}
                         <div className="star-rating-container">
-                          <div className="star-container">
-                            <div className="stars-background">★★★★★</div>
+                            <div className="stars-background-storelist">★★★★★</div>
                             <div
-                              className="stars-filled"
+                              className="stars-filled-storelist"
                               style={{
-                                width: isNaN((averageRating / 5) * 100) ? "0%" : `${(averageRating / 5) * 100}%`,//小数点を考慮した計算
-                                transition: "width 0.3s ease-in-out",
-                              }}
-                            >
+                                width: `${(averageRating / 5) * 100}%` 
+                                }}> 
                               ★★★★★
                             </div>
-                          </div>
-                          <span className="average-rating-value">
+                          <span className="average-rating-value-storelist">
                             {averageRating.toFixed(1)}
                           </span>
                         </div>
-                        <h3 className="store-name">
-                          {storeItem.store_name}
-                        </h3>
-                        <p>{storeItem.store_description}</p>
+                        <h3 className="store-name">{storeItem.store_name}</h3>
+                        <p className="store-description">
+                        {storeItem.store_description}</p>
                         <p>
                           <strong>住所: </strong>
                           {storeItem.store_address}
