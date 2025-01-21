@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./DogCafePage.css";
 import Header from "../Header";
-
+import HamburgerMenu from "../../HamburgerMenu";
 
 
 const DogCafePage: React.FC = () => {
@@ -13,7 +13,9 @@ const DogCafePage: React.FC = () => {
 
   return (
     <>
+    <HamburgerMenu />
     <Header/>
+
     <div className="dogcafe-page-container">
       <p onClick={handleClick} className="search-dogcafe">
         全国のドッグカフェを探す

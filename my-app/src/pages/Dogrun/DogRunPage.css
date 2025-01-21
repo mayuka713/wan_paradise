@@ -1,5 +1,3 @@
-/* DogRunPage.css */
-
 /* ページ全体の設定 */
 body {
   margin: 0;
@@ -21,34 +19,29 @@ body {
 
 /* 見出し・リンクのスタイル */
 .search-dogrun {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #81ee69;
-  margin-bottom: 20px;
-  cursor: pointer;
-  text-decoration: none;
-  transition: color 0.3s ease;
+    background-color: #1DB954;
+    color: #fff;
+    border-radius: 40px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+    padding: 82px;
+    margin: 70px 106px 102px 100px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    font-size: 16px;
 }
 
 .search-dogrun:hover {
-  color: #1DB954;
+  transform: scale(1.05);
+  color: rgba(255, 255, 255, 0.5);
 }
 
 /* 画像のスタイル */
 .dogrun-image {
   max-width: 100%;
   height: auto;
-}
-
-/* レスポンシブ対応 */
-@media (max-width: 768px) {
-  .dogrun-page-container {
-    padding: 10px;
-  }
-
-  .search-dogrun {
-    font-size: 1.2rem;
-  }
+  margin-top: -60px;
 }
 
 .dogrun-image:hover {
@@ -57,8 +50,7 @@ body {
 
 
 @media (max-width:480px) {
-
- 
+  
   .search-dogrun {
     background-color: #1DB954;
     color: #fff;
@@ -66,19 +58,19 @@ body {
     font-weight: bold;
     transition: background-color 0.3s ease, transform 0.2s ease;
     cursor: pointer;
-    padding: 22px;
-    margin: 190px 106px 102px 100px;
+    padding: 55px;
+    margin: 20px -44px 92px -40px;
     padding-bottom: 20px;
     padding-top: 20px;
-    font-size: 18px;
+    font-size: 16px;
   }
 
   .search-dogrun:hover {
     transform: scale(1.05);
   }
   .dogrun-image {
-    width: 70%;
-    margin-left: 60px;
+    max-width: 170%;
+    margin-left: -70px;
     margin-top: -60px;
   }
 

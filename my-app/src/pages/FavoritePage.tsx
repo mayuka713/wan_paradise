@@ -105,7 +105,9 @@ const FavoritePage: React.FC = () => {
             <h2 className="category-title">{category}</h2>
             <ul className="favorite-list">
               {stores.length > 0 ? (
+                
                 stores.map((favorite) => {
+                  
                   //口コミの平均評価を計算
                   const storeReviews = reviews.filter(
                     (review) => review.store_id === favorite.store_id
@@ -140,10 +142,10 @@ const FavoritePage: React.FC = () => {
                       <li className="favorite-item">
                         {/* 店舗画像 */}
                         <img
-                          src={favorite.store_img || "http://via.placeholder.com/150"}
-                          alt={favorite.store_name}
-                          className="favorite-image"
-                        />
+      src={favorite.store_img ? favorite.store_img : "http://via.placeholder.com/150"}
+      alt={favorite.store_name}
+      className="favorite-image"
+    />
                         <h2 className="favorite-title">{favorite.store_name}</h2>
 
                         {/* 口コミの平均評価を表示 */}

@@ -3,6 +3,7 @@
   margin: 0 auto;    /* 中央配置 */
   padding: 20px;
   border-radius: 8px;
+  text-align: center;
 }
 .detail-title {
   text-align: center;
@@ -40,7 +41,7 @@
   color: #333;
 }
 .favorite-button {
-  padding: 30px 20px;
+  padding: 10px 20px;
   font-size: 14px;
   border: none;
   background-color: #f4932b;
@@ -80,6 +81,8 @@
   transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
   margin-bottom: 20px;
   font-weight: bold;
+  text-align: center;
+  margin: 20px;
 }
 
 .review-button:hover {

@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import "./PetShopPage.css";
 import Header from "../Header";
 import Footer from "../Footer";
+import ImageSlider from "../../ImageSlider";
 
 interface Store {
   store_id: number;
@@ -12,7 +13,7 @@ interface Store {
   store_opening_hours: number;
   store_phone_number: string;
   store_url: string;
-  store_img: string;
+  store_img: string[];
   reviews: Review[];
 }
 
@@ -115,7 +116,6 @@ const PetShopStoreList: React.FC = () => {
           <>
             <h2 className="title">{selectedPrefecture}のペットショップ</h2>
             <p className="search-tags">条件を絞り込む</p>
-
             {/* タグボタンを表示 */}
             <div className="type4-tags">
               {type4Tag.map((tag) => (
@@ -130,7 +130,6 @@ const PetShopStoreList: React.FC = () => {
                 </button>
               ))}
             </div>
-
             {/* エラーメッセージ */}
             {error ? (
               <p className="error-message">{error}</p>
@@ -155,41 +154,29 @@ const PetShopStoreList: React.FC = () => {
 
                     return (
                       <Link
-                        to={`/petshop/detail/${storeItem.store_id}`} // 修正済みリンク
+                        to={`/petshop/detail/${storeItem.store_id}`}
                         className="store-item"
                         key={storeItem.store_id}
                       >
-                        {/* 店舗画像 */}
-                        <div className="store-images">
-                          {Array.isArray(storeItem.store_img) &&
-                            storeItem.store_img.map((img, index) => (
-                              <img key={index} src={img} alt={`${storeItem.store_name}の画像 ${index + 1}`}
-                                className="store-image"
-                              />
-                            ))}
-                        </div>
-
-                        {/* レビューの評価 */}
+                        <ImageSlider images={storeItem.store_img} />
+                        {/* 星評価の表示 */}
                         <div className="star-rating-container">
-                          <div className="star-container">
-                            <div className="stars-background">★★★★★</div>
+                            <div className="stars-background-storelist">★★★★★</div>
                             <div
-                              className="stars-filled"
+                              className="stars-filled-storelist"
                               style={{
                                 width: `${(averageRating / 5) * 100}%`,
-                              }}
-                            >
+                              }}>
                               ★★★★★
                             </div>
-                          </div>
-                          <span className="average-rating-value">
+                          <span className="average-rating-value-storelist">
                             {averageRating.toFixed(1)}
                           </span>
-                        </div>
-
+                          </div>
                         {/* 店舗情報 */}
-                        <h3 className="store-name">{storeItem.store_name}</h3>
-                        <p>{storeItem.store_description}</p>
+                        <h3 className="store-name-storelist">{storeItem.store_name}</h3>
+                        <p className="store-description">
+                        {storeItem.store_description}</p>
                         <p>
                           <strong>住所: </strong>
                           {storeItem.store_address}

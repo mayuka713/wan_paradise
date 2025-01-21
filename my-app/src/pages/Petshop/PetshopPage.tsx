@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./PetShopPage.css";
 import PetshopImage from "../assets/images/Petshop/petshop.png";
@@ -8,7 +8,7 @@ import Footer from "../Footer";
 const PetshopPage: React.FC = () => {
   const navigate = useNavigate();
 
- 
+
   const handleClick = () => {
     navigate('/PetshopRegionsList');
   };
@@ -25,6 +25,7 @@ const PetshopPage: React.FC = () => {
   </div>
   <Footer/>
   </>
+
   );
 };
 

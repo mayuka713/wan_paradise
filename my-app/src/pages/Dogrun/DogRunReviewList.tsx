@@ -112,7 +112,7 @@ const DogRunReviewList : React.FC = () => {
       <>
         <Header />
         <div className="review-container">
-          <h1 className="store-name">{storeName || "店舗名を取得中..."}</h1>
+          <h1 className="store-name-review">{storeName || "店舗名を取得中..."}</h1>
           {/* 平均評価の表示 */}
           <div className="star-container">
             <div className="stars-background">★★★★★</div>

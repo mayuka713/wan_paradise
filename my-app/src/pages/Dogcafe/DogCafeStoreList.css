@@ -15,6 +15,24 @@
   color: #cba35c;
 }
 
+.type3-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 20px;
+  gap: 9px;
+}
+.dogcafe-tag-button {
+  display: inline-block;
+  background-color: #b38254;
+  color: #333;
+  padding: 10px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 400;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
 .dogcafe-tag-button.selected {
   background-color: #cba35c;
   color: white;

@@ -144,15 +144,13 @@ const HospitalStoreList: React.FC = () => {
 
                       {/* 星評価の表示 */}
                       <div className="star-rating-container">
-                        <div className="star-container">
-                          <div className="stars-background">★★★★★</div>
-                          <div className="stars-filled" style={{ width: `${(averageRating / 5) * 100}%` }}>★★★★★</div>
-                        </div>
-                        <span className="average-rating-value">{averageRating.toFixed(1)}</span>
+                          <div className="stars-background-storelist">★★★★★</div>
+                          <div className="stars-filled-storelist" style={{ width: `${(averageRating / 5) * 100}%` }}>★★★★★</div>
+                        <span className="average-rating-value-storelist">{averageRating.toFixed(1)}</span>
                       </div>
 
                       {/* 店舗情報 */}
-                      <h3 className="store-name">{storeItem.store_name}</h3>
+                      <h3 className="store-name-storelist">{storeItem.store_name}</h3>
                       <p>{storeItem.store_description}</p>
                       <p><strong>住所:</strong> {storeItem.store_address}</p>
                       <p><strong>電話:</strong> {storeItem.store_phone_number}</p>

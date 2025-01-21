@@ -118,7 +118,7 @@ const handleTagClick = (tagId: number) => {
       ) : (
         <>
         <h2 className="store-list">{selectedPrefecture}のドッグカフェ</h2>
-        <h3 className="search-tags">ドッグカフェの条件を選ぶ</h3>
+        <h3 className="search-tags">行きたいドッグカフェの条件を選ぶ</h3>
         <div className="type3-tags">
           {type3Tag.map((tag) => (
             <button 
@@ -157,21 +157,19 @@ const handleTagClick = (tagId: number) => {
                 
                 {/* 星評価の表示 */}
                 <div className="star-rating-container">
-                  <div className="star-container">
-                    <div className="stars-background">★★★★★</div>
+                    <div className="stars-background-storelist">★★★★★</div>
                       <div 
-                          className="stars-filled"
+                          className="stars-filled-storelist"
                           style={{
                             width: `${(averageRating / 5) * 100}%`
                           }}>
                             ★★★★★
                           </div>
-                          </div>
-                          <span className="average-rating-value">
+                          <span className="average-rating-value-storelist">
                             {averageRating.toFixed(1)}
                           </span>
                         </div>
-                        <h3 className="store-name">{storeItem.store_name}</h3>
+                        <h3 className="store-name-storelist">{storeItem.store_name}</h3>
                         <p className="store-description">
                           {storeItem.store_description}
                         </p>

@@ -196,10 +196,11 @@ return (
       ) : ( 
       <p>画像がありません</p>
       )}
-      <button onClick={handleFavoriteClick} 
-        className={`favorite-button${isFavorite ? " active" : ""}`}>
-        {isFavorite ? "お気に入り解除" : "お気に入り登録"}
-      </button>
+          {store.reviews && store.reviews.length > 0 && (
+        <Link to={`/hospital/reviews/${store.store_id}`} className="review-button">
+          口コミを見る
+        </Link>
+      )}
       {/* 平均評価を星で表示 */}
       <div style={{ margin: "20px 0" }}>
         {store.reviews && store.reviews.length > 0 ? (
@@ -240,12 +241,13 @@ return (
         )}
       <p>電話番号:{store.store_phone_number}</p>
       <p>営業時間:{store.store_opening_hours}</p>
-      {store.reviews && store.reviews.length > 0 && (
-        <Link to={`/hospital/reviews/${store.store_id}`} className="review-button">
-          口コミを見る
-        </Link>
-      )}
+  
       <br />
+      <button onClick={handleFavoriteClick} 
+        className={`favorite-button${isFavorite ? " active" : ""}`}>
+        {isFavorite ? "お気に入り解除" : "お気に入り登録"}
+      </button>
+      <br/>
       <a href={store.store_url} target="_blank" rel="noopener noreferrer" className="official-site">
         店舗の公式サイト
       </a>

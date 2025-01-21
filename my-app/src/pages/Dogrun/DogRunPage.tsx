@@ -25,7 +25,7 @@ const DogRunPage: React.FC = () => {
           <img src={DogrunImage} alt="DogrunImage" className="dogrun-image" />
         </div>
       </div>
-
+      <Footer/>
     </>
 
   );

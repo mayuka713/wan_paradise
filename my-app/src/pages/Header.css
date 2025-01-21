@@ -25,10 +25,12 @@ body {
   text-decoration: none;
   transition: color 0.3s ease;
   letter-spacing: 3px;
+  text-decoration: none;
 }
 
 .header-link:hover {
-  color: #e5e5e5;
+  color: rgba(0, 0, 0, 0.5); 
+  text-decoration: none;
 }
 
 
@@ -44,7 +46,8 @@ ul {
   text-decoration: none;
 }
 .header-nav a:hover {
-  color: #dddddd;
+  color: rgba(0, 0, 0, 0.5); ;
+  text-decoration: none;
 }
 .App-header h1 {
   font-size: 2rem;

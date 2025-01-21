@@ -4,9 +4,7 @@
   font-size: 'Arial', sans-serif;
   background-color: #f9f9f9;
   color: #333;
-  
 }
-
 
 /* コンテナのスタイル */
 .dogcafe-page-container {
@@ -14,17 +12,18 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 70px;
   text-align: center;
 }
 
 .search-dogcafe {
-  background-color: #CBA35C;
+    background-color: #CBA35C;
     color: #fff;
     border-radius: 40px;
     font-weight: bold;
     transition: background-color 0.3s ease, transform 0.2s ease;
     cursor: pointer;
-    padding: 22px;
+    padding: 82px;
     margin: 70px 106px 102px 100px;
     padding-bottom: 20px;
     padding-top: 20px;
@@ -32,15 +31,15 @@
 }
 
 
+.search-dogcafe:hover {
+  transform: scale(1.05);
+  color: rgba(255, 255, 255, 0.5);
+}
 
 .dogcafe-image {
   max-width: 100%;
   height: auto;
   margin-top: -60px;
-}
-
-.search-dogcafe:hover {
-  transform: scale(1.05);
 }
 
 .dogcafe-image:hover {
@@ -52,21 +51,21 @@
   .search-dogcafe {
     background-color: #CBA35C;
     color: #fff;
-    border-radius: 40px;
+    border-radius: 30px;
     font-weight: bold;
     transition: background-color 0.3s ease, transform 0.2s ease;
     cursor: pointer;
-    padding: 22px;
-    margin: 190px 106px 102px 100px;
+    padding: 55px;
+    margin: 0 -105px 25px -90px;
     padding-bottom: 20px;
     padding-top: 20px;
     font-size: 16px;
   }
   
   .dogcafe-image {
-    width: 70%;
-    margin-left: 60px;
-    margin-top: -60px;
+    max-width: 170%;
+    margin-left: -70px;
+    margin-top: auto;
   }
   
 }

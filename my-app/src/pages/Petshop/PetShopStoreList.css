@@ -1,114 +1,148 @@
-/* コンテンツ全体 */
+.body {
+  margin: 0;
+  padding: 0;
+  font-family: "Noto Sans JP", serif;
+  background-color: #f9f9f9;
+}
 .content {
   text-align: center;
+  font-family: "Noto Sans JP", serif;
   padding: 20px;
   background-color: #ffffff;
 }
+
 /* タイトル */
-h2 {
+.store-list {
   font-weight: bold;
-  font-size: 22px;
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
 }
-.tags-container {
+
+
+.search-tags3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.type3-tags {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
   margin-bottom: 20px;
-}
-.tag-button {
-  padding: 10px 15px;
-  border-radius: 20px;
-  font-size: 15px;
-  cursor: pointer;
-  background-color: white;
-  border: 1px solid #ccc;
-  transition: all 0.3s ease;
-  color: #555;
+  gap: 9px;
 }
 
-.tag-button.selected {
+.petshop-tag-button {
+  display: inline-block;
+  background-color: #c3dfae;
+  color: #333;
+  padding: 10px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 400;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.petshop-tag-button:hover {
+  border-color: #aaa;
+  background-color: #f0f0f0;
+}
+
+.petshop-tag-button.selected {
   background-color: #859f3d;
   color: white;
+  transform: scale(1.05);
 }
 
+/* ストア一覧 */
 .store-list {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
-  justify-content: center;
+  padding: 10px;
 }
 
+/* ストアカード */
 .store-item {
-  width: 300px;
+  display: block;
   border: 1px solid #ddd;
   border-radius: 10px;
+  background-color: #fff;
+  margin: 15px 0;
   padding: 15px;
-  background-color: white;
-  text-align: left;
-  display: flex;
-  display: inline-block;
-  flex-direction: column;
-  align-items: center;
-  margin: 10px;
+  text-decoration: none;
+  color: #333;
 }
 
-.store-img {
+.store-item:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.store-item p {
+  font-size: 14px;
+  color: #555;
+  margin: 5px 20px;
+}
+
+.store-item img {
   width: 100%;
-  height: 200px;
-  object-fit: cover;
   border-radius: 10px;
   margin-bottom: 10px;
 }
 
-.rating {
-  font-size: 18px;
-  color: gray;
-  margin: 10px 0;
+
+.store-discription {
+  font-size: 14px;
+  margin-bottom: 10px;
 }
 
-/* 星全体のコンテナ */
-.star-container {
-  position: relative;
-  font-size: 24px; /* 星のサイズ */
-  display: flex;
-  align-items: center;
-  line-height: 1;
-  width: 120px;
-  margin: 10px 0;
-}
-
-/* 背景の星（灰色） */
-.stars-background {
-  color: #ccc; /* 灰色の星 */
+.stars-background-storelist {
+  font-size: 1.2rem;
+  color: #ccc;
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 1;
-  white-space: nowrap; /* 星が1行に並ぶ */
-  overflow: hidden; /* 塗りつぶし部分がはみ出さない */
-}
-
-/* 塗りつぶされた星（ゴールド） */
-.stars-filled {
-  position: absolute;
-  top: 10px;
-  left: 0;
-  z-index: 2;
   overflow: hidden;
   white-space: nowrap;
+  z-index: 0;
+}
+
+/* 星評価の塗りつぶし（選択された星） */
+.stars-filled-storelist {
+  font-size: 1.2rem;
+  color: #FFD700;
+  position: absolute;
+  top: 0;
+  left: 0;
   overflow: hidden;
-  width: 0%; /* デフォルトは幅0 */
-  transition: width 0.3s ease; /* 幅の変化をアニメーションで */
+  white-space: nowrap;
+  z-index: 1;
 }
 
-.store-name {
-  font-size: 18px;
-  font-weight: bold;
-  margin: 10px 0;
-  text-align: center;
+/* 星評価全体のコンテナ */
+.star-rating-container {
+  position: relative;
+  display: inline-block;
+  width: 100px;
+  height: 20px;
 }
 
+.average-rating-value-storelist {
+  font-size: 1rem;
+  color: #333;
+  margin-left: 105px;
+}
+.store-name-storelist {
+  font-size: 20px;
+}
 @media (max-width: 480px) {
   .store-item {
     width: 90%;

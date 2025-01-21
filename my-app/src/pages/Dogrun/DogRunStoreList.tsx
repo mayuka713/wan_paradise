@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import "./DogRunStoreList.css";
 import Header from "../Header";
+import Footer from "../Footer";
 import "../Header.css";
 import ImageSlider from "../../ImageSlider";
-import Footer from "../Footer";
+
 
 interface Store {
   store_id: number;
@@ -13,6 +14,7 @@ interface Store {
   store_address: string;
   store_opening_hours: string;
   store_phone_number: string;
+  store_url: string;
   store_img: string[];
   reviews?: Review[];
 }
@@ -185,20 +187,12 @@ const DogRunStoreList: React.FC = () => {
                             {averageRating.toFixed(1)}
                           </span>
                         </div>
-                        <h3 className="store-name">{storeItem.store_name}</h3>
+                        <h3 className="store-name-storelist">{storeItem.store_name}</h3>
                         <p className="store-description">
                         {storeItem.store_description}</p>
-                        <p>
-                          <strong>住所: </strong>
-                          {storeItem.store_address}
-                        </p>
-                        <p>
-                          <strong>電話: </strong> {storeItem.store_phone_number}
-                        </p>
-                        <p>
-                          <strong>営業時間: </strong>
-                          {storeItem.store_opening_hours}
-                        </p>
+                        <p><strong>住所: </strong>{storeItem.store_address}</p>
+                        <p><strong>電話: </strong> {storeItem.store_phone_number}</p>
+                        <p><strong>営業時間: </strong>{storeItem.store_opening_hours}</p>
                       </Link>
                     );
                   })

@@ -227,14 +227,15 @@ const averageRating =
       ) : (
         <p>画像がありません</p>
       )}
-      {/* お気に入りボタン */}
-      <button 
-        onClick={handleFavoriteClick}
-        className={`favorite-button${isFavorite ? "active" : ""}`}
-        >
-          {isFavorite ? "お気に入り解除" : "お気に入り登録"}
-        </button>
-        
+      {/*口コミ一覧ページへのリンクを追加*/}
+        {store.reviews && store.reviews.length > 0 && (
+          <Link
+            to={`/dogrun/reviews/${store.store_id}`}
+            className="review-button"
+          >
+            口コミを見る
+          </Link>
+        )}
       {/* 平均評価を星で表示 */}
       {store.reviews && store.reviews.length > 0 ? (
         <div style={{margin: "20px 0"}}>
@@ -287,15 +288,14 @@ const averageRating =
       )}
       <p>電話番号: {store.store_phone_number}</p>
       <p>営業時間: {store.store_opening_hours}</p>
-            {/*口コミ一覧ページへのリンクを追加*/}
-        {store.reviews && store.reviews.length > 0 && (
-          <Link
-            to={`/dogrun/reviews/${store.store_id}`}
-            className="review-button"
-          >
-            口コミを見る
-          </Link>
-        )}
+    {/* お気に入りボタン */}
+      <button 
+        onClick={handleFavoriteClick}
+        className={`favorite-button${isFavorite ? "active" : ""}`}
+        >
+          {isFavorite ? "お気に入り解除" : "お気に入り登録"}
+        </button>
+        
         <br />
       <a
         href={store.store_url}

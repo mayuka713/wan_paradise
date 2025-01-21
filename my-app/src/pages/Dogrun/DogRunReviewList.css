@@ -2,9 +2,12 @@
   padding: 20px;
   background-color: white;
 }
+.store-name-review {
+  text-align: center;
+}
 /* 平均評価 */
 .average-rating-value {
-  font-size: 50px;
+  font-size: 25px;
   font-weight: bold;
   display: block;
   text-align: center;
@@ -61,7 +64,7 @@
   color: #ccc;
   position: absolute;
   top: 0;
-  left: 0;
+  left: 480px;
   white-space: nowrap;
   overflow: hidden;
   margin-top: -60px;
@@ -72,7 +75,7 @@
   color: #FFD700;
   position: absolute;
   top: 0;
-  left: 0;
+  left: 480px;
   overflow: hidden;
   width: 0%; /* 初期状態を0%に */
   transition: width 0.3s ease-in-out;
