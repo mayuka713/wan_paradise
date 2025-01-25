@@ -3,9 +3,10 @@
   font-size: 1.5rem;
   text-align: center;
   transition: opacity 0.3s ease-in-out;
-  font-family: "Noto Sans Japanese";
+  font-family: Zen Kaku Gothic New;
   font-weight: 600;
   margin-bottom: 130px;
+
 }
 
 .scroll-container {

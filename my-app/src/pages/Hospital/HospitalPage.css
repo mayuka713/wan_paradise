@@ -22,10 +22,12 @@
   transition: background-color 0.3s ease, transform 0.2s ease;
   cursor: pointer;
   padding: 82px;
-  margin: 140px 400px 102px 420px;
+  margin: 70px 615px 102px 670px;
   padding-bottom: 20px;
   padding-top: 20px;
   font-size: 16px;
+  max-width: 80%; /* ボタンの最大幅を設定 */
+  word-break: keep-all;
 }
 .search-hospital:hover {
   transform: scale(1.05);
@@ -34,8 +36,7 @@
 .hospitalImage {
   max-width: 100%;
   height: auto;
-  margin-top: -60px;
-  margin-left: 380px;
+  margin-left: 640px;
 }
 .hospitalImage:hover {
   transform: scale(1.05);

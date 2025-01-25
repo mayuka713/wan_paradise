@@ -3,7 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import Header from "../Header";
 import Footer from "../Footer";
 import ImageSlider from "../../ImageSlider";
-
+import "./PetShopDetail.css";
 
 interface Store {
   store_id: number;
@@ -27,16 +27,16 @@ interface Review {
 
 //ブラウザのクッキーに保存されているuserIdという値を取り出す
 const getUserIdFromCookie = (): number | null => {
-  const cookies = document.cookie.split(";");
+  const cookies = document.cookie.split("; ");
   for (let cookie of cookies) {
     const [name, value] = cookie.split("=");
-    if (name === "userId") {
-      const parsedValue = parseInt(value, 10);
+    if (name === "user_id") {
+      const parsedValue = parseInt(decodeURIComponent(value), 10);
       return isNaN(parsedValue) ? null : parsedValue;
     }
   }
   return null;
-}
+};
 
 
 const PetShopDetail: React.FC = () => {
@@ -44,165 +44,79 @@ const PetShopDetail: React.FC = () => {
   const [store, setStore] = useState<Store | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
-  const [userId, setUserId] = useState<number | null>(null);
-
-//MAP
+  const [userId, setUserId] = useState<number | null>(0);
   const MAP_API_KEY = process.env.REACT_APP_MAP_API_KEY;
-
-useEffect(() => {
-  const userIdFromCookie = getUserIdFromCookie();
-  setUserId(userIdFromCookie);
-}, []);
-
-  // 店舗データとレビューを取得して設定する関数
   useEffect(() => {
-    const fetchStoreWithReviews = async () => {
+    const userIdFromCookie = getUserIdFromCookie();
+    setUserId(userIdFromCookie); // `number | null` の型で渡す
+  }, []);
+
+  useEffect(() => {
+    const fetchStoreAndReviews = async () => {
       try {
+        // 店舗情報を取得
         const storeResponse = await fetch(`http://localhost:5003/stores/detail/${id}`);
-        const reviewResponse = await fetch(`http://localhost:5003/reviews`);
-
-        if (!storeResponse.ok || !reviewResponse.ok) {
-          throw new Error("データ取得に失敗しました");
-        }
-
+        if (!storeResponse.ok) throw new Error("店舗情報の取得に失敗しました");
         const storeData: Store = await storeResponse.json();
+
+        // 口コミ情報を取得
+        const reviewResponse = await fetch(`http://localhost:5003/reviews`);
+        if (!reviewResponse.ok) throw new Error("口コミ情報の取得に失敗しました");
         const reviewData: Review[] = await reviewResponse.json();
 
-        // 店舗に関連付けられた口コミを結び付ける
-        const reviews = reviewData.filter(
-          (review) => review.store_id === storeData.store_id);
+        // 店舗に関連付けられた口コミをフィルタリング
+        const reviews = reviewData.filter((review) => review.store_id === storeData.store_id);
+
+        // 店舗情報に口コミを追加
         setStore({ ...storeData, reviews });
       } catch (err: any) {
-        console.error("データ取得中にエラーが発生しました:", err);
-        setError("店舗情報の取得に失敗しました");
+        console.error("データ取得エラー:", err);
       }
     };
 
-    fetchStoreWithReviews();
-  }, [id]);
-
-
-  // お気に入りの追加・解除
-  const handleFavoriteClick = async () => {
-    if (!store) return;
-      const postUrl = "http://localhost:5003/favorites";
-      const deleteUrl = "http://localhost:5003/favorites";  
-    try {
-      let response;
-      if(isFavorite) {
-        response = await fetch(deleteUrl, {
-          method: "DELETE",
-          headers: {
-            "content-Type": "application/json",
-          },
-        body: JSON.stringify({
-          user_id: userId,
-          store_id: store.store_id,
-        }),
-      });
-    } else {
-      response = await fetch(postUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          user_id: userId,
-          store_id: store.store_id,
-        }),
-      });
-    }
-    
-    if(!response.ok){
-      throw new Error("お気に入りの更新に失敗しました");
-    }
-    setIsFavorite(!isFavorite);
-} catch (error) {
-  console.log(userId);
-  console.log(store);
-  console.error("お気に入り更新エラー", error);
-  setError("お気に入りの更新に失敗しました");
-  } 
-};
-
-  useEffect(() => {
-    const fetchStores = async () => {
+    const fetchFavorite = async () => {
       try {
-        const response = await fetch(
-          `http://localhost:5003/stores/detail/${id}`
-        );
-        if (!response.ok) {
-          throw new Error(`サーバーエラー: ${response.status}`);
+        if (!userId) return;
+
+        const favoriteResponse = await fetch(`http://localhost:5003/favorites/${userId}`);
+        if (favoriteResponse.ok) {
+          const favoriteData: { store_id: number }[] = await favoriteResponse.json();
+          setIsFavorite(favoriteData.some((fav) => fav.store_id === Number(id)));
         }
-        const data = await response.json();
-        console.log(data);
-
-        setStore(data);
-      } catch (error) {
-        console.error("店舗情報の取得に失敗しました:", error);
+      } catch (err: any) {
+        console.error("お気に入り情報取得エラー:", err);
       }
     };
-    fetchStores();
-  }, [id]);
 
-
-//-----------------店舗データとレビューを取得して設定する関数
-  useEffect(() => {
-    const fetchStoreData = async () => {
-      try {
-        const storeResponse = await fetch(
-          `http://localhost:5003/stores/detail/${id}`);
-          const reviewResponse = await fetch(`http://localhost:5003/reviews`);
-
-          if(!storeResponse.ok || !reviewResponse.ok) {
-            throw new Error("データの取得に失敗しました");
-          }
-          const storeData: Store = await storeResponse.json();
-          const reviewData: Review[]= await reviewResponse.json();
-          
-          //店舗に関連づけられた口コミを結びつける
-          const reviews = reviewData.filter(
-            (review) => review.store_id === storeData.store_id
-          );
-          setStore({ ...storeData, reviews });
-      } catch(err: any){
-        console.error("データの取得中にエラーが発生しました:", err);
-        setError("店舗情報の取得に失敗しました");
+    if (id) {
+      fetchStoreAndReviews();
+      if (userId) fetchFavorite();
     }
-  };
-  fetchStoreData();
-  }, [id]);
-
-//-----------店舗情報とお気に入り状態を取得する処理
-  useEffect(() => {
-  if(!userId) return
-   //店舗情報を取得
-  const fetchStoreAndFavorite = async () => {
-    try {
-      const StoreResponse = await fetch(
-        `http://localhost:5003/stores/detail/${id}`
-      );
-      if (!StoreResponse.ok) throw new Error("店舗情報の取得に失敗しました");
-
-      const storeData : Store = await StoreResponse.json();
-      setStore(storeData);
-
-      //お気に入り状態を取得
-      const favoriteResponse = await fetch(
-        `http://localhost:5003/favorites/${userId}`
-      );
-      const FavoriteData: {store_id: number} [] = 
-        await favoriteResponse.json();
-        setIsFavorite(
-          FavoriteData.some((fav) => fav.store_id === storeData.store_id)
-        );
-    } catch (err: any) {
-      setError("データの取得失敗");
-    }
-    };
-  fetchStoreAndFavorite();
   }, [id, userId]);
 
+//-----------店舗情報とお気に入り状態を取得する処理
+const handleFavoriteClick = async () => {
+  if (!store || userId === null) return;
+
+  const url = "http://localhost:5003/favorites";
+  const method = isFavorite ? "DELETE" : "POST";
+  const body = JSON.stringify({
+    user_id: userId,
+    store_id: store.store_id,
+  });
+
+  try {
+    const response = await fetch(url, {
+      method,
+      headers: { "Content-Type": "application/json" },
+      body,
+    });
+    if (!response.ok) throw new Error("お気に入りの更新に失敗しました");
+    setIsFavorite(!isFavorite);
+  } catch (err) {
+    setError("お気に入りの更新に失敗しました");
+  }
+};
 
 
   if (error) return <div className="container">{error}</div>;
@@ -221,25 +135,27 @@ const averageRating =
     <>
     <Header/>
     <div className="detail-container">
-      <h1 className="detail-title">{store.store_name}</h1>
-      {store?.store_img && store.store_img.length > 0 ? (
+      <h1 className="review-button-detail">{store.store_name}</h1>
+      {store.store_img.length > 0 ? (
         <ImageSlider images={store.store_img} />
       ) : (
         <p>画像がありません</p>
       )}
+
       {/*口コミ一覧ページへのリンクを追加*/}
         {store.reviews && store.reviews.length > 0 && (
           <Link
             to={`/dogrun/reviews/${store.store_id}`}
-            className="review-button"
+            className="review-button-detail"
           >
             口コミを見る
           </Link>
         )}
       {/* 平均評価を星で表示 */}
-      {store.reviews && store.reviews.length > 0 ? (
         <div style={{margin: "20px 0"}}>
-          <div style={{ fontSize: "24px", color: "gray" }}>
+          {store.reviews && store.reviews.length > 0 ? (
+            <>
+            <div style={{ fontSize: "24px", color: "gray"}}>
               {[1, 2, 3, 4, 5].map((value) => (
                 <span
                   key={value}
@@ -257,15 +173,14 @@ const averageRating =
               ))}
             </div>
             <p style={{ fontSize: "14px", fontWeight: "bold" }}>
-              {(
-                (store.reviews?.reduce((sum, rev) => sum + rev.rating, 0) ?? 0) /
-                (store.reviews?.length || 1) // ゼロ除算を防ぐ
-              ).toFixed(1)}{" "}
+              {averageRating.toFixed(1)}
             </p>
-          </div>
+          </>
         ) : (
           <p>まだ口コミはありません</p>
         )}
+        </div>
+
         {/* 店舗情報 */}
         <p>
         <strong>住所: </strong>
@@ -289,13 +204,12 @@ const averageRating =
       <p>電話番号: {store.store_phone_number}</p>
       <p>営業時間: {store.store_opening_hours}</p>
     {/* お気に入りボタン */}
+    <br />
       <button 
         onClick={handleFavoriteClick}
-        className={`favorite-button${isFavorite ? "active" : ""}`}
-        >
+        className={`favorite-button${isFavorite ? " active" : ""}`}>
           {isFavorite ? "お気に入り解除" : "お気に入り登録"}
         </button>
-        
         <br />
       <a
         href={store.store_url}

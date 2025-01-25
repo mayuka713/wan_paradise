@@ -1,0 +1,28 @@
+
+@media (max-width: 480px) {
+  .detail-container {
+    max-width: 100%;
+    padding: 15px;
+    text-align: center;
+  }
+  .detail-title{
+    font-size: 20px;
+    margin-top: 80px;
+  }
+
+  .favorite-button {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .official-site.review-button {
+    font-size: 14px;
+    padding: 8px;
+  }
+ iframe {
+  height: 250px;
+ }
+ .review-button-detail {
+  text-align: center;
+ }
+}

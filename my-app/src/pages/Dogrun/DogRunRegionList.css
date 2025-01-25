@@ -1,14 +1,16 @@
 .region-list-container {
-  padding: 38px;
+ margin-left: 20px;
+ padding-left: 300px ;
 }
 
-.region-list-title-dogrun {
-  font-size: 24px;
+.region-search {
+  font-size: 35px;
   font-weight: bold;
   text-align: center;
   margin-bottom: 20px;
   color: #1DB954;
   margin-top: 90px;
+  margin-right: 300px;
 }
 
 .region-list-content {
@@ -20,27 +22,29 @@
 .region-section {
   margin-bottom: 20px;
 }
-
-.region-title {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 10px;
+.region-content {
+  font-size: 30px;
+  margin-right: 280px;
 }
 
 .prefecture-list {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  margin-left: -130px;
 }
 
-.prefecture-button {
+.prefecture-button-list {
   cursor: pointer; /* カーソルを手形にする */
-  padding: 10px 15px;
+  padding: 20px 65px;
   background-color: white;
+  margin-right: 30px;
+  margin-left: -20px;
   border: none;
   font-size: 16px;
   font-weight: bold;
   transition: all 0.3s ease;
+  border-radius: 50px;
 }
 
 .prefecture-button:hover {
@@ -62,13 +66,13 @@
     padding: 38px;
   }
   
-  .region-list-title-dogrun {
-    font-size: 24px;
+  .region-search {
+    font-size: 30px;
     font-weight: bold;
-    text-align: center;
     margin-bottom: 20px;
     color: #1DB954;
-    margin-top: 90px;
+    margin-top: 30px;
+    padding-left: 210px;
   }
   
   .region-list-content {
@@ -76,6 +80,10 @@
     flex-direction: column;
     gap: 20px;
   }
+  .region-list-content {
+    margin: 50px;
+  }
+
   
   .region-section {
     margin-bottom: 20px;
@@ -85,11 +93,16 @@
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 10px;
+
   }
   
   .prefecture-list {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+  }
+
+  .prefecture-button-list {
+    padding: 16px 50px 10px 22px;
   }
 }

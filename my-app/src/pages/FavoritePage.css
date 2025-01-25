@@ -10,23 +10,36 @@
   margin-bottom: 20px;
 }
 
-.title {
-  font-size: 24px;
+.favorite-main-title {
   font-weight: bold;
+  margin-left: 220px;
+  margin-right: 220px;
+  border-radius: 20px;
+  max-width: 80%; /* ボタンの最大幅を設定 */
+  word-break: keep-all;
+  
+}
+.favorite-item img {
+  width: 450px;
+  height: 320px;
+  object-fit: cover;
+  border-radius: 10px;
 }
 
 .favorite-list {
-  list-style: none;
-  padding: 0;
+  display: grid;
+  gap: 20px;
+  justify-content: center;
 }
 
 .favorite-item {
   background: #fff;
-  padding: 15px;
-  margin-bottom: 15px;
+  padding: 85px;
+  margin-bottom: 35px;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   text-align: center;
+  margin-left: -50px;
 }
 
 .favorite-link {
@@ -35,24 +48,13 @@
   display: block;
 }
 
-.favorite-image {
-  width: 150px;
-  height: auto;
-  border-radius: 8px;
-}
 
-.favorite-title {
-  font-size: 20px;
-  font-weight: bold;
-  margin: 10px 0;
-}
-
-.review-average {
+.review-average-favorite {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 5px;
-  font-size: 18px;
+  font-size: 25px;
 }
 
 .star {
@@ -88,8 +90,9 @@
     margin: 0 auto;
   }
 
-  .favorite-title {
-    font-size: 18px;
+  .favorite-main-title {
+    font-size: 30px;
+    margin-left: 70px;
   }
 
   .review-average {

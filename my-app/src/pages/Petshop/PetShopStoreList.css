@@ -38,7 +38,6 @@
 
 .petshop-tag-button {
   display: inline-block;
-  background-color: #c3dfae;
   color: #333;
   padding: 10px 15px;
   border-radius: 10px;
@@ -54,7 +53,6 @@
 }
 
 .petshop-tag-button.selected {
-  background-color: #859f3d;
   color: white;
   transform: scale(1.05);
 }

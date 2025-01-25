@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import PetShopModal from "./PetShopModal";
 
 type Review = {
   id: number;
@@ -138,14 +137,6 @@ const PetShopReviewList: React.FC = () => {
           </p>
         </div>
       ))}
-      {showModal && (
-        <PetShopModal
-          show={showModal}
-          onClose={() => setShowModal(false)}
-          onSubmit={(rating: number, comment: string) => handleReviewSubmit(rating, comment)}
-          storeName={storeName} 
-        />
-      )}
     </div>
   );
 };

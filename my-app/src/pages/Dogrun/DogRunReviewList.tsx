@@ -114,10 +114,10 @@ const DogRunReviewList : React.FC = () => {
         <div className="review-container">
           <h1 className="store-name-review">{storeName || "店舗名を取得中..."}</h1>
           {/* 平均評価の表示 */}
-          <div className="star-container">
-            <div className="stars-background">★★★★★</div>
+          <div className="review-star-container">
+            <div className="review-stars-background">★★★★★</div>
             <div
-              className="stars-filled"
+              className="review-stars-filled"
               style={{ width: `${(Math.min(averageRating, 5) / 5) * 100}%` }}
             >
               ★★★★★

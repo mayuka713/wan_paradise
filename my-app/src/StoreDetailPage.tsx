@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import "./DogCafeDetail.css";
-import Header from "../Header";
-import Footer from "../Footer";
-import ImageSlider from "../../ImageSlider";
+import Header from "./pages/Header"; // Header が components フォルダにある場合
+import Footer from "./pages/Footer"; // Footer が components フォルダにある場合
+import ImageSlider from "./ImageSlider"; // ImageSlider が components フォルダにある場合
 
 interface Store {
   store_id: number;
@@ -26,72 +25,75 @@ interface Review {
 }
 
 const getUserIdFromCookie = (): number | null => {
-  const cookies = document.cookie.split("; ");
+  const cookies = document.cookie.split("; "); // クッキーを分割
   for (let cookie of cookies) {
-    const [name, value] = cookie.split("=");
+    const [name, value] = cookie.split("="); // クッキー名と値を分割
     if (name === "user_id") {
-      const parsedValue = parseInt(decodeURIComponent(value), 10);
-      return isNaN(parsedValue) ? null : parsedValue;
+      const parsedValue = parseInt(decodeURIComponent(value), 10); // URIデコードしてから数値に変換
+      return isNaN(parsedValue) ? null : parsedValue; // NaNの場合はnullを返す
     }
   }
-  return null;
+  return null; // 該当するクッキーが存在しない場合
 };
 
-const DogCafeDetail: React.FC = () => {
+
+const DogRunDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [store, setStore] = useState<Store | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
-  const [userId, setUserId] = useState<number | null>(null);
+  const [userId, setUserId] = useState<number | null>(0);
   const MAP_API_KEY = process.env.REACT_APP_MAP_API_KEY;
 
   useEffect(() => {
     const userIdFromCookie = getUserIdFromCookie();
-    setUserId(userIdFromCookie);
+    setUserId(userIdFromCookie); // `number | null` の型で渡す
   }, []);
 
   useEffect(() => {
-    const fetchStoreAndFavorite = async () => {
+    const fetchStoreAndReviews = async () => {
       try {
-        // 店舗情報の取得
-        const storeResponse = await fetch(
-          `http://localhost:5003/stores/detail/${id}`
-        );
+        // 店舗情報を取得
+        const storeResponse = await fetch(`http://localhost:5003/stores/detail/${id}`);
         if (!storeResponse.ok) throw new Error("店舗情報の取得に失敗しました");
         const storeData: Store = await storeResponse.json();
 
-        // 口コミの取得と結び付け
+        // 口コミ情報を取得
         const reviewResponse = await fetch(`http://localhost:5003/reviews`);
-        if (!reviewResponse.ok) throw new Error("口コミの取得に失敗しました");
+        if (!reviewResponse.ok) throw new Error("口コミ情報の取得に失敗しました");
         const reviewData: Review[] = await reviewResponse.json();
-        const reviews = reviewData.filter(
-          (review) => review.store_id === storeData.store_id
-        );
 
+        // 店舗に関連付けられた口コミをフィルタリング
+        const reviews = reviewData.filter((review) => review.store_id === storeData.store_id);
+
+        // 店舗情報に口コミを追加
         setStore({ ...storeData, reviews });
-
-        // お気に入り情報の取得
-        if (userId) {
-          const favoriteResponse = await fetch(
-            `http://localhost:5003/favorites/${userId}`
-          );
-          if (favoriteResponse.ok) {
-            const favoriteData: { store_id: number }[] =
-              await favoriteResponse.json();
-            setIsFavorite(
-              favoriteData.some((fav) => fav.store_id === Number(id))
-            );
-          }
-        }
       } catch (err: any) {
-        console.error("データ取得中にエラー:", err);
-        setError("情報の取得に失敗しました");
+        console.error("データ取得エラー:", err);
       }
     };
 
-    if (id) fetchStoreAndFavorite();
+    const fetchFavorite = async () => {
+      try {
+        if (!userId) return;
+
+        const favoriteResponse = await fetch(`http://localhost:5003/favorites/${userId}`);
+        if (favoriteResponse.ok) {
+          const favoriteData: { store_id: number }[] = await favoriteResponse.json();
+          setIsFavorite(favoriteData.some((fav) => fav.store_id === Number(id)));
+        }
+      } catch (err: any) {
+        console.error("お気に入り情報取得エラー:", err);
+      }
+    };
+
+    if (id) {
+      fetchStoreAndReviews();
+      if (userId) fetchFavorite();
+    }
   }, [id, userId]);
 
+  //----------------------
   const handleFavoriteClick = async () => {
     if (!store || userId === null) return;
 
@@ -109,10 +111,8 @@ const DogCafeDetail: React.FC = () => {
         body,
       });
       if (!response.ok) throw new Error("お気に入りの更新に失敗しました");
-
-      setIsFavorite(!isFavorite); // お気に入り状態をトグル
+      setIsFavorite(!isFavorite);
     } catch (err) {
-      console.error("お気に入り更新エラー:", err);
       setError("お気に入りの更新に失敗しました");
     }
   };
@@ -120,10 +120,11 @@ const DogCafeDetail: React.FC = () => {
   if (error) return <div className="container">{error}</div>;
   if (!store) return <div className="container">データを読み込んでいます..</div>;
 
+  // 平均評価の計算
   const averageRating =
     store.reviews && store.reviews.length > 0
       ? store.reviews.reduce((sum, rev) => sum + rev.rating, 0) /
-        store.reviews.length
+      store.reviews.length
       : 0;
 
   return (
@@ -145,7 +146,7 @@ const DogCafeDetail: React.FC = () => {
           </Link>
         )}
 
-        {/* 平均評価 */}
+        {/* 平均評価を星で表示 */}
         <div style={{ margin: "20px 0" }}>
           {store.reviews && store.reviews.length > 0 ? (
             <>
@@ -153,9 +154,8 @@ const DogCafeDetail: React.FC = () => {
                 {[1, 2, 3, 4, 5].map((value) => (
                   <span
                     key={value}
-                    className={`star ${
-                      value <= Math.round(averageRating) ? "selected" : ""
-                    }`}
+                    className={`star ${value <= Math.round(averageRating) ? "selected" : ""
+                      }`}
                   >
                     ★
                   </span>
@@ -169,33 +169,38 @@ const DogCafeDetail: React.FC = () => {
             <p>まだ口コミはありません</p>
           )}
         </div>
-
+        {/* 店舗情報 */}
         <p>
           <strong>住所: </strong>
           {store.store_address}
         </p>
+        {/* Google Map 埋め込み */}
         {MAP_API_KEY && (
-          <iframe
-            title="Google Map"
-            width="100%"
-            height="300"
-            style={{ border: "0", borderRadius: "8px" }}
-            src={`https://www.google.com/maps/embed/v1/place?key=${MAP_API_KEY}&q=${encodeURIComponent(
-              store.store_address
-            )}`}
-            allowFullScreen
-          ></iframe>
+          <div style={{ margin: "20px 0" }}>
+            <iframe
+              title="Google Map"
+              width="100%"
+              height="300"
+              style={{ border: "0", borderRadius: "8px" }}
+              src={`https://www.google.com/maps/embed/v1/place?key=${MAP_API_KEY}&q=${encodeURIComponent(
+                store.store_address
+              )}`}
+              allowFullScreen
+            ></iframe>
+          </div>
         )}
         <p>電話番号: {store.store_phone_number}</p>
         <p>営業時間: {store.store_opening_hours}</p>
 
+        <br />
+        {/* お気に入りボタン */}
         <button
           onClick={handleFavoriteClick}
           className={`favorite-button ${isFavorite ? "active" : ""}`}
         >
           {isFavorite ? "お気に入り解除" : "お気に入り登録"}
         </button>
-      <br/>
+        <br />
         <a
           href={store.store_url}
           target="_blank"
@@ -210,4 +215,4 @@ const DogCafeDetail: React.FC = () => {
   );
 };
 
-export default DogCafeDetail;
+export default DogRunDetail;

@@ -68,22 +68,19 @@
 }
 
 /* 口コミリンク */
-.review-button{
+.review-button-detail{
   display: inline-block;
-  padding: 10px 20px;
   font-size: 13px;
-  text-decoration: none;
   color: #000; /* テキストの色を黒に */
   background-color: #fff; /* 背景色を白に */
   border: 1px solid #000; /* 外枠を黒に設定 */
   border-radius: 5px; /* 角丸 */
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
-  margin-bottom: 20px;
-  padding-left: 110px;
-  padding-right: 20px;
-  margin-left: 150px;
+  margin-top: 60px;
   font-weight: bold;
+  width: 10%;
+  padding: 13px 30px;
 }
 
 .review-button:hover {

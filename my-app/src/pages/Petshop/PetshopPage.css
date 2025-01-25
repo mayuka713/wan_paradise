@@ -27,6 +27,8 @@
   padding-bottom: 20px;
   padding-top: 20px;
   font-size: 16px;
+  text-align: center;
+  word-break: keep-all;
 }
 
 .search-petshop:hover {

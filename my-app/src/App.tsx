@@ -8,9 +8,9 @@ import FavoritePage from "./pages/FavoritePage";
 import { FavoriteProvider } from "./context/FavoriteContext";
 import { ModalProvider } from "./context/ModalContext";
 import HamburgerMenu from "./HamburgerMenu";
-import Header from "./pages/Header";
-import Footer from "./pages/Footer";
-import Button from "./components/Button";
+import StoreDetailPage from "./StoreDetailPage";
+
+
 
 
 
@@ -20,6 +20,7 @@ import DogrunRegionList from "./pages/Dogrun/DogrunRegionList";
 import DogRunStoreList from "./pages/Dogrun/DogRunStoreList";
 import DogRunDetail from "./pages/Dogrun/DogRunDetail";
 import DogRunReview from "./pages/Dogrun/DogRunReviewList";
+
 
 // ドッグカフェのページ
 import DogcafePage from "./pages/Dogcafe/DogCafePage";
@@ -92,6 +93,8 @@ const App: React.FC = () => {
             <Route path="/store/:storeId" element={<DogCafeReview />} />
             <Route path="/store/:storeId" element={<PetShopReview />} />
             <Route path="/store/:storeId" element={<HospitalReview />} />
+            <Route path="/store/detail/:id" element={<StoreDetailPage />} />
+            
           </Routes>
         </div>
       </Router>

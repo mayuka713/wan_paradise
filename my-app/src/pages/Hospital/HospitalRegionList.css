@@ -1,12 +1,10 @@
 
 
-.region-list-title-dogrun {
+.region-list-title {
   font-size: 24px;
   font-weight: bold;
   text-align: center;
   margin-bottom: 20px;
-  color: #1DB954;
-  margin-top: 90px;
 }
 
 .region-list-content {

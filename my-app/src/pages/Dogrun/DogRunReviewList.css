@@ -4,6 +4,13 @@
 }
 .store-name-review {
   text-align: center;
+  font-size: 25px;
+  margin-bottom: 40px;
+}
+
+.review-title {
+  font-size: 20px;
+  margin-top: 80px;
 }
 /* 平均評価 */
 .average-rating-value {
@@ -11,10 +18,9 @@
   font-weight: bold;
   display: block;
   text-align: center;
-  margin-top: -20px;
 }
 /* 投稿ボタン */
-.review-button {
+.review-button-reviewlist {
   display: block;
   width: 100px;
   margin: 10px auto;
@@ -36,6 +42,7 @@
   padding: 20px;
   margin-bottom: 20px;
   box-shadow: 0 2px 4px rgba((0,0,0,0.1), green, blue, alpha);
+  text-align: center;
 }
 /* 口コミの星評価 */
 .review-rating {
@@ -50,7 +57,7 @@
 }
 
 /*  星評価のコンテナ */
-.star-container {
+.review-star-container {
   position: relative;
   font-size: 24px;
   display: inline-block;
@@ -60,26 +67,26 @@
 }
 
 /*  背景の星（灰色） */
-.stars-background {
+.review-stars-background {
   color: #ccc;
   position: absolute;
   top: 0;
-  left: 480px;
+  left: 520px;
   white-space: nowrap;
   overflow: hidden;
-  margin-top: -60px;
+  margin-top: -29px;
 }
 
 /* 塗りつぶされた星（ゴールド） */
-.stars-filled {
+.review-stars-filled {
   color: #FFD700;
   position: absolute;
   top: 0;
-  left: 480px;
+  left: 520px;
   overflow: hidden;
   width: 0%; /* 初期状態を0%に */
   transition: width 0.3s ease-in-out;
-  margin-top: -60px;
+  margin-top: -29px;
 }
 
   @media (max-width: 480px) {
@@ -94,18 +101,27 @@
       margin-top: -7px;
 
     }
-    .review-button {
+    .review-button-reviewlist {
       width: 30%;
       padding: 12px;
       font-size: 14px;
       margin: 15px auto;
     }
-    .stars-background {
+
+    .review-start-container {
+       margin: 20px;
+    }
+    .review-stars-background {
         top: 70px;
+        margin-top: 20px;
+        left: -380px;
     }
 
-    .stars-filled {
+    .review-stars-filled {
       top: 70px;
+      margin-left: 500px;
+      left: -380px;
+
       
     }
   }

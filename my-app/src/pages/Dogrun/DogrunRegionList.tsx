@@ -24,7 +24,6 @@ const DogrunRegionList: React.FC = () => {
         const data: Prefecture[] = await response.json();
         setPrefectures(data);
       } catch (error) {
-        console.error("データの取得に失敗しました:", error);
       }
     };
 
@@ -47,17 +46,17 @@ const DogrunRegionList: React.FC = () => {
     <>
     <Header/>
     <div className="region-list-container">
-      <h2 className="region-list-title-dogrun">DogRunを探す</h2>
+      <h2 className="region-search">DogRunを探す</h2>
       <div className="region-list-content">
         {Object.keys(regions).map((region) => (
           <div key={region} className="region-section">
-            <h3 className="region-title-dogrun">{region}</h3>
+            <h3 className="region-content">{region}</h3>
             <div className="prefecture-list">
               {regions[region].map((pref) => (
                 <button
                   key={pref.id}
                   onClick={() => handleClick(pref.id)}
-                  className= "prefecture-button "
+                  className= "prefecture-button-list"
                 >
                   {pref.name}
                 </button>

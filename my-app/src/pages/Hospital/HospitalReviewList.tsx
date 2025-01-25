@@ -123,7 +123,7 @@ const HospitalReviewList: React.FC = () => {
         <span className="average-rating-value">{averageRating.toFixed(1)}</span>
 
         <h2 className="review-title">口コミ一覧</h2>
-        <button onClick={() => openModal(storeName)} className="review-button">
+        <button onClick={() => openModal(storeName)} className="review-button-list">
           投稿
         </button>
 
