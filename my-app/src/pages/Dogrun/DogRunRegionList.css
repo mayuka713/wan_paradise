@@ -1,6 +1,8 @@
 .region-list-container {
- margin-left: 20px;
- padding-left: 300px ;
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 20px;
+
 }
 
 .region-search {
@@ -10,49 +12,49 @@
   margin-bottom: 20px;
   color: #1DB954;
   margin-top: 90px;
-  margin-right: 300px;
+  margin-right: auto;
 }
 
 .region-list-content {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 40px;
 }
 
 .region-section {
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 .region-content {
-  font-size: 30px;
-  margin-right: 280px;
-}
-
-.prefecture-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-left: -130px;
-}
-
-.prefecture-button-list {
-  cursor: pointer; /* カーソルを手形にする */
-  padding: 20px 65px;
-  background-color: white;
-  margin-right: 30px;
-  margin-left: -20px;
-  border: none;
-  font-size: 16px;
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 20px;
   font-weight: bold;
-  transition: all 0.3s ease;
-  border-radius: 50px;
 }
 
-.prefecture-button:hover {
-  color: #ffffff;
-  background-color: #cdcdcd;
+.region-prefecture-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 20px;
 }
 
-@media (max-width:480px) {
+.prefecture-button-list:hover {
+  cursor: pointer; /* カーソルを手形にする */
+  background-color: rgba(0, 0, 0, 0.2) ;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.prefecture-button-list {
+  display: inline-block;
+    padding: 0.75em 1em;
+    color: rgb(23, 23, 23);
+    border: none;
+    cursor: pointer;
+    margin: 30px;
+    width: 140px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+@media (max-width: 480px) {
 
   .hamburger-menu {
     position: fixed;
@@ -62,47 +64,17 @@
     z-index: 1000; /* 他の要素より前面に表示 */
   }
 
-  .region-list-container {
-    padding: 38px;
-  }
-  
   .region-search {
     font-size: 30px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #1DB954;
-    margin-top: 30px;
-    padding-left: 210px;
-  }
-  
-  .region-list-content {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  .region-list-content {
-    margin: 50px;
   }
 
-  
-  .region-section {
-    margin-bottom: 20px;
-  }
-  
-  .region-title {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 10px;
-
-  }
-  
   .prefecture-list {
-    display: flex;
-    flex-wrap: wrap;
     gap: 10px;
   }
 
   .prefecture-button-list {
-    padding: 16px 50px 10px 22px;
+    padding: 8px 12px;
+    font-size: 12px;
+    margin: 10px;
   }
 }

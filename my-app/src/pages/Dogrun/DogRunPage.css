@@ -2,7 +2,6 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Arial', sans-serif;
   background-color: #f9f9f9;
   color: #333;
   font-family: "Zen Kaku Gothic New",zen-kaku-gothic-new,"Noto Sans","Yu Gothic","HiraKakuProN-W3","Hiragino Kaku Gothic ProN","ヒラギノ角ゴ ProN W3","メイリオ",Meiryo,Osaka,"MS UI Gothic","MS Ｐゴシック","MS PGothic",sans-serif
@@ -14,7 +13,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 70px 20px;
+  padding: 110px 20px 10px;
   text-align: center;
 }
 
@@ -63,13 +62,13 @@ body {
   background-color: #fefdf6;
   border: 1px;
   border-radius: 30px;
-
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   flex: 0 0 auto; /* 子要素の幅を固定し横並び */
   margin: 0 10px; /* カード間のスペース */
   width: 300px; /* 各カードの幅を指定 */
   text-align: center; /* 中央揃え */
 }
+
 .store-card img {
   border-radius: 10%; /* 画像を丸くする */
   width: 200px; /* 画像の幅を調整 */
@@ -86,7 +85,7 @@ body {
   overflow: hidden; /* コンテナ外を非表示 */
   white-space: nowrap; /* 子要素を1行で配置 */
   position: relative;
-  animation: scroll-loop 120s linear infinite; /* アニメーション設定 */
+  animation: scroll-loop 300s linear infinite; /* アニメーション設定 */
 }
 
 .slider-store-name {
@@ -106,8 +105,8 @@ body {
 /* 子要素のスタイル */
 .store-card {
   flex: 0 0 auto; /* 子要素の幅を固定 */
-  margin: 0 10px; /* カード間のスペース */
-  width: 300px; /* 各カードの幅 */
+  margin: 50px 50px; /* カード間のスペース */
+  width: 330px; /* 各カードの幅 */
   text-align: center; /* コンテンツの中央揃え */
   box-sizing: border-box; /* パディングとボーダーを含む幅計算 */
   background-color: #fefdf6; /* 背景色 */
@@ -142,11 +141,23 @@ body {
   }
   .dogrun-image {
     max-width: 170%;
-    margin-left: -70px;
     margin-top: -60px;
   }
 
-
-
-
+  .store-card {
+    margin-top: 30px;
+    width: 250px;
+    height: 235px;
+  } 
+  .store-card img{
+    width: 200px;
+    height: 95px;
+    border-radius: 10px;
+  }
+  .slider-store-name {
+  font-size: 13px;
+  }
+  .slider-prefecture-name {
+    font-size: 18px;
+  }
 }

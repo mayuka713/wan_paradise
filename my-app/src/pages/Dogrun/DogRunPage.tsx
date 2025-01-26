@@ -15,7 +15,7 @@ interface Store {
   phone_number: string;
   opening_hours: string;
   store_url: string;
-  prefecutre_name: string;
+  prefecture_name: string;
 }
 
 const DogRunPage: React.FC = () => {
@@ -25,10 +25,6 @@ const DogRunPage: React.FC = () => {
   const handleClick = () => {
     navigate("/DogrunRegionsList");
   };
-
-  const handleNavigate = (id: number) => {
-    navigate(`/store/detail/${id}`);
-  }
 
   useEffect(() => {
     // 店舗データを取得
@@ -45,12 +41,9 @@ const DogRunPage: React.FC = () => {
             ? store.store_img
             : JSON.parse(store.store_img),
         }));
-
-
         // リストを3倍に複製（スムーズな無限ループ用）
         setStores([...parsedData, ...parsedData, ...parsedData]);
       } catch (error) {
-        console.error("データ取得エラー:", error);
       }
     };
     fetchStoreData();
@@ -70,29 +63,29 @@ const DogRunPage: React.FC = () => {
           全国のドッグランを探す
         </p>
         <div>
-          <img src={DogrunImage} alt="DogrunImage" className="dogrun-image" />
+          <img src={DogrunImage} alt="ドッグランのイラスト" className="dogrun-image" />
         </div>
         <div className="top-store-list">
-        {[...stores, ...stores, ...stores].map((store, index) => (
-          <div 
-            key={`${store.id}-${index}`} 
-            className="store-card"
-            onClick={() => {
-              navigate(`/store/detail/${store.id}`);
-          }} 
-          >
-            {store.store_img.length > 0 && (
-              <img
-                src={store.store_img[0]}
-                alt={store.store_name}
-                className="store-image"
-              />
-            )}
-            <h3 className="slider-store-name">{store.store_name}</h3>
-            <h3>{store.prefecutre_name}</h3>
-          </div>
-        ))}
-      </div>
+          {[...stores, ...stores, ...stores].map((store, index) => (
+            <div
+              key={`${store.id}-${index}`}
+              className="store-card"
+              onClick={() => {
+                navigate(`/store/detail/${store.id}`);
+              }}
+            >
+              {store.store_img.length > 0 && (
+                <img
+                  src={store.store_img[0]}
+                  alt={store.store_name}
+                  className="store-image"
+                />
+              )}
+              <h3 className="slider-store-name">{store.store_name}</h3>
+              <h3 className="slider-prefecture-name">{store.prefecture_name}</h3>
+            </div>
+          ))}
+        </div>
 
 
 
