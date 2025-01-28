@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./PetshopRegionList.css";
-import HamburgerMenu from "../../HamburgerMenu";
 import Header from "../Header";
+import Footer from "../Footer";
+
 
 
 interface Prefecture {
@@ -11,9 +12,9 @@ interface Prefecture {
   region: string;
 }
 
-const DogCafeRegionList: React.FC = () => {
+const PetshopRegionList: React.FC = () => {
   const navigate = useNavigate();
-  const [prefecture, setPrefectures] = useState<Prefecture[]>([]);
+  const [prefectures, setPrefectures] = useState<Prefecture[]>([]);
 
   useEffect(() => {
     const fetchPrefectures = async () => {
@@ -23,6 +24,7 @@ const DogCafeRegionList: React.FC = () => {
           throw new Error("Failed to fetch prefectures");
         }
         const data: Prefecture[] = await response.json()
+        console.log("取得したデータ:", data); // デバッグ用ログ
         setPrefectures(data);
       } catch (error) {
         console.error("データの取得に失敗しました:", error);
@@ -38,11 +40,11 @@ const DogCafeRegionList: React.FC = () => {
   };
 
   // 地方ごとに都道府県を分類
-  const regions = prefecture.reduce((acc: { [region: string]: Prefecture[] }, pref) => {
-    if (!acc[pref.region]) {
-      acc[pref.region] = [];
+  const regions = prefectures.reduce((acc: { [region: string]: Prefecture[] }, prefecture) => {
+    if (!acc[prefecture.region]) {
+      acc[prefecture.region] = [];
     }
-    acc[pref.region].push(pref);
+    acc[prefecture.region].push(prefecture);
     return acc;
   }, {});
 
@@ -50,17 +52,17 @@ const DogCafeRegionList: React.FC = () => {
     <>
     <Header/>
     <div className="region-list-container">
-      <h2 className="region-list-title">ペットショップを探す</h2>
+      <h2 className="region-list-title-petshop">全国のペットショップを探す</h2>
       <div className="region-list-content">
         {Object.keys(regions).map((region) => (
           <div key={region} className="region-section">
-            <h3 className="region-title-hospital">{region}</h3>
-            <div className="prefecture-list">
+            <h3 className="region-content">{region}</h3>
+            <div className="dogrun-prefecture-list">
               {regions[region].map((pref) => (
                 <button
                   key={pref.id}
                   onClick={() => handleClick(pref.id)}
-                  className="prefecture-button"
+                  className= "prefecture-button-list"
                 >
                   {pref.name}
                 </button>
@@ -74,4 +76,4 @@ const DogCafeRegionList: React.FC = () => {
   );
 };
 
-export default DogCafeRegionList;
+export default PetshopRegionList;

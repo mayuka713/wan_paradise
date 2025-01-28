@@ -55,13 +55,13 @@ const DogrunRegionList: React.FC = () => {
       <div className="region-list-content">
         {Object.keys(regions).map((region) => (
           <div key={region} className="region-section">
-            <h3 className="region-title-hospital">{region}</h3>
-            <div className="prefecture-list">
+            <h3 className="region-content">{region}</h3>
+            <div className="dogrun-prefecture-list">
               {regions[region].map((pref) => (
                 <button
                   key={pref.id}
                   onClick={() => handleClick(pref.id)}
-                  className= "prefecture-button "
+                  className= "prefecture-button-list"
                 >
                   {pref.name}
                 </button>

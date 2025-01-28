@@ -3,6 +3,7 @@
   padding: 0;
   background-color: #f9f9f9;
   color: #333;
+  overflow: hidden;
 }
 
 /* コンテナのスタイル */
@@ -11,8 +12,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 110px 20px 10px;
+  padding: 90px 20px 80px 20px;
   text-align: center;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .search-dogcafe {
@@ -23,7 +26,7 @@
     transition: background-color 0.3s ease, transform 0.2s ease;
     cursor: pointer;
     padding: 82px;
-    margin: -30px 106px 102px 100px;
+    margin: -30px 106px 0 100px;
     padding-bottom: 20px;
     padding-top: 20px;
     font-size: 16px;
@@ -55,6 +58,18 @@
   overflow: hidden;
 }
 
+.store-card {
+  font-size: 20px;
+  background-color: #fefdf6;
+  border: 1px;
+  border-radius: 30px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  flex: 0 0 auto; /* 子要素の幅を固定し横並び */
+  margin: 20px 10px; /* カード間のスペース */
+  width: 300px; /* 各カードの幅を指定 */
+  text-align: center; /* 中央揃え */
+}
+
 
 .store-card img {
   border-radius: 10%; /* 画像を丸くする */
@@ -71,8 +86,7 @@
   flex-wrap: nowrap; /* 折り返しを防ぐ */
   overflow: hidden; /* コンテナ外を非表示 */
   white-space: nowrap; /* 子要素を1行で配置 */
-  position: relative;
-  animation: scroll-loop 300s linear infinite; /* アニメーション設定 */
+  animation: scroll-loop 30s linear infinite; /* アニメーション設定 */
 }
 
 .slider-store-name {
@@ -85,7 +99,7 @@
     transform: translateX(0); /* 初期位置 */
   }
   100% {
-    transform: translateX(calc(-100% / 3)); /* calc()を使用して正しく計算 */
+    transform: translateX(-100%); /* calc()を使用して正しく計算 */
   }
 }
 
@@ -100,17 +114,19 @@
     transition: background-color 0.3s ease, transform 0.2s ease;
     cursor: pointer;
     padding: 55px;
-    margin: 0 -105px 25px -90px;
+    margin: -30px -105px 0 100px;
     padding-bottom: 20px;
     padding-top: 20px;
     font-size: 16px;
   }
   
 
-  
+  .search-dogcafe:hover {
+    transform: scale(1.05);
+  }
   .dogcafe-image {
     max-width: 170%;
-    margin-left: -70px;
+    margin-left: -10px;
     margin-top: auto;
   }
   .store-card {

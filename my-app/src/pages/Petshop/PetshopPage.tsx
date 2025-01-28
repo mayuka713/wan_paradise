@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./PetShopPage.css";
-import PetshopImage from "../assets/images/Petshop/petshop.png";
+import PetshopImage from "../assets/images/Petshop/petshop.top.png";
 import Header from "../Header";
 import Footer from "../Footer";
 
 interface Store {
-  id: number;
+  store_id: number;
   store_name: string;
   description: string;
   store_img: string[];
@@ -17,34 +17,64 @@ interface Store {
   prefecture_name: string;
 }
 
+
 const PetshopPage: React.FC = () => {
   const navigate = useNavigate();
   const [stores, setStores] = useState<Store[]>([]);
-
+  const slideRef = useRef<HTMLDivElement>(null);
+  const animationFrameId = useRef<number | null>(null);
 
   const handleClick = () => {
-    navigate('/PetshopRegionsList');
+    navigate("/petshop-regions-list");
   };
 
+  // 店舗データを取得
   useEffect(() => {
     const fetchStoreData = async () => {
       try {
         const response = await fetch("http://localhost:5003/stores/type/random/3");
+        if (!response.ok) {
+          throw new Error(`HTTPエラー: ${response.status}`);
+        }
         const data = await response.json();
 
-        const parsedData = data.map((store: any) => ({
-          ...store,
-          id: store.id || store.store_id,
-          store_img: Array.isArray(store.store_img)
-            ? store.store_img
-            : JSON.parse(store.store_img),
-        }));
-        setStores(parsedData);
+        // データを3倍に複製
+        setStores([...data, ...data, ...data]);
       } catch (error) {
+        console.error("データ取得中にエラーが発生しました:", error);
       }
     };
-    fetchStoreData();
+    fetchStoreData(); // 初回レンダリング時のみ実行
   }, []);
+
+  // アニメーションの設定
+  useEffect(() => {
+    if (!slideRef.current || stores.length === 0) return;
+
+    const slider = slideRef.current;
+    let startPosition = 0;
+
+    const animate = () => {
+      startPosition -= 1;
+
+      // スライダーをループさせる
+      if (Math.abs(startPosition) >= slider.scrollWidth / 2) {
+        startPosition = 0;
+      }
+
+      slider.style.transform = `translateX(${startPosition}px)`;
+      animationFrameId.current = requestAnimationFrame(animate);
+    };
+
+    animationFrameId.current = requestAnimationFrame(animate);
+
+    // クリーンアップ
+    return () => {
+      if (animationFrameId.current !== null) {
+        cancelAnimationFrame(animationFrameId.current);
+      }
+    };
+  }, [stores]);
 
   return (
     <>
@@ -56,31 +86,34 @@ const PetshopPage: React.FC = () => {
         <div>
           <img src={PetshopImage} alt="ペットショップのイラスト" className="petshop-image" />
         </div>
-        <div className="top-store-list">
-          {[...stores, ...stores, ...stores].map((store, index) => (
-            <div
-              key={`${store.id}-${index}`}
+        <div className="store-slider-container">
+          <div className="dogrun-slider" ref={slideRef}>
+            {stores.map((store, index) => (
+              <div
+              key={`${store.store_id}-${index}`}
               className="store-card"
               onClick={() => {
-                navigate(`/store/detail/${store.id}`);
+                console.log("遷移先のID:", store.store_id); // デバッグ用
+                navigate(`/store/detail/${store.store_id}`);
               }}
-              >
+            >
               {store.store_img.length > 0 && (
                 <img
                   src={store.store_img[0]}
                   alt={store.store_name}
                   className="store-image"
                 />
-                )}
-                <h3 className="slider-store-name">{store.store_name}</h3>
-                <h3 className="slider-prefecture-name">{store.prefecture_name}</h3>
-              </div>
-          ))}
+              )}
+              <h3 className="slider-store-name">{store.store_name}</h3>
+              <h3 className="slider-prefecture-name">{store.prefecture_name}</h3>
+            </div>
+            
+            ))}
+          </div>
         </div>
       </div>
       <Footer />
     </>
-
   );
 };
 

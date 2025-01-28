@@ -28,33 +28,27 @@
   text-align: center;
 }
 
-.type3-tags {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-bottom: 20px;
-  gap: 9px;
-}
-
 .petshop-tag-button {
   display: inline-block;
   color: #333;
+  border: 1px solid #ddd;
+  background-color: #fff;
   padding: 10px 15px;
   border-radius: 10px;
   cursor: pointer;
   font-size: 14px;
   font-weight: 400;
   transition: background-color 0.3s ease, transform 0.2s ease;
+  margin: 10px;
 }
 
 .petshop-tag-button:hover {
-  border-color: #aaa;
   background-color: #f0f0f0;
 }
 
 .petshop-tag-button.selected {
-  color: white;
-  transform: scale(1.05);
+  color: rgb(0, 0, 0);
+  transform: scale(1.08);
 }
 
 /* ストア一覧 */

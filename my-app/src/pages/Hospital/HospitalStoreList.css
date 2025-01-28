@@ -1,9 +1,4 @@
-.body {
-  margin: 0;
-  padding: 0;
-  font-family: "Gothic Medium BBB", "Noto Sans JP", Hiragino Sans, "ヒラギノ角ゴシック", "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "メイリオ", Meiryo, "游ゴシック", YuGothic, "MS Ｐゴシック", sans-serif;
-  background-color: #fef7d5;
-}
+
 .searchHospital {
   background-color: rgb(126, 178, 182);
   color: white;
@@ -20,18 +15,24 @@
 }
 
 
-.type5-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-  margin: 20px 0;
-  padding: 10px;
+.hospital-tag-button {
+
+  display: inline-block;
+  color: #333;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  padding: 10px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 400;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin: 10px;
+
 }
 
-.tagButton:hover {
-  background-color: #ffa726;
-  transform: scale(1.1);
+.hospital-tag-button:hover {
+  background-color: #f0f0f0;
 }
 
 

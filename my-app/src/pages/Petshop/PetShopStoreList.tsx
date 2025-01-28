@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import "./PetShopPage.css";
+import "./PetShopStoreList.css";
 import Header from "../Header";
 import Footer from "../Footer";
 import ImageSlider from "../../ImageSlider";
@@ -65,9 +65,7 @@ const PetShopStoreList: React.FC = () => {
       "13": "東京",
       "27": "大阪",
     };
-    const selectedName =
-      prefectureNames[prefectureId ?? ""] || "ペットショップ情報がありません";
-    setSelectedPrefecture(selectedName);
+      setSelectedPrefecture(prefectureNames[prefectureId ?? ""] || "ペットショップ情報がありません");
   }, [prefectureId]);
 
 //タグの選択解除の処理
@@ -115,14 +113,14 @@ const PetShopStoreList: React.FC = () => {
         ) : (
           <>
             <h2 className="title">{selectedPrefecture}のペットショップ</h2>
-            <p className="search-tags">条件を絞り込む</p>
+            <p className="search-tags">行きたいペットショップの条件を絞り込む</p>
             {/* タグボタンを表示 */}
-            <div className="type4-tags">
+            <div className="petshop-tags">
               {type4Tag.map((tag) => (
                 <button
                   key={tag.id}
                   onClick={() => handleTagClick(tag.id)}
-                  className={`tag-button ${
+                  className={`petshop-tag-button ${
                     selectedTagIds.includes(tag.id) ? "selected" : ""
                   }`}
                 >

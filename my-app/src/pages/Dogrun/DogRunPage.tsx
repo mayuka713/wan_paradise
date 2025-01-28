@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./DogRunPage.css";
-import DogrunImage from "../assets/images/Dogrun/dogrun.png";
+import DogrunImage from "../assets/images/Dogrun/dogrun.top.png";
 import Header from "../Header";
 import Footer from "../Footer";
-
 
 interface Store {
   id: number;
@@ -21,38 +20,60 @@ interface Store {
 const DogRunPage: React.FC = () => {
   const navigate = useNavigate();
   const [stores, setStores] = useState<Store[]>([]);
+  const sliderRef = useRef<HTMLDivElement>(null);
+  const animationFrameId = useRef<number | null>(null);
 
   const handleClick = () => {
     navigate("/DogrunRegionsList");
   };
 
   useEffect(() => {
-    // 店舗データを取得
     const fetchStoreData = async () => {
       try {
         const response = await fetch("http://localhost:5003/stores/type/random/1");
+        if (!response.ok) {
+          throw new Error(`HTTPエラー: ${response.status}`);
+        }
         const data = await response.json();
+        console.log("取得したデータ:", data);
 
-        // store_img を JSON パースし、配列でない場合は配列に変換
-        const parsedData = data.map((store: any) => ({
-          ...store,
-          id: store.id || store.store_id,
-          store_img: Array.isArray(store.store_img)
-            ? store.store_img
-            : JSON.parse(store.store_img),
-        }));
-        // リストを3倍に複製（スムーズな無限ループ用）
-        setStores([...parsedData, ...parsedData, ...parsedData]);
+        // データを複製してループを作成
+        setStores([...data, ...data]);
       } catch (error) {
+        console.error("データ取得中にエラーが発生しました:", error);
       }
     };
+
     fetchStoreData();
   }, []);
 
   useEffect(() => {
-    stores.forEach((storeItem) => {
-      console.log("取得した店舗情報:", storeItem);
-    });
+    if (!sliderRef.current || stores.length === 0) return;
+
+    const slider = sliderRef.current;
+    let startPosition = 0;
+
+    const animate = () => {
+      startPosition -= 1; // 速度を設定（0.5pxずつ移動）
+
+      if (Math.abs(startPosition) >= slider.scrollWidth / 2) {
+        // スクロール幅の半分を超えたらリセット
+        startPosition = 0;
+      }
+
+      slider.style.transform = `translateX(${startPosition}px)`;
+      animationFrameId.current = requestAnimationFrame(animate); // 再帰的に呼び出す
+    };
+
+    // アニメーション開始
+    animationFrameId.current = requestAnimationFrame(animate);
+
+    return () => {
+      // クリーンアップ
+      if (animationFrameId.current !== null) {
+        cancelAnimationFrame(animationFrameId.current);
+      }
+    };
   }, [stores]);
 
   return (
@@ -65,30 +86,27 @@ const DogRunPage: React.FC = () => {
         <div>
           <img src={DogrunImage} alt="ドッグランのイラスト" className="dogrun-image" />
         </div>
-        <div className="top-store-list">
-          {[...stores, ...stores, ...stores].map((store, index) => (
-            <div
-              key={`${store.id}-${index}`}
-              className="store-card"
-              onClick={() => {
-                navigate(`/store/detail/${store.id}`);
-              }}
-            >
-              {store.store_img.length > 0 && (
-                <img
-                  src={store.store_img[0]}
-                  alt={store.store_name}
-                  className="store-image"
-                />
-              )}
-              <h3 className="slider-store-name">{store.store_name}</h3>
-              <h3 className="slider-prefecture-name">{store.prefecture_name}</h3>
-            </div>
-          ))}
+        <div className="store-slider-container">
+          <div className="dogrun-slider" ref={sliderRef}>
+            {stores.map((store, index) => (
+              <div
+                key={`${store.id}-${index}`}
+                className="store-card"
+                onClick={() => navigate(`/store/detail/${store.id}`)}
+              >
+                {store.store_img.length > 0 && (
+                  <img
+                    src={store.store_img[0]}
+                    alt={store.store_name}
+                    className="store-image"
+                  />
+                )}
+                <h3 className="slider-store-name">{store.store_name}</h3>
+                <h3 className="slider-prefecture-name">{store.prefecture_name}</h3>
+              </div>
+            ))}
+          </div>
         </div>
-
-
-
       </div>
       <Footer />
     </>

@@ -52,6 +52,7 @@ const PetShopDetail: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    console.log("PetShopDetail の URL パラメータ ID:", id);
     const fetchStoreAndReviews = async () => {
       try {
         // 店舗情報を取得
@@ -135,7 +136,7 @@ const averageRating =
     <>
     <Header/>
     <div className="detail-container">
-      <h1 className="review-button-detail">{store.store_name}</h1>
+      <h1 className="review-button-title">{store.store_name}</h1>
       {store.store_img.length > 0 ? (
         <ImageSlider images={store.store_img} />
       ) : (

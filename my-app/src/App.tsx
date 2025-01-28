@@ -11,9 +11,6 @@ import HamburgerMenu from "./HamburgerMenu";
 import StoreDetailPage from "./StoreDetailPage";
 
 
-
-
-
 // ドッグランのページ
 import DogRunPage from "./pages/Dogrun/DogRunPage";
 import DogrunRegionList from "./pages/Dogrun/DogrunRegionList";
@@ -76,24 +73,25 @@ const App: React.FC = () => {
 
             {/* ペットショップページ */}
             <Route path="/petshop" element={<PetshopPage />} />
-            <Route path="/petshopregionsList" element={<PetShopRegionList />} />
+            <Route path="/petshop-regions-list" element={<PetShopRegionList />} />
             <Route path="/petshop/:prefectureId" element={<PetShopStoreList />} />
-            <Route path="/petshop/detail/:id" element={<PetShopDetail />} />
+            <Route path="/petshop/store/detail/:storeId" element={<PetShopDetail />} />
             <Route path="/petshop/reviews/:storeId" element={<PetShopReview />} />
 
             {/* 病院ページ */}
             <Route path="/hospital" element={<HospitalPage />} />
             <Route path="/hospitalregionsList" element={<HospitalRegionList />} />
             <Route path="/hospital/:prefectureId" element={<HospitalStoreList />} />
-            <Route path="/hospital/detail/:id" element={<HospitalDetail />} />
+            <Route path="/hospital/store/detail/:storeId" element={<HospitalDetail />} />
             <Route path="/hospital/reviews/:storeId" element={<HospitalReview />} />
 
             {/* その他 */}
-            <Route path="/store/:storeId" element={<DogRunReview />} />
-            <Route path="/store/:storeId" element={<DogCafeReview />} />
-            <Route path="/store/:storeId" element={<PetShopReview />} />
-            <Route path="/store/:storeId" element={<HospitalReview />} />
-            <Route path="/store/detail/:id" element={<StoreDetailPage />} />
+            <Route path="/store/detail/:storeId" element={<StoreDetailPage />} />
+            <Route path="/store/dogrun/:storeId" element={<DogRunReview />} />
+            <Route path="/store/dogcafe/:storeId" element={<DogCafeReview />} />
+            <Route path="/store/petshop/:storeId" element={<PetShopReview />} />
+            <Route path="/store/hospital/:storeId" element={<HospitalReview />} />
+
             
           </Routes>
         </div>

@@ -114,7 +114,7 @@ const HospitalStoreList: React.FC = () => {
                 <button
                   key={tag.id}
                   onClick={() => handleTagClick(tag.id)}
-                  className={`tag-button ${selectedTagIds.includes(tag.id) ? "selected" : ""}`}
+                  className={`hospital-tag-button ${selectedTagIds.includes(tag.id) ? "selected" : ""}`}
                 >
                   {tag.name}
                 </button>

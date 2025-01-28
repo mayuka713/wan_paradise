@@ -24,8 +24,9 @@
 }
 .dogcafe-tag-button {
   display: inline-block;
-  background-color: #bb9069;
-  color: #000000;
+  color: #333;
+  border: 1px solid #ddd;
+  background-color: #fff;
   padding: 10px 15px;
   border-radius: 10px;
   cursor: pointer;
@@ -34,8 +35,7 @@
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 .dogcafe-tag-button.selected {
-  background-color: #cba35c;
-  color: white;
+  background-color: #f0f0f0;
 }
 
 @media (max-width: 480px) {

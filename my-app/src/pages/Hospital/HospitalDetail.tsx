@@ -187,7 +187,7 @@ const HospitalDetail: React.FC = () => {
           <p>画像がありません</p>
         )}
         {store.reviews && store.reviews.length > 0 && (
-          <Link to={`/hospital/reviews/${store.store_id}`} className="review-button-list">
+          <Link to={`/hospital/reviews/${store.store_id}`} className="review-button-detail">
             口コミを見る
           </Link>
         )}

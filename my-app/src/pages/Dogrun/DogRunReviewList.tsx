@@ -127,7 +127,7 @@ const DogRunReviewList : React.FC = () => {
   
           <h2 className="review-title">{storeName} 口コミ一覧</h2>
           {/* モーダルを開く */}
-          <button onClick={() => openModal(storeName)} className="review-button">
+          <button onClick={() => openModal(storeName)} className="click-review-button">
             投稿
           </button>
   
@@ -144,7 +144,7 @@ const DogRunReviewList : React.FC = () => {
                     ★
                   </span>
                 ))}
-                <strong style={{ marginLeft: "8px" }}>{review.rating}</strong>
+                <strong style={{ marginLeft: "8px" }}>{review.rating.toFixed(1)}</strong>
               </div>
               <p className="review-comment">{review.comment}</p>
             </div>
