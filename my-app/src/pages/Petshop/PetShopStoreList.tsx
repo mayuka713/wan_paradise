@@ -152,7 +152,7 @@ const PetShopStoreList: React.FC = () => {
 
                     return (
                       <Link
-                        to={`/petshop/detail/${storeItem.store_id}`}
+                        to={`/petshop/store/detail/${storeItem.store_id}`}
                         className="store-item"
                         key={storeItem.store_id}
                       >

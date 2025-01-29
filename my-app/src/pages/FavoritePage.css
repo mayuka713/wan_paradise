@@ -21,7 +21,7 @@
 }
 .favorite-item img {
   width: 450px;
-  height: 320px;
+  height: 200px;
   object-fit: cover;
   border-radius: 10px;
 }
@@ -34,7 +34,7 @@
 
 .favorite-item {
   background: #fff;
-  padding: 85px;
+  padding: 25px;
   margin-bottom: 35px;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -67,15 +67,17 @@
   color: gold;
 }
 
-/* ===== スマホ向けのレスポンシブデザイン (480px以下) ===== */
+
 @media (max-width: 480px) {
   .favorite-container {
     padding: 10px;
     margin: 30px;
   }
 
-  .title {
-    font-size: 20px;
+  .favorite-title {
+    font-size: 16px;
+    margin-bottom: 10px;
+    margin-top: 100px;
   }
 
   .favorite-item {
@@ -83,11 +85,11 @@
     text-align: center;
   }
 
-  .favorite-image {
+  .favorite-item-img {
     width: 100%; /* 画面幅いっぱいに調整 */
     max-width: 300px; /* 最大幅を設定 */
     display: block;
-    margin: 0 auto;
+    margin: 0 20px -80px;
   }
 
   .favorite-main-title {
@@ -95,8 +97,8 @@
     margin-left: 70px;
   }
 
-  .review-average {
-    font-size: 16px;
+  .review-average-favorite {
+    font-size: 15px;
     gap: 3px;
   }
 

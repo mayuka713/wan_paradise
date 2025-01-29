@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import "./Button.css";
 
 const Button: React.FC = () => {
+
+
   return (
-      <div className="main__action">
-        <a className="main__scroll" href="#target-section">
-          <div className="main__scroll-box">
+      <div className="main-action">
+        <a className="main-scroll" href="#target-section">
+          <div className="main-scroll-box">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path d="M0 0h24v24H0z" fill="none" />
               <path
@@ -13,8 +15,8 @@ const Button: React.FC = () => {
                 fill="rgba(28,28,30,1)"
               />
             </svg>
-          </div>
-          <span className="main__scroll-text">Scroll</span>
+            </div>
+          <div className="main-scroll-text">Scroll</div>
         </a>
       </div>
   );

@@ -179,10 +179,6 @@ const FavoritePage: React.FC = () => {
                             }
                           }}
                         />
-
-
-
-
                         <h2 className="favorite-title">{favorite.store_name}</h2>
 
                         {/* 口コミの平均評価を表示 */}

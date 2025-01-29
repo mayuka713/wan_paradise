@@ -75,18 +75,17 @@ const App: React.FC = () => {
             <Route path="/petshop" element={<PetshopPage />} />
             <Route path="/petshop-regions-list" element={<PetShopRegionList />} />
             <Route path="/petshop/:prefectureId" element={<PetShopStoreList />} />
-            <Route path="/petshop/store/detail/:storeId" element={<PetShopDetail />} />
+            <Route path="/petshop/detail/:id" element={<PetShopDetail />} />
             <Route path="/petshop/reviews/:storeId" element={<PetShopReview />} />
 
             {/* 病院ページ */}
             <Route path="/hospital" element={<HospitalPage />} />
             <Route path="/hospitalregionsList" element={<HospitalRegionList />} />
             <Route path="/hospital/:prefectureId" element={<HospitalStoreList />} />
-            <Route path="/hospital/store/detail/:storeId" element={<HospitalDetail />} />
+            <Route path="/hospital/detail/:id" element={<HospitalDetail />} />
             <Route path="/hospital/reviews/:storeId" element={<HospitalReview />} />
 
             {/* その他 */}
-            <Route path="/store/detail/:storeId" element={<StoreDetailPage />} />
             <Route path="/store/dogrun/:storeId" element={<DogRunReview />} />
             <Route path="/store/dogcafe/:storeId" element={<DogCafeReview />} />
             <Route path="/store/petshop/:storeId" element={<PetShopReview />} />

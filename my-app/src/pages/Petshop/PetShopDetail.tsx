@@ -121,7 +121,7 @@ const handleFavoriteClick = async () => {
 
 
   if (error) return <div className="container">{error}</div>;
-  if (!store) return <div className="container">データを読み込んでいます..</div>;
+  if (!store) return <div className="container">データを読み込んでいます</div>;
 
 
 //平均評価の計算

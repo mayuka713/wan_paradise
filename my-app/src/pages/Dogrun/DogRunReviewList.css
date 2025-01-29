@@ -1,141 +1,201 @@
+/* コンテナ全体のスタイル */
 .review-container {
-  padding: 53px;
-  background-color: white;
-}
-.store-name-review {
-  text-align: center;
-  font-size: 25px;
-  margin-bottom: 40px;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 50px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.review-title {
-  font-size: 20px;
-  margin-top: 80px;
-}
-/* 平均評価 */
-.average-rating-value {
-  font-size: 25px;
-  font-weight: bold;
-  display: block;
+/* 店舗名のスタイル */
+.store-name-review {
   text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
 }
-/* 投稿ボタン */
-.review-button-reviewlist {
-  display: block;
-  width: 100px;
-  margin: 10px auto;
-  padding: 10px;
-  background-color: #ffcc80;
-  border: none;
-  border-radius: 10px;
-  font-size: 16px;
-  cursor: pointer;
+
+/* 星評価のコンテナ */
+.review-star-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 120px; /* 星5つ分の幅 */
+    height: 30px;
+    font-size: 24px;
+    margin: 0 auto;
   
 }
 
-.click-review-button {
-  background-color: #ffcc00; /* 背景色 */
-  color: #000000; /* 文字色 */
-  border-radius: 8px; /* 角を丸くする */
-  padding: 10px 20px; /* 内側の余白 */
-  font-size: 16px; /* 文字サイズ */
-  cursor: pointer; /* カーソルをポインタにする */
-  transition: background-color 0.3s ease; /* ホバー時のアニメーション */
+/* 背景の星 */
+.review-star-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #ccc; /* 背景の星の色 */
+  z-index: 0; /* 背景を後ろに */
+  white-space: nowrap; /* 改行されないように設定 */
+  width: 100%;
   text-align: center;
-  margin-bottom: 10px;
-  margin-left: 550px;
+}
+
+/* 塗りつぶされた星 */
+.review-star-filled {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #ffcc00; /* 塗りつぶしの星の色 */
+  overflow: hidden;
+  white-space: nowrap; /* 改行されないように設定 */
+  z-index: 1; /* 塗りつぶしを前面に */
+  width: 0;
+  transition: width 0.3s ease; /* アニメーションを適用 */
+  text-align: center;
+}
+
+
+/* 平均評価の数値 */
+.average-rating-value {
+  display: block;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 15px;
+  margin-top: 7px;
+}
+
+/* 口コミタイトル */
+.review-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #444;
+}
+
+/* 投稿ボタン */
+.click-review-button {
+  display: block;
+  width: 100%;
+  max-width: 200px;
+  margin: 10px auto;
+  padding: 10px 15px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #82AD24;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .click-review-button:hover {
-  background-color: #ffa726;
+  background-color: #9cc14b;
 }
+
+/* レビューリストのスタイル */
 .review-card {
-  background: #fff;
-  border-radius: 10px;
-  border: 1px solid #ddd;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 4px rgba((0,0,0,0.1), green, blue, alpha);
-  text-align: center;
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
 }
-/* 口コミの星評価 */
+
+/* 口コミの評価（星） */
 .review-rating {
-  margin-bottom: 10px;
-  font-weight: bold;
-  font-size: 16px;
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  margin-bottom: 8px;
 }
 
+/* 星アイコン */
+.star {
+  color: #ccc; /* デフォルトの星の色 */
+  font-size: 20px;
+  margin-right: 3px;
+}
+
+.star.selected {
+  color: #ffcc00; /* 選択された星の色 */
+}
+
+/* 口コミコメント */
 .review-comment {
+  font-size: 16px;
+  color: #333;
   line-height: 1.5;
-  white-space: pre-wrap;
+  word-break: break-word;
 }
 
-/*  星評価のコンテナ */
-.review-star-container {
-  position: relative;
-  font-size: 24px;
-  display: inline-block;
-  line-height: 1;
-  text-align: center;
-  width: 120px;
+/* フッターの余白調整 */
+footer {
+  margin-top: 20px;
 }
 
-/*  背景の星（灰色） */
-.review-stars-background {
-  color: #ccc;
-  position: absolute;
-  top: 0;
-  left: 520px;
-  white-space: nowrap;
-  overflow: hidden;
-  margin-top: -29px;
-}
+/* モバイル対応 */
+@media screen and (max-width: 480px) {
 
-/* 塗りつぶされた星（ゴールド） */
-.review-stars-filled {
-  color: #FFD700;
-  position: absolute;
-  top: 0;
-  left: 520px;
-  overflow: hidden;
-  width: 0%; /* 初期状態を0%に */
-  transition: width 0.3s ease-in-out;
-  margin-top: -29px;
-}
 
-  @media (max-width: 480px) {
-    .review-container {
-      padding: 10px;
-      background-color: #f8f8f8;
-    }
-  
-    .average-rating-value {
-      font-size: 20px;
-      margin-left: 170px;
-      margin-top: -7px;
-
-    }
-    .review-button-reviewlist {
-      width: 30%;
-      padding: 12px;
-      font-size: 14px;
-      margin: 15px auto;
-    }
-
-    .review-start-container {
-       margin: 20px;
-    }
-    .review-stars-background {
-        top: 70px;
-        margin-top: 20px;
-        left: -380px;
-    }
-
-    .review-stars-filled {
-      top: 70px;
-      margin-left: 500px;
-      left: -380px;
-
-      
-    }
+  .store-name-review {
+    font-size: 25px;
   }
+
+  .click-review-button {
+    width: 100px;
+    font-size: 15px;;
+    max-width: 150px;
+  }
+      /* 星評価のコンテナ */
+    .review-star-container {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 120px; /* 星5つ分の幅 */
+      height: 30px;
+      font-size: 24px;
+      margin: 0 auto;
+
+    }
+    .review-title {
+      font-size: 15px;
+    }
+    /* 背景の星 */
+    .review-star-background {
+    position: absolute;
+    top: 0;
+    left: 24px;
+    color: #ccc; /* 背景の星の色 */
+    z-index: 0; /* 背景を後ろに */
+    white-space: nowrap; /* 改行されないように設定 */
+    width: 100%;
+    }
+
+  .review-star-filled {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #ffcc00; /* 塗りつぶしの星の色 */
+    overflow: hidden;
+    white-space: nowrap; /* 改行されないように設定 */
+    z-index: 1; /* 塗りつぶしを前面に */
+    transition: width 0.3s ease; /* アニメーションを適用 */
+    width: 0;
+
+  }
+  .review-card {
+    padding: 10px;
+  }
+
+  .review-comment {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+}

@@ -7,7 +7,7 @@ import HamburgerMenu from "../../HamburgerMenu";
 import dogcafeImage from "../../pages/assets/images/Dogcafe/dogcafe.top.png";
 
 interface Store {
-  id: number;
+  store_id: number;
   store_name: string;
   description: string;
   store_img: string[];
@@ -90,9 +90,9 @@ const DogCafePage: React.FC = () => {
           <div className="dogrun-slider" ref={slideRef}>
             {stores.map((store, index) => (
               <div
-                key={`${store.id}-${index}`}
+                key={`${store.store_id}-${index}`}
                 className="store-card"
-                onClick={() => navigate(`/store/detail/${store.id}`)}
+                onClick={() => navigate(`/dogcafe/detail/${store.store_id}`)}
               >
                 {store.store_img.length > 0 && (
                   <img

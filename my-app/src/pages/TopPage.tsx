@@ -17,6 +17,8 @@ import Button from "../components/Button";
 const TopPage: React.FC = () => {
   const [showText, setShowText] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [ showTitle, setShowTitle ] = useState(false);
+  const [showScroll, setShowScroll] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -31,8 +33,12 @@ const TopPage: React.FC = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      setShowText(true);
-    }, 800);
+      setShowTitle(true);
+    }, );
+
+    setTimeout(() => {
+      setShowScroll(true);
+    }, 1600);
   }, []);
 
   useEffect(() => {
@@ -59,12 +65,12 @@ const TopPage: React.FC = () => {
       <Header />
 
       {/* メインタイトル */}
-      <p className={`main-title scale-up ${showText ? "show" : ""}`}>
+      <p className={`main-title ${showTitle ? "show" : ""}`}>
         ドッグラン、ドッグカフェ、ペットショップや動物病院など
         <br />
         様々なわんこの情報をご紹介しております!
       </p>
- 
+
       {/* 各セクション */}
       <div
         className={

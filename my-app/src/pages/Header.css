@@ -40,7 +40,7 @@ ul {
 .header-nav a {
   color: #333; /* テキスト色を変更 */
   margin: 0 15px; /* 間隔を設定 */
-  font-size: 1rem; /* フォントサイズ */
+  font-size: 14px; /* フォントサイズ */
   font-weight: bold; /* 太字 */
   transition: color 0.3s ease; /* ホバー時のアニメーション */
   text-decoration: none;
@@ -128,6 +128,7 @@ ul {
     z-index: 100;     /* ほかの要素より前面に配置 */
     background-color: #ffffff;
     text-align: center;
+    position: fixed;
   }
   .App-header h1 {
     font-size: 15px;

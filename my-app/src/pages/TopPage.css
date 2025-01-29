@@ -1,18 +1,30 @@
+.TopPage-container {
+  max-width: 100%;
+  overflow: hidden;
+}
+
 .main-title {
   opacity: 0;
   font-size: 1.5rem;
   text-align: center;
-  transition: opacity 0.3s ease-in-out;
+  transform: translateY(-20px);
   font-family: Zen Kaku Gothic New;
   font-weight: 600;
   margin-bottom: 130px;
-
+  
+}
+.main-title.show {
+  opacity: 1;
+  transform: translateY(0); /* 元の位置に戻る */
 }
 
 .scroll-container {
   display: flex;
   width: 100%;
   position: relative;
+  margin-top: 160px;
+  margin-left: 33px;
+
 }
 
 .scroll-content {
@@ -23,16 +35,25 @@
 .scroll-content {
   flex: 0 0 25%; /* 各セクションの幅を均等に調整 */
   text-align: center;
+  margin-top: -70px;
 }
 .item {
   margin: 0 50px; /*左右の余白はここを調整*/
   text-align: center;
   line-height: 200px;
   font-size: 24px;
-  margin-bottom: 30px;
+  margin-bottom: 102px;
+}
+.main-action {
+  opacity: 0;
+  transform: translate(20px);
+  transform: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
-
+.main__action.show {
+  opacity: 1;
+  transform: translateY(0); /* 元の位置に戻す */
+}
 
 
 @keyframes scroll {
@@ -42,10 +63,6 @@
   100% {
     transform: translateX(-100%);
   }
-}
-.main-title.show {
-  opacity: 1;
-  animation: bounce 1s ease-in-out;
 }
 
 /* バウンスエフェクト */
@@ -94,7 +111,7 @@
 /* フェードインアニメーション */
 .fade-in {
   opacity: 0;
-  transform: translateY(30px);
+  transform: translateY(0);
   transition: opacity 1s ease-out, transform 1s ease-out;
 }
 
@@ -106,23 +123,31 @@
 /* レスポンシブ対応 */
 @media (max-width: 480px) {
 
-  .scroll-container {
-    overflow: visible;
-    margin-left: -60px;
-  }
+/* Scrollボタンのスタイル */
+.main__action {
+  opacity: 0;
+  transform: translateY(20px); /* 下に隠しておく */
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.main__action.show {
+  opacity: 1;
+  transform: translateY(0); /* 元の位置に戻る */
+}
   .scroll-content {
     flex-direction: column;
     animation: none;
     align-items: center;
-    margin-left: 120px;
+    margin-left: 20px;
   }
   /* 2セット目以降を非表示にする */
   .scroll-content:nth-child(2) {
     display: none; /* 2つ目のスクロールコンテンツを非表示 */
   }
   .item {
-    width: 145%; /* 画像の幅を親要素に合わせる */
-    height: auto; /* アスペクト比を保つ */
+    width: 100%; /* 画像の幅を親要素に合わせる */
+    max-width: 300px; /* 必要に応じて最大幅を調整 */
+    margin: 0 auto; /* 水平方向の中央揃え */
   }
   .item-nametag{
     margin-left: 50px;
@@ -132,13 +157,13 @@
     font-size: 13px;
     text-align: center;
     font-weight: 700;
-    margin-top: 140px;
+    margin-top: 100px;
     margin-bottom: 70px;
   }
   
   .fade-in {
   opacity: 0;
-  transform: translate(30px);
+  transform: translate(0);
   transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
@@ -151,6 +176,8 @@
 }
 .fade-in:nth-child(2) {
   transition-delay: 0.2s;
+  margin-bottom: 60px;
+  margin-top: 80px;
 }
 .fade-in:nth-child(3) {
   transition-delay: 0.4s;

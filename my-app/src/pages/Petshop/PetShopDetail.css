@@ -120,5 +120,7 @@
  }
  .review-button-detail {
   text-align: center;
+  font-size: 11px;
+  width: 20%;
  }
 }

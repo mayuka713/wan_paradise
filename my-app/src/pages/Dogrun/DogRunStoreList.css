@@ -133,6 +133,7 @@
   font-size: 1rem;
   color: #333;
   margin-left: 105px;
+  margin-top: 20px;
 }
 .store-name-storelist {
   font-size: 20px;
@@ -140,13 +141,10 @@
 
 
 @media (max-width: 480px) {
-  .content {
-    padding: 40px;
-    margin-top: 30px;
-  }
-
+  
   .title {
-    font-size: 20px;
+    font-size: 18px;
+    text-align: center;
   }
 
   .search-tags,
@@ -185,6 +183,12 @@
 
   .stars-background-storelist,
   .stars-filled-storelist {
-    font-size: 1rem;
+    margin-left: 110px;
   }
+  
+  .average-rating-value-storelist {
+    padding-left: 250px; /* 左に余白を追加 */
+    margin-bottom: 170px;
+  }
+  
 }

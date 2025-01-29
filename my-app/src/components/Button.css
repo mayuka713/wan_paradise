@@ -6,28 +6,39 @@ a {
   flex-direction: column;
   cursor: pointer;
 }
+.main-action {
+  opacity: 1;
+  animation: fadeOut 5s forwards;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
 /* メインスタイル */
-.main__scroll-box {
+.main-scroll-box {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 50px;
   height: 50px;
-  margin: 20px 140px;
+  margin: auto 140px;
 }
 
-.main__scroll-text {
+.main-scroll-text {
   font-size: 15px;
   color: rgba(28, 28, 30, 1);
-  font-family: Arial, sans-serif;
+  text-align: center;
+  margin-top: 10px;
 }
 
-.main__action:hover .main__scroll-box {
-  animation: scroll-down 1.5s infinite;
+.main-action:hover .main-scroll-box {
+  animation: scroll-down 1s infinite;
 }
-.main_scroll {
-margin-left: 60px;
+.main-scroll {
+text-align: center;
 }
 /* スクロールアイコンのアニメーション */
 @keyframes scroll-down {
@@ -43,4 +54,5 @@ margin-left: 60px;
     transform: translateY(0);
     opacity: 1;
   }
+
 }

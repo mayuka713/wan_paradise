@@ -43,9 +43,6 @@
   margin-top: 10px;
 }
 
-.hospitalImage:hover {
-  transform: scale(1.05);
-}
 
 
 .store-slider-container {
@@ -109,6 +106,18 @@
 
 @media (max-width:480px) {
 
+  .hospital-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 135px 20px 80px 20px;
+    text-align: center;
+    max-width: 100%;
+    overflow: hidden;
+  }
+  
+
   .search-hospital {
     color: #fff;
     border-radius: 40px;
@@ -116,7 +125,7 @@
     transition: background-color 0.3s ease, transform 0.2s ease;
     cursor: pointer;
     padding: 55px;
-    margin: 20px  -44px 92px -40px;
+    margin: -20px  -44px 93px -40px;
     padding-bottom: 20px;
     padding-top: 20px;
     font-size: 16px;
@@ -128,7 +137,8 @@
 
     .hospitalImage {
       max-width: 170%;
-      margin-top: -60px;
+      display: block;
+      margin-top: -30px;
     }
     .store-card {
       margin-top: 30px;

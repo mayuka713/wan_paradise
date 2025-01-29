@@ -46,11 +46,6 @@
   margin-top: -60px;
 }
 
-.dogcafe-image:hover {
-  transform: scale(1.05);
-}
-
-
 .store-slider-container {
   margin-top: 40px;
   width: 100%;
@@ -105,6 +100,17 @@
 
 
 @media (max-width:480px) {
+  /* コンテナのスタイル */
+.dogcafe-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  text-align: center;
+  max-width: 100%;
+  overflow: hidden;
+}
 
   .search-dogcafe {
     background-color: #CBA35C;
@@ -114,7 +120,7 @@
     transition: background-color 0.3s ease, transform 0.2s ease;
     cursor: pointer;
     padding: 55px;
-    margin: -30px -105px 0 100px;
+    margin: 20px -44px 92px -40px;
     padding-bottom: 20px;
     padding-top: 20px;
     font-size: 16px;
@@ -126,8 +132,7 @@
   }
   .dogcafe-image {
     max-width: 170%;
-    margin-left: -10px;
-    margin-top: auto;
+    display: block;
   }
   .store-card {
     margin-top: 30px;
@@ -145,5 +150,10 @@
   .slider-prefecture-name {
     font-size: 18px;
   }
+  .dogcafe-page-container {
+    margin: 0 auto;
+    max-width: 1200px;
   
+}
+
 }

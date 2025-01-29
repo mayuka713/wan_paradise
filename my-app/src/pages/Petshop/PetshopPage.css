@@ -44,10 +44,6 @@
   margin-top: 10px;
 }
 
-.petshop-image:hover {
-  transform: scale(1.05);
-}
-
 .store-slider-container {
   margin-top: 40px;
   width: 100%;
@@ -104,7 +100,18 @@
 }
 
 @media (max-width: 480px) {
+  .petshop-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 90px 20px 80px 20px;
+    text-align: center;
+    max-width: 100%;
+    overflow: hidden;
+  }
 
+  
   .search-petshop {
     background-color: #ffc145;
     color: #fff;
@@ -121,8 +128,7 @@
 
   .petshop-image {
     max-width: 170%;
-    margin-top: -40px;
-    margin-left: -80px;
+    display: block;
   }
 
   .store-card {

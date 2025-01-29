@@ -6,7 +6,7 @@ import Header from "../Header";
 import Footer from "../Footer";
 
 interface Store {
-    id: number;
+    store_id: number;
     store_name: string;
     description: string;
     store_img: string[];
@@ -89,10 +89,10 @@ const HospitalPage: React.FC = () => {
                 <div className="dogrun-slider" ref={sliderRef}>
                 {stores.map((store, index) => (
                         <div
-                            key={`${store.id}-${index}`}
+                            key={`${store.store_id}-${index}`}
                             className="store-card"
                             onClick={() => {
-                                navigate(`/store/detail/${store.id}`);
+                                navigate(`/petshop/detail/${store.store_id}`);
                             }}
                         >
                             {store.store_img.length > 0 && (

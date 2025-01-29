@@ -93,8 +93,7 @@ const PetshopPage: React.FC = () => {
               key={`${store.store_id}-${index}`}
               className="store-card"
               onClick={() => {
-                console.log("遷移先のID:", store.store_id); // デバッグ用
-                navigate(`/store/detail/${store.store_id}`);
+                navigate(`/petshop/detail/${store.store_id}`);
               }}
             >
               {store.store_img.length > 0 && (

@@ -89,6 +89,18 @@
 
 @media (max-width:480px) {
   
+/* コンテナのスタイル */
+.dogrun-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  text-align: center;
+  max-width: 100%;
+  overflow: hidden;
+}
+
   .search-dogrun {
     background-color: #1DB954;
     color: #fff;
@@ -108,7 +120,7 @@
   }
   .dogrun-image {
     max-width: 170%;
-    margin-top: -60px;
+    display: block;
   }
 
   .store-card {
