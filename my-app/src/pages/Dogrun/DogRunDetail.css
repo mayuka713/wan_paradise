@@ -1,9 +1,12 @@
 .detail-container {
-  max-width: 800px;  /* 最大幅を指定 */
-  margin: 0 auto;    /* 中央配置 */
+  max-width: 800px;
+  /* 最大幅を指定 */
+  margin: 0 auto;
+  /* 中央配置 */
   padding: 20px;
   border-radius: 8px;
 }
+
 .detail-title {
   text-align: center;
   font-size: 24px;
@@ -39,6 +42,7 @@
   font-weight: bold;
   color: #333;
 }
+
 .favorite-button {
   padding: 30px 20px;
   font-size: 14px;
@@ -49,6 +53,7 @@
   margin: 10px 0;
   transition: background-color 0.3s;
 }
+
 .favorite-button.active {
   background-color: #fffc49;
 }
@@ -56,42 +61,55 @@
 
 /* 星のスタイル */
 .star {
-  font-size: 24px; /* 星の大きさ */
-  color: gray; /* デフォルトの星の色 */
-  margin: 0 2px; /* 星の間隔 */
+  font-size: 24px;
+  /* 星の大きさ */
+  color: gray;
+  /* デフォルトの星の色 */
+  margin: 0 2px;
+  /* 星の間隔 */
   display: inline-block;
-  transition: color 0.3s ease; /* 色変更のスムーズなアニメーション */
+  transition: color 0.3s ease;
+  /* 色変更のスムーズなアニメーション */
 }
 
 .star.selected {
   color: gold;
 }
 
+
 /* 口コミリンク */
-.review-button-detail{
-/* 口コミリンク */
-.review-button-detail{
-  display: inline-block;
+.review-button-detail {
+  display: flex;
+  /* フレックスボックスで配置 */
+  justify-content: center;
+  /* 水平方向の中央揃え */
+  align-items: center;
+  /* 垂直方向の中央揃え */
   font-size: 13px;
-  color: #000; /* テキストの色を黒に */
-  background-color: #fff; /* 背景色を白に */
-  border: 1px solid #000; /* 外枠を黒に設定 */
-  border-radius: 5px; /* 角丸 */
+  color: #000;
+  /* テキストの色を黒に */
+  background-color: #fff;
+  /* 背景色を白に */
+  border: 1px solid #000;
+  /* 外枠を黒に設定 */
+  border-radius: 5px;
+  /* 角丸 */
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
-  padding-left: 140px;
-  padding-right: 130px;
-  margin-top: 60px;
-  margin-left: 70px;
+  margin-top: 30px;
   font-weight: bold;
-}
-
+  padding: 13px 30px;
+  box-sizing: border-box;
+  /* パディングを含む幅計算 */
 }
 
 .review-button:hover {
-  background-color: #f0f0f0; /* ホバー時に少しグレーに */
-  transform: scale(1.05); /* ホバー時に拡大 */
+  background-color: #f0f0f0;
+  /* ホバー時に少しグレーに */
+  transform: scale(1.05);
+  /* ホバー時に拡大 */
 }
+
 .container .link:hover {
   background-color: #aaa;
 }
@@ -100,6 +118,7 @@
 .official-site {
   color: black;
 }
+
 .container a:hover {
   background-color: #f0f0f0;
   transform: scale(1.05);
@@ -115,6 +134,7 @@
   justify-content: center;
   align-items: center;
 }
+
 /* 各スライド */
 .slide {
   position: absolute;
@@ -131,13 +151,15 @@
   opacity: 1;
   z-index: 1;
 }
+
 @media (max-width: 480px) {
   .detail-container {
     max-width: 100%;
     padding: 15px;
     text-align: center;
   }
-  .detail-title{
+
+  .detail-title {
     font-size: 20px;
     margin-top: 80px;
   }
@@ -151,7 +173,15 @@
     font-size: 14px;
     padding: 8px;
   }
- iframe {
-  height: 250px;
- }
+
+  iframe {
+    height: 250px;
+  }
+
+  .review-button-detail {
+    width: 40%;
+    height: 40px;
+    font-size: 11px;
+    height: 40px;
+  }
 }

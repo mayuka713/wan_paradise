@@ -12,7 +12,7 @@ function Login(): JSX.Element {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:5003/auth/login", {
+      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/auth/login`, {
         method: "POST",
         credentials: 'include',
         headers: {
@@ -20,8 +20,6 @@ function Login(): JSX.Element {
         },
         body: JSON.stringify({ email, password }),
       });
-      
-      console.log("Response status:", response.status); 
       if (response.ok) {
         const data = await response.json();
         setErrorMessage("");
@@ -31,7 +29,6 @@ function Login(): JSX.Element {
       }
     } catch (error) {
       setErrorMessage("エラーが発生しました。もう一度お試しください。");
-      console.error("Fetch error:",error);
     }
   };
 

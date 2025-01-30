@@ -19,7 +19,7 @@ const PetshopRegionList: React.FC = () => {
   useEffect(() => {
     const fetchPrefectures = async () => {
       try {
-        const response = await fetch('http://localhost:5003/prefectures/'); // エンドポイントを確認
+        const response = await fetch(`${process.env.REACT_APP_BASE_URL}/prefectures/`); // エンドポイントを確認
         if (!response.ok) {
           throw new Error("Failed to fetch prefectures");
         }
@@ -71,6 +71,7 @@ const PetshopRegionList: React.FC = () => {
           </div>
         ))}
       </div>
+      <Footer/>
     </div>
     </>
   );

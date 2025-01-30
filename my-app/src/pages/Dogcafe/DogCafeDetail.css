@@ -70,7 +70,7 @@
 /* 口コミリンク */
 .review-button-detail{
   display: inline-block;
-  font-size: 13px;
+  font-size: 15px;
   color: #000; /* テキストの色を黒に */
   background-color: #fff; /* 背景色を白に */
   border: 1px solid #000; /* 外枠を黒に設定 */
@@ -79,7 +79,7 @@
   transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
   margin-top: 30px;
   font-weight: bold;
-  width: 10%;
+  width: 25%;
   padding: 13px 30px;
 }
 

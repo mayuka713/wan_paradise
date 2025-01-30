@@ -32,7 +32,7 @@ const PetshopPage: React.FC = () => {
   useEffect(() => {
     const fetchStoreData = async () => {
       try {
-        const response = await fetch("http://localhost:5003/stores/type/random/3");
+        const response = await fetch(`${process.env.REACT_APP_BASE_URL}/stores/type/random/3`);
         if (!response.ok) {
           throw new Error(`HTTPエラー: ${response.status}`);
         }
@@ -90,23 +90,23 @@ const PetshopPage: React.FC = () => {
           <div className="dogrun-slider" ref={slideRef}>
             {stores.map((store, index) => (
               <div
-              key={`${store.store_id}-${index}`}
-              className="store-card"
-              onClick={() => {
-                navigate(`/petshop/detail/${store.store_id}`);
-              }}
-            >
-              {store.store_img.length > 0 && (
-                <img
-                  src={store.store_img[0]}
-                  alt={store.store_name}
-                  className="store-image"
-                />
-              )}
-              <h3 className="slider-store-name">{store.store_name}</h3>
-              <h3 className="slider-prefecture-name">{store.prefecture_name}</h3>
-            </div>
-            
+                key={`${store.store_id}-${index}`}
+                className="store-card"
+                onClick={() => {
+                  navigate(`/petshop/detail/${store.store_id}`);
+                }}
+              >
+                {store.store_img.length > 0 && (
+                  <img
+                    src={store.store_img[0]}
+                    alt={store.store_name}
+                    className="store-image"
+                  />
+                )}
+                <h3 className="slider-store-name">{store.store_name}</h3>
+                <h3 className="slider-prefecture-name">{store.prefecture_name}</h3>
+              </div>
+
             ))}
           </div>
         </div>

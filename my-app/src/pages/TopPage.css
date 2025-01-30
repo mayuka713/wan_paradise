@@ -10,7 +10,7 @@
   transform: translateY(-20px);
   font-family: Zen Kaku Gothic New;
   font-weight: 600;
-  margin-bottom: 130px;
+  margin: 100px;
   
 }
 .main-title.show {
@@ -22,7 +22,7 @@
   display: flex;
   width: 100%;
   position: relative;
-  margin-top: 160px;
+  margin-top: 50px;
   margin-left: 33px;
 
 }
@@ -42,8 +42,26 @@
   text-align: center;
   line-height: 200px;
   font-size: 24px;
-  margin-bottom: 102px;
 }
+
+.item-hospital-nametag {
+  position: relative;
+  z-index: 2;
+}
+
+.hospital-item {
+  margin: 0 50px; /*左右の余白はここを調整*/
+  text-align: center;
+  line-height: 200px;
+  font-size: 24px;
+  margin-bottom: 30px;
+  margin-top: -49px;
+  position: relative;
+  z-index: 1;
+
+}
+
+
 .main-action {
   opacity: 0;
   transform: translate(20px);
@@ -135,10 +153,10 @@
   transform: translateY(0); /* 元の位置に戻る */
 }
   .scroll-content {
+    display: flex;
     flex-direction: column;
     animation: none;
     align-items: center;
-    margin-left: 20px;
   }
   /* 2セット目以降を非表示にする */
   .scroll-content:nth-child(2) {

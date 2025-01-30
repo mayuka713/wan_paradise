@@ -30,13 +30,14 @@ const DogRunPage: React.FC = () => {
   useEffect(() => {
     const fetchStoreData = async () => {
       try {
-        const response = await fetch("http://localhost:5003/stores/type/random/1");
+        const response = await fetch(`${process.env.REACT_APP_BASE_URL}/stores/type/random/1`);
         if (!response.ok) {
           throw new Error(`HTTPエラー: ${response.status}`);
         }
-        const data = await response.json();
-        console.log("取得したデータ:", data);
 
+        const data = await response.json();
+        console.log("BASE_URL:", process.env.REACT_APP_BASE_URL);
+        
         // データを複製してループを作成
         setStores([...data, ...data]);
       } catch (error) {

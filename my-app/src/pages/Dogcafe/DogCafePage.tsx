@@ -32,7 +32,7 @@ const DogCafePage: React.FC = () => {
   useEffect(() => {
     const fetchStoreData = async () => {
       try {
-        const response = await fetch("http://localhost:5003/stores/type/random/2");
+        const response = await fetch(`${process.env.REACT_APP_BASE_URL}/stores/type/random/2`);
         if (!response.ok) {
           throw new Error(`HTTPエラー: ${response.status}`);
         }

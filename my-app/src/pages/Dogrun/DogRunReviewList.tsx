@@ -45,7 +45,6 @@ const DogRunReviewList: React.FC = () => {
             0
           );
           const avgRating = totalRating / data.length;
-          console.log("Calculated Average Rating:", avgRating); // 平均評価を確認
           setAverageRating(Math.min(avgRating, 5));
         } else {
           setAverageRating(0); // データがない場合の対応

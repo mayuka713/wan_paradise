@@ -56,8 +56,8 @@ const HospitalDetail: React.FC = () => {
   useEffect(() => {
     const fetchStoreWithReviews = async () => {
       try {
-        const storeResponse = await fetch(`http://localhost:5003/stores/detail/${id}`);
-        const reviewResponse = await fetch(`http://localhost:5003/reviews`);
+        const storeResponse = await fetch(`${process.env.REACT_APP_BASE_URL}/stores/detail/${id}`);
+        const reviewResponse = await fetch(`${process.env.REACT_APP_BASE_URL}/reviews`);
 
         if (!storeResponse.ok || !reviewResponse.ok) {
           throw new Error("データ取得に失敗しました");
@@ -80,8 +80,8 @@ const HospitalDetail: React.FC = () => {
   // お気に入りの追加・解除
   const handleFavoriteClick = async () => {
     if (!store) return;
-    const postUrl = "http://localhost:5003/favorites";
-    const deleteUrl = "http://localhost:5003/favorites";
+    const postUrl = `${process.env.REACT_APP_BASE_URL}/favorites`;
+    const deleteUrl = `${process.env.REACT_APP_BASE_URL}/favorites`;
     try {
       let response;
       if (isFavorite) {
@@ -120,8 +120,8 @@ const HospitalDetail: React.FC = () => {
   useEffect(() => {
     const fetchStoreData = async () => {
       try {
-        const storeResponse = await fetch(`http://localhost:5003/stores/detail/${id}`);
-        const reviewResponse = await fetch(`http://localhost:5003/reviews`);
+        const storeResponse = await fetch(`${process.env.REACT_APP_BASE_URL}/stores/detail/${id}`);
+        const reviewResponse = await fetch(`${process.env.REACT_APP_BASE_URL}/reviews`);
 
         const storeData: Store = await storeResponse.json();
         const reviewData: Review[] = await reviewResponse.json();
@@ -143,7 +143,7 @@ const HospitalDetail: React.FC = () => {
     const fetchStoreAndFavorite = async () => {
       try {
         const StoreResponse = await fetch(
-          `http://localhost:5003/stores/detail/${id}`
+          `${process.env.REACT_APP_BASE_URL}/stores/detail/${id}`
         );
         if (!StoreResponse.ok) throw new Error("店舗情報の取得に失敗しました");
 
@@ -152,7 +152,7 @@ const HospitalDetail: React.FC = () => {
 
         //お気に入りの状態を取得
         const favoriteResponse = await fetch(
-          `http://localhost:5003/favorites/${userId}`
+          `${process.env.REACT_APP_BASE_URL}/favorites/${userId}`
         );
         const favoriteData: { store_id: number }[] =
           await favoriteResponse.json();

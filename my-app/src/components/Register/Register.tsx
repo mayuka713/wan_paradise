@@ -23,7 +23,7 @@ function Register(): JSX.Element {
     }
     try {
       // サーバーへのリクエスト
-      const response = await fetch("http://localhost:5003/auth/register", {
+      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/auth/register`, {
         //ここがAPIエンドポイント
         method: "POST",
         headers: {

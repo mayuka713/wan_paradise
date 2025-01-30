@@ -55,13 +55,13 @@ const DogCafeDetail: React.FC = () => {
       try {
         // 店舗情報の取得
         const storeResponse = await fetch(
-          `http://localhost:5003/stores/detail/${id}`
+          `${process.env.REACT_APP_BASE_URL}/stores/detail/${id}`
         );
         if (!storeResponse.ok) throw new Error("店舗情報の取得に失敗しました");
         const storeData: Store = await storeResponse.json();
 
         // 口コミの取得と結び付け
-        const reviewResponse = await fetch(`http://localhost:5003/reviews`);
+        const reviewResponse = await fetch(`${process.env.REACT_APP_BASE_URL}/reviews`);
         if (!reviewResponse.ok) throw new Error("口コミの取得に失敗しました");
         const reviewData: Review[] = await reviewResponse.json();
         const reviews = reviewData.filter(
@@ -73,7 +73,7 @@ const DogCafeDetail: React.FC = () => {
         // お気に入り情報の取得
         if (userId) {
           const favoriteResponse = await fetch(
-            `http://localhost:5003/favorites/${userId}`
+            `${process.env.REACT_APP_BASE_URL}/favorites/${userId}`
           );
           if (favoriteResponse.ok) {
             const favoriteData: { store_id: number }[] =
@@ -85,7 +85,6 @@ const DogCafeDetail: React.FC = () => {
         }
       } catch (err: any) {
         console.error("データ取得中にエラー:", err);
-        setError("情報の取得に失敗しました");
       }
     };
 
@@ -95,7 +94,7 @@ const DogCafeDetail: React.FC = () => {
   const handleFavoriteClick = async () => {
     if (!store || userId === null) return;
 
-    const url = "http://localhost:5003/favorites";
+    const url = `${process.env.REACT_APP_BASE_URL}/favorites`;
     const method = isFavorite ? "DELETE" : "POST";
     const body = JSON.stringify({
       user_id: userId,

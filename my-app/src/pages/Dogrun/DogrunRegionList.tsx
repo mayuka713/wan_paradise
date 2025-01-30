@@ -46,7 +46,7 @@ const DogrunRegionList: React.FC = () => {
     <>
     <Header/>
     <div className="region-list-container">
-      <h2 className="region-search">DogRunを探す</h2>
+      <h2 className="region-search">全国のドッグランを探す</h2>
       <div className="region-list-content">
         {Object.keys(regions).map((region) => (
           <div key={region} className="region-section">

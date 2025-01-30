@@ -25,7 +25,7 @@ const PetShopReviewList: React.FC = () => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await fetch('http://localhost:5003/reviews');
+        const response = await fetch(`${process.env.REACT_APP_BASE_URL}/reviews`);
         const data = await response.json();
 
         // 明示的に created_at で降順ソート
@@ -51,7 +51,7 @@ const PetShopReviewList: React.FC = () => {
  //店舗名を取得する
   const fetchStoreName = async () => {
     try {
-      const response = await fetch(`http://localhost:5003/stores/store-name/${storeId}`);
+      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/stores/store-name/${storeId}`);
       const data = await response.json();
       console.log("取得した店舗データ");
       setStoreName(data.store_name);
@@ -69,7 +69,7 @@ const PetShopReviewList: React.FC = () => {
     try {
       console.log("storeId:", storeId);
 
-      const response = await fetch("http://localhost:5003/reviews", {
+      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/reviews`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

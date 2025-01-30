@@ -5,7 +5,7 @@ import HamburgerMenu from "../HamburgerMenu";
 import DogrunImage from "../pages/assets/images/Dogrun/dogrun.top.png";
 import dogcafeImage from "../pages/assets/images/Dogcafe/dogcafe.top.png";
 import petshopImage from "../pages/assets/images/Petshop/petshop.top.png";
-import hospitalImage from "../pages/assets/images/Hospital/hospital.top.png";
+import hospitalImage from "../pages/assets/images/Hospital/hospital.png";
 import dogrunNameTag from "../pages/assets/images/Dogrun/dogrun-nametag.png";
 import dogCafeNameTag from "../pages/assets/images/Dogcafe/dogcafe-nametag.png";
 import petshopNameTag from "../pages/assets/images/Petshop/petshop-nametag.png";
@@ -107,8 +107,9 @@ const TopPage: React.FC = () => {
               />
             </Link>
             <Link to="/hospital" className="fade-in">
-              <img src={hospitalNameTag} alt="病院ネームタグ" />
-              <img src={hospitalImage} alt="病院のイラスト" className="item" />
+              <img src={hospitalNameTag} alt="病院ネームタグ"/>
+              <img 
+                src={hospitalImage} alt="病院のイラスト" className="item" />
             </Link>
           </div>
         ) : (
@@ -155,12 +156,12 @@ const TopPage: React.FC = () => {
                 <img
                   src={hospitalNameTag}
                   alt="病院ネームタグ"
-                  className="item-nametag"
+                  className="item-hospital-nametag"
                 />
                 <img
                   src={hospitalImage}
                   alt="病院のイラスト"
-                  className="item"
+                  className="hospital-item"
                 />
               </Link>
             </div>
@@ -190,11 +191,11 @@ const TopPage: React.FC = () => {
                 />
               </Link>
               <Link to="/hospital">
-                <img src={hospitalNameTag} alt="病院ネームタグ" />
+                <img src={hospitalNameTag} alt="病院ネームタグ" className="item-hospital-nametag" />
                 <img
                   src={hospitalImage}
                   alt="病院のイラスト"
-                  className="item"
+                  className="hospital-item"
                 />
               </Link>
             </div>

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useModal } from "../../context/ModalContext";
 import "./HospitalReviewList.css";
 import Modal from "../../components/Modal";
-import { useModal } from "../../context/ModalContext";
 import Header from "../Header";
 import Footer from "../Footer";
 
@@ -10,6 +10,7 @@ type Review = {
   id: number;
   name: string;
   store_id: number;
+  store_name: string;
   rating: number;
   comment: string;
   date: string;
@@ -30,22 +31,19 @@ const HospitalReviewList: React.FC = () => {
 
     const fetchReviews = async () => {
       try {
-        const response = await fetch(
-          `http://localhost:5003/reviews/${storeId}`
-        );
+        const response = await fetch(`${process.env.REACT_APP_BASE_URL}/reviews/${storeId}`);
         if (!response.ok) throw new Error("口コミの取得に失敗しました");
 
-        const data = await response.json();
+        const data: Review[] = await response.json();
         setReviews(data);
 
         if (data.length > 0) {
-          const avgRating =
-            data.reduce((sum: number, review: Review) => sum + review.rating, 0) /
-            data.length;
+          const totalRating = data.reduce(
+            (sum: number, review: Review) => sum + review.rating, 0);
+          const avgRating = totalRating / data.length; 
           setAverageRating(Math.min(avgRating, 5)); // 5を超えないように制限
         }
       } catch (err) {
-        console.error("エラー詳細:", err);
         setError("口コミの取得に失敗しました");
       }
     };
@@ -53,7 +51,7 @@ const HospitalReviewList: React.FC = () => {
     const fetchStoreName = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5003/stores/store-name/${storeId}`
+          `${process.env.REACT_APP_BASE_URL}/stores/store-name/${storeId}`
         );
         if (!response.ok) throw new Error("店舗情報の取得に失敗しました");
 
@@ -72,7 +70,7 @@ const HospitalReviewList: React.FC = () => {
   // 口コミを投稿する関数
   const handleReviewSubmit = async (rating: number, comment: string) => {
     try {
-      const response = await fetch("http://localhost:5003/reviews", {
+      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/reviews`, {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({
@@ -86,15 +84,15 @@ const HospitalReviewList: React.FC = () => {
         throw new Error("コメント投稿に失敗しました");
       }
 
-      const newReview = await response.json();
+      const newReview : Review = await response.json();
       
       setReviews((prevReviews) => {
         const updatedReviews = [newReview, ...prevReviews]; // 新しい口コミを追加
-        const newAverageRating =
-          updatedReviews.reduce((sum: number, rev: Review) => sum + rev.rating, 0) /
-          updatedReviews.length;
-
-        setAverageRating(newAverageRating); // 平均評価を更新
+        const totalRating = updatedReviews.reduce(
+          (sum: number, rev: Review) => sum + rev.rating, 0
+        );
+        const newAverageRating = totalRating / updatedReviews.length;
+        setAverageRating(Math.min(newAverageRating, 5)); // 平均評価を更新
 
         return updatedReviews; // 更新されたレビューリストを `setReviews` にセット
       });
@@ -109,13 +107,14 @@ const HospitalReviewList: React.FC = () => {
     <>
       <Header />
       <div className="review-container">
-        <h1 className="store-name">{storeName || "店舗名を取得中..."}</h1>
+        <h1 className="store-name-review">{storeName || "店舗名を取得中..."}</h1>
 
-        <div className="star-container">
-          <div className="stars-background">★★★★★</div>
+        <div className="review-star-container">
+          <div className="review-star-background">★★★★★</div>
           <div
-            className="stars-filled"
-            style={{ width: `${(Math.min(averageRating, 5) / 5) * 100}%` }}
+            className="review-star-filled"
+            style={{
+               width: `${(averageRating /  5) * 100}%` }}
           >
             ★★★★★
           </div>
@@ -123,7 +122,7 @@ const HospitalReviewList: React.FC = () => {
         <span className="average-rating-value">{averageRating.toFixed(1)}</span>
 
         <h2 className="review-title">口コミ一覧</h2>
-        <button onClick={() => openModal(storeName)} className="review-button-list">
+        <button onClick={() => openModal(storeName)} className="click-review-button">
           投稿
         </button>
 
@@ -140,15 +139,13 @@ const HospitalReviewList: React.FC = () => {
                   ★
                 </span>
               ))}
-              <strong style={{ marginLeft: "8px" }}>
-                {review.rating % 1 === 0 ? `${review.rating}.0` : review.rating.toFixed(1)}
-                </strong>
+              <strong style={{ marginLeft: "8px" }}>{review.rating.toFixed(1)}</strong>
             </div>
             <p className="review-comment">{review.comment}</p>
           </div>
         ))}
       </div>
-      <footer/>
+      <Footer/>
       
       {/* モーダルを表示、onSubmitを渡す */}
       <Modal onSubmit={handleReviewSubmit} />

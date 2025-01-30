@@ -12,7 +12,7 @@ interface Store {
   store_name: string;
   store_description: string;
   store_address: string;
-  store_opening_hours: string;
+  store_opening_hours: number;
   store_phone_number: string;
   store_url: string;
   store_img: string[];
